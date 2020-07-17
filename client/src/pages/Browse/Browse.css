@@ -1,0 +1,40 @@
+.c101-banner {
+    width: 100vw;
+    height: 35vw;
+}
+
+.c101-intro {
+    margin-top: 5vh;
+}
+
+#c101-vid {
+    display: block;
+    margin: auto;
+    width: 500px;
+    height: 332px;
+    max-width: 80vw;
+    max-height: 53vw;
+}
+
+.c101-info {
+    display: flex;
+    /* justify-content: space-evenly; */
+}
+
+.c101-info-sub {
+    margin-top: 5vh;
+    max-width: 35vw;
+    display: inline-block;
+}
+
+#c101-info-left {
+    margin-right: 5vw;
+}
+
+#c101-info-right {
+    margin-left: 5vw;
+}
+.c101-info-sub h2 {
+    font-weight: normal;
+    font-size: 22px;
+}

@@ -1,0 +1,26 @@
+.flyer-container {
+    position: relative;
+    display: block;
+    z-index: 1;
+    padding-bottom: 5vh;
+}
+
+.flyer-info {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    background-color: rgba(255,255,255,0.9);
+    min-height: 100%;
+    min-width: 100%;;
+    padding: 5% 5%;
+    text-align: center;
+    margin: auto;
+}
+
+.flyer-img {
+    width: 80%;
+    display: block;
+    z-index: 2;
+    margin: auto;
+}

@@ -1,0 +1,16 @@
+{
+    "events":[
+        {
+            "src": "flyers/flyer1.png",
+            "eventName": "Bruin Sunday",
+            "eventTime": "October 11, 2020 3-4pm",
+            "location": "TBD"
+        },
+        {
+            "src": "flyers/flyer2.png",
+            "eventName": "Vision 2020",
+            "eventTime": "October 17 12pm - 18 4pm, 2020",
+            "location": "TBD"
+        }
+    ]
+}

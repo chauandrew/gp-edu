@@ -1,0 +1,22 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm install & (cd client && npm install && npm run-script build)",
+    "start": "node index.js",
+    "all": "(nodemon index.js) & cd client && npm run start",
+    "frontend": "cd client && npm start",
+    "backend": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "firebase-admin": "^9.0.0",
+    "nodemon": "^2.0.4"
+  }
+}
