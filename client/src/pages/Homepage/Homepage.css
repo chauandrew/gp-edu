@@ -1,29 +1,24 @@
-
-
-.parallax { 
-    /* The image used */
-    background-image: url("../../assets/humansofnewyork.png");
-
-    /* Set a specific height */
-    min-height: 500px; 
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    text-shadow:
-        -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-        1px 1px 0 #000;
-        
+#banner {
+  padding-top: 75px;
+  height: 200px;
+  background-color: purple;
 }
 
-/* Turn off parallax scrolling for all tablets and phones. Increase/decrease the pixels if needed */
-@media only screen and (max-device-width: 1366px) {
-    .parallax {
-      background-attachment: scroll;
-    }
+.avatar {
+  float: left;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+#profile {
+  width: 50%;
+  margin: 0 auto;
+}
+
+#profile h1 {
+  font-size: 30px;
+  vertical-align: middle;
+  margin-left: 5;
 }
