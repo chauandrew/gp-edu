@@ -6,6 +6,8 @@ const authHeaders = () => {
     return {Authorization: `Bearer ${db.auth().currentUser.getIdToken()}`}
 }
 
+var prefix = "https://gp-edu.herokuapp.com/"
+
 export default {
     getUser: function (uid) {
         const config = {
@@ -14,12 +16,12 @@ export default {
             },
             headers: authHeaders()
         };
-        return axios.get(`/api/v1/user`, config);
+        return axios.get(`${prefix}/api/v1/user`, config);
     },
     createUser: function(firstName, lastName, birthday, email, password) {
         const config = {
             method: 'post',
-            url: '/auth/signup',
+            url: `${prefix}/auth/signup`,
             data: {
                 firstName: firstName, lastName: lastName, 
                 birthday: birthday,
@@ -30,13 +32,5 @@ export default {
     },
     loginUser: function(email, password) {
         return db.auth().signInWithEmailAndPassword(email, password);
-    },
-    allCourses: function() {
-        const config = {
-            method: 'post',
-            url: '/api/v1/courses/all',
-            headers: authHeaders()
-        };
-        return axios(config);
     }
 }

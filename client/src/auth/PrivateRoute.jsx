@@ -17,7 +17,6 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
             try {
                 
                 let user = await api.getUser(currentUser.uid);
-                console.log(user.data);
 
                 // Handles creation of user object when object is not created but auth has already been set 
                 if (!user.data) {
