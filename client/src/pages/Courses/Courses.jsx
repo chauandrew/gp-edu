@@ -5,7 +5,7 @@ import StoryCard from '../../components/StoryCard/StoryCard';
 import HeroImage from '../../components/HeroImage/HeroImage';
 
 import * as Placeholders from '../../assets/placeholders';
-import Config from '../../data/our-story.json';
+import Config from '../../config/our-story.json';
 import './Courses.css';
 
 class Courses extends Component {

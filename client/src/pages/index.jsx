@@ -3,8 +3,10 @@ import Homepage from './Homepage/Homepage';
 import Profile from './Profile/Profile';
 import Courses from './Courses/Courses';
 import Browse from './Browse/Browse';
+import Login from './Login/Login';
+import Signup from './Signup/Signup';
 import Error404 from './404/404';
 
 export {
-    Homepage, Profile, Courses, Browse, Error404
+    Homepage, Profile, Courses, Browse, Login, Signup, Error404
 }

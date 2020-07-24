@@ -1,4 +1,4 @@
-const admin = require('../models/init');
+const admin = require('../loaders/firebase');
 const config = require('../config/db.json');
 
 class SignedUrlService {
