@@ -6,7 +6,7 @@ const authHeaders = () => {
     return {Authorization: `Bearer ${db.auth().currentUser.getIdToken()}`}
 }
 
-var prefix = "" // todo: set up prod env or something to point at
+var prefix = "https://gp-edu.herokuapp.com"
 
 export default {
     getUser: function (uid) {
