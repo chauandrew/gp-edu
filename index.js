@@ -1,15 +1,11 @@
 // Environment setup
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const port = process.env.PORT || 4000;
 
 const app = express();
-// 
-app.all('/', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
-});
+app.use(cors());
 // parse application/json and application/x-www-form-urlencoded
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
