@@ -1,5 +1,14 @@
-@media only screen and (max-width: 768px) {
+#profile-dropdown.nav-link::after{
+    display: none; 
+}
+.dropdown-menu {
+    right: 0;
+    left: auto;
+ }
+
+/* @media only screen and (max-width: 768px) {
     .navbar {
         justify-content: space-between;
     }
-}
+} */
+
