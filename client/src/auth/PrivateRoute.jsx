@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
 
 import { AuthContext } from "./Auth";
 import createToast from "../utils/toast";
-import logo from "../assets/logo.png";
 import api from '../utils/api';
 import db from "../firebase";
 
@@ -39,12 +39,17 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
         }
     }, [currentUser, window.location.pathname === 1]);
 
-    // If Firebase is still fetching the current user, render the loading state. 
+    // If Firebase is still fetching the current user, render loading spinner
     if (pending) {
+        const style = { 
+            position: "fixed", 
+            top: "30%", 
+            left: "50%", 
+            transform: "translate(-50%, -50%)" 
+        }
         return (
-            <div className="h-100 d-flex justify-content-center 
-                align-items-center">
-                <img src={logo} />
+            <div style={style}>
+                <Spinner animation="border" />
             </div>
         )
     }

@@ -7,18 +7,21 @@ const getUserByUid = async (uid) => {
 
 const createUser = async (user) => {
     if ("firstName" in user && "lastName" in user && "uid" in user &&
-        "email" in user && "password" in user && "birthday" in user) {
-        data = {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            birthday: user.birthday,
-            email: user.email,
-            password: user.password
+        "email" in user && "password" in user && "birthday" in user &&
+        "role" in user) {
+        if (["STUDENT", "MENTOR", "ADMIN"].includes(user['role'].toUpperCase())) {
+            data = {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                birthday: user.birthday,
+                email: user.email,
+                role: user.role.toUpperCase(),
+                grade: user.grade
+            }
+            return users.doc(user.uid).set(data)
         }
-        users.doc(user.uid).set(data)
-    } else {
-        return null
     }
+    return null
 }
 
 module.exports = {
