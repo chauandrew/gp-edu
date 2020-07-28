@@ -9,7 +9,7 @@ const createUser = async (user) => {
     if ("firstName" in user && "lastName" in user && "uid" in user &&
         "email" in user && "password" in user && "birthday" in user &&
         "role" in user) {
-        if (["STUDENT", "MENTOR", "ADMIN"].includes(user['role'].toUpperCase())) {
+        if (["STUDENT", "MENTOR", "OTHER"].includes(user['role'].toUpperCase())) {
             data = {
                 firstName: user.firstName,
                 lastName: user.lastName,
