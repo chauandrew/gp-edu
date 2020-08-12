@@ -61,7 +61,7 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
                     <RouteComponent {...routeProps} currentUser={userData} />
                 ) : (
                         <Redirect to={{
-                            pathname: '/login',
+                            pathname: '/',
                         }} />
                     )
             }

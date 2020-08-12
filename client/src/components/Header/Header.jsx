@@ -22,7 +22,7 @@ const Header = () => {
     return () => { window.removeEventListener('resize', widthHandler) }
   })
 
-  // don't display profile icon in mobile view
+
   if (isMobile) {
     var profileElement =
       <>
@@ -30,20 +30,19 @@ const Header = () => {
         <Nav.Link href='/login' className='text-secondary mt-auto mb-auto'
           onClick={() => { db.auth().signOut() }}>Logout</Nav.Link>
       </>
+
   } else {
     profileElement =
-      <>
-        <NavDropdown id='profile-dropdown' className="dropdown-menu-right"
-          title={<img src={icons.PersonCircle} alt='logo' width='35' height='35'></img>}>
-          <NavDropdown.Item href='/profile' className='text-secondary mt-auto mb-auto'>Profile</NavDropdown.Item>
-          <NavDropdown.Item href='/login' className='text-secondary mt-auto mb-auto'
-            onClick={() => { db.auth().signOut() }}>Logout</NavDropdown.Item>
-        </NavDropdown>
-      </>
+      <NavDropdown id='profile-dropdown' className="dropdown-menu-right"
+        title={<img src={icons.PersonCircle} alt='logo' width='35' height='35'></img>}>
+        <NavDropdown.Item href='/profile' className='text-secondary mt-auto mb-auto'>Profile</NavDropdown.Item>
+        <NavDropdown.Item href='/login' className='text-secondary mt-auto mb-auto'
+          onClick={() => { db.auth().signOut() }}>Logout</NavDropdown.Item>
+      </NavDropdown>
   }
 
-  // Only display header when user is signed in
-  if (!pending && currentUser) {
+  // Different headers based on whether user is signed in or not
+  if (currentUser) {
     return (
       <Navbar collapseOnSelect fixed='top' expand='lg' bg='light' variant='light'>
         <Navbar.Brand href='/'>
@@ -61,7 +60,20 @@ const Header = () => {
       </Navbar>
     )
   } else {
-    return null
+    return (
+      <Navbar collapseOnSelect fixed='top' expand='lg' bg='light' variant='light'>
+        <Navbar.Brand href='/'>
+          <img src={logo} alt='logo' width='50' height='50'></img>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+          <Nav className="ml-auto">
+            <Nav.Link href='/' className='text-secondary mt-auto mb-auto'>Home</Nav.Link>
+            <Nav.Link href='/login' className='text-dark font-weight-bold'>Login</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    )
   }
 }
 

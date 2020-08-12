@@ -7,7 +7,7 @@ import './Signup.css';
 
 const Signup = ({ history }) => {
     const redirectLogin = () => {
-        history.push("/")
+        history.push("/login")
     }
 
     const handleSignUp = async (event) => {
@@ -90,7 +90,7 @@ const Signup = ({ history }) => {
     }
 
     return (
-        <div>
+        <div className="page-content">
             <Modal.Dialog>
                 <Modal.Header closeButton>
                     <Modal.Title>Sign Up</Modal.Title>

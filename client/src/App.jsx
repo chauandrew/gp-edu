@@ -14,7 +14,7 @@ class App extends Component {
         <BrowserRouter>
           <Header />
           <Switch>
-            <PrivateRoute exact path="/" component={Pages.Homepage} />
+            <Route exact path="/" component={Pages.Homepage} />
             <PrivateRoute exact path="/browse" component={Pages.Browse} />
             <PrivateRoute exact path="/courses" component={Pages.Courses} />
             <PrivateRoute exact path="/profile" component={Pages.Profile} />

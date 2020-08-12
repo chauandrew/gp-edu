@@ -9,7 +9,6 @@ import Config from '../../config/our-story.json';
 import './Courses.css';
 
 class Courses extends Component {
-    
     render() {
         let assets = require.context('../../assets', true);
         let cards = Config.stories.map((story, idx) => {
@@ -20,7 +19,7 @@ class Courses extends Component {
         });
 
         return (
-            <div>
+            <div className="page-content">
                 <HeroImage value="OUR STORY" src={Placeholders.standard}/>
                 <Container fluid className="card-container">
                     <CardColumns>

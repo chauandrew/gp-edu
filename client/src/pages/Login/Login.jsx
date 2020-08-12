@@ -22,7 +22,7 @@ const Login = ({ history }) => {
                 email.value, password.value);
             // reroute if verified, otherwise display error toast
             if (user) {
-                history.push("/");
+                return <Redirect to="/" />;
             }
         } catch (error) {
             createToast(error)
@@ -37,7 +37,7 @@ const Login = ({ history }) => {
     }
 
     return (
-        <div>
+        <div className="page-content">
             <Modal.Dialog>
                 <Modal.Header closeButton>
                     <Modal.Title>Login</Modal.Title>

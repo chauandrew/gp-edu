@@ -1,19 +1,14 @@
 import React from 'react';
-import profilepic from '../../assets/profilepicpanda.png';
+import HeroImage from '../../components/HeroImage/HeroImage';
+import * as Placeholders from '../../assets/placeholders';
 import './Homepage.css';
 
-const Homepage = ({currentUser, history, match}) => {
-  const displayName = currentUser ? currentUser.firstName : "Loading"
+const Homepage = ({history}) => {
   return (
-    <>
-      <div id="banner" className="page-content">
-        <div id="profile">
-          <img src={profilepic} alt="profilepic" className="avatar"/>
-          <h1 id="profiletext">Hi, {displayName}</h1>
-        </div>
-        <p></p>
-      </div>
-    </>
+    <div className="page-content"> 
+      <HeroImage value="Welcome to Gracepoint Education!" src={Placeholders.wide}/>
+      
+    </div>
   );
 }
 

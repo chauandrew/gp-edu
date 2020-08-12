@@ -7,6 +7,7 @@ const authHeaders = () => {
 }
 
 var prefix = "https://gp-edu.herokuapp.com"
+// var prefix = ""
 
 export default {
     getUser: function (uid) {
