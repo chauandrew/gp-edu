@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
 import { AuthContext } from "../../auth/Auth";
 import * as icons from "../../assets/icons";
@@ -9,7 +9,7 @@ import db from '../../firebase';
 
 
 const Header = () => {
-  const { currentUser, pending } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
   const [isMobile, setIsMobile] = useState(
     window.innerWidth < 992 ? true : false
   )

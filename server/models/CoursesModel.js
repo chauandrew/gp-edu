@@ -1,9 +1,10 @@
-const admin = require('../loaders/firebase');
+const admin = require('../loaders/firebaseAdmin');
+var courses = admin.firestore().collection('courses');
 
-class CoursesModel {
-    constructor() {
-        this._db = admin.firestore();
-    }
+const getAllSubjects = async () => {
+    snapshot = await courses.get();
+    subjects = snapshot.docs.map(doc => doc.data())
+    return subjects;
 }
 
-module.exports = {CoursesModel:CoursesModel};
+module.exports = {getAllSubjects: getAllSubjects};
