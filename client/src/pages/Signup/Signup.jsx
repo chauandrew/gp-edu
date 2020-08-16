@@ -5,6 +5,17 @@ import api from "../../utils/api";
 import createToast from "../../utils/toast";
 import './Signup.css';
 
+const GRADE_TYPE = {
+    ELEMENTARY   : 1,
+    MIDDLESCHOOL : 2,
+    FRESHMAN     : 3,
+    SOPHOMORE    : 4,
+    JUNIOR       : 5,
+    SENIOR       : 6,
+    GRADUATE     : 7,
+    OTHER        : 8
+}
+
 const Signup = ({ history }) => {
     const redirectLogin = () => {
         history.push("/login")
@@ -12,7 +23,7 @@ const Signup = ({ history }) => {
 
     const handleSignUp = async (event) => {
         event.preventDefault();
-        const { firstName, lastName, birthday, role, grade, email, password, password2 } = event.target.elements;
+        const { firstName, lastName, birthday, grade, email, password, password2 } = event.target.elements;
         let firstNameValid = handleNameChange(firstName.value);
         let lastNameValid = handleNameChange(lastName.value);
         let birthdayValid = handleBirthdayChange(birthday.value);
@@ -23,7 +34,7 @@ const Signup = ({ history }) => {
             gradeValid && emailValid && passwordValid) {
             try {
                 await api.createUser(firstName.value, lastName.value, 
-                    birthday.value, role.value, grade.value, 
+                    birthday.value, grade.value, 
                     email.value, password.value);
                 // reroute if verified, otherwise display error toast
                 history.push("/login");
@@ -108,37 +119,22 @@ const Signup = ({ history }) => {
                             </Form.Group>
                         </Row>
                         <Row>
-                            <Form.Group as={Col} md="5" controlId="birthday">
+                            <Form.Group as={Col} md="6" controlId="birthday">
                                 <Form.Label>Birthday</Form.Label>
                                 <Form.Control name="birthday" type="date" />
                             </Form.Group>
-                            <Form.Group as={Col} md="4" controlId="role">
-                                <Form.Label>I am a...</Form.Label>
-                                <Form.Control as="select">
-                                    <option value="student">Student</option>
-                                    <option value="mentor">Mentor</option>
-                                    <option value="other">Other</option>
-                                </Form.Control>
-                            </Form.Group>
-                            <Form.Group as={Col} md="3" controlId="grade">
+                            <Form.Group as={Col} md="6" controlId="grade">
                                 <Form.Label>Grade</Form.Label>
                                 <Form.Control as="select">
                                     <option value="">Choose...</option>
-                                    <option value="0">Kindergaten</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="college">College</option>
-                                    <option value="n/a">N/A</option>
+                                    <option value={GRADE_TYPE.ELEMNTARY}>Elementary School</option>
+                                    <option value={GRADE_TYPE.MIDDLESCHOOL}>Middle School</option>
+                                    <option value={GRADE_TYPE.FRESHMAN}>Freshman</option>
+                                    <option value={GRADE_TYPE.SOPHOMORE}>Sophomore</option>
+                                    <option value={GRADE_TYPE.JUNIOR}>Junior</option>
+                                    <option value={GRADE_TYPE.SENIOR}>Senior</option>
+                                    <option value={GRADE_TYPE.GRADUATE}>Graduated</option>
+                                    <option value={GRADE_TYPE.OTHER}>N/A</option>
                                 </Form.Control>
                             </Form.Group>
                         </Row>

@@ -25,15 +25,15 @@ export default {
         })
     },
     createUser: function(firstName, lastName, birthday, 
-                         role, grade, email, password) {
+                         gradeTypeId, email, password) {
         const config = {
             method: 'post',
             url: `${prefix}/auth/signup`,
             data: {
                 firstName: firstName, lastName: lastName, 
                 birthday: birthday, email: email, 
-                password: password, role: role, 
-                grade: grade
+                password: password, 
+                gradeTypeId: gradeTypeId
             }
         }; 
         return axios(config);

@@ -3,7 +3,7 @@ import profilepic from '../../assets/profilepicpanda.png';
 import './Profile.css';
 
 const Profile = ({ currentUser }) => {
-    const displayName = currentUser ? currentUser.firstName : "Loading"
+    const displayName = currentUser ? currentUser.firstname : "Loading"
     return (
       <div className="page-content">
         <div id="banner">
