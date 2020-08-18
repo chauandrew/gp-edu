@@ -20,6 +20,7 @@ class App extends Component {
             <PrivateRoute exact path="/profile" component={Pages.Profile} />
             <Route exact path="/login" component={Pages.Login} />
             <Route exact path="/signup" component={Pages.Signup} />
+            {/* for unknown paths, reroute the user to the home page */}
             <Route exact path="/*" component={() => {
               window.location.href = "/"}} />
           </Switch>
