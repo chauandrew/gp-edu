@@ -56,4 +56,21 @@ router.post('/enroll', checkIfAuthenticated, (req, res) => {
     }
 })
 
+/**
+ * Arguments
+ * subjectField: subjectId OR subjectName
+ * 
+ * Response:
+ * List of courses related to that subject
+ */
+router.get('/subjects/:subjectField', checkIfAuthenticated, (req, res) => {
+    try {
+        CoursesService.getCoursesBySubject(req.params.subjectField)
+            .then( courses => res.json(courses) )
+    } catch (err) {
+        res.status(400)
+        res.send(err)
+    }
+})
+
 module.exports = router;

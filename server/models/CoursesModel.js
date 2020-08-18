@@ -109,11 +109,37 @@ const getNextChapter = async (chapterId) => {
     }
 }
 
+/**
+ * Get all courses related to a subject, grouped by subjectId (Integer) or 
+ * subjectName (String)
+ * @param {String,Integer} searchField 
+ */
+const getCoursesBySubject = async (searchField) => {
+    let query = ""
+    if (Number.isInteger(searchField)) {
+        query = `SELECT * FROM courses WHERE subject_id = $1 ORDER BY sequence`
+    } else if (typeof(searchField) == "string") {
+        query =`SELECT * FROM courses c 
+                JOIN subjects s ON c.subject_id = s.id 
+                WHERE s.subject_name = $1
+                ORDER BY sequence`
+    } else {
+        throw new Error("searchField must be an Integer subjectId or a String subjectName")
+    }
+    let err, res = await pgclient.query(query, [searchField])
+    if (!err) {
+        return res.rows 
+    } else {
+        throw new Error(err)
+    }
+}
+
 module.exports = {
     getAllSubjects: getAllSubjects,
     getEnrolledCourses: getEnrolledCourses,
     getFirstChapter: getFirstChapter,
     enrollInCourse: enrollInCourse,
     getCourse: getCourse,
-    getNextChapter: getNextChapter
+    getNextChapter: getNextChapter,
+    getCoursesBySubject: getCoursesBySubject
 }

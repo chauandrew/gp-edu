@@ -63,7 +63,15 @@ export default {
             }
             return axios.get(`${prefix}/api/v1/courses/enrolled`, config)
         })
-        
-    }
+    },
 
+    // get courses by subject name OR id 
+    getCoursesBySubject: function(field) {
+        return getAuthToken().then(function(authToken) {
+            let config = {
+                headers: { Authorization: `Bearer ${authToken}` }
+            }
+            return axios.get(`${prefix}/api/v1/courses/subjects/${field}`, config)
+        })
+    }
 }

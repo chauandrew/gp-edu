@@ -1,5 +1,6 @@
 const CoursesModel = require('../models/CoursesModel')
 const UserModel = require('../models/UserModel')
+const { getCourse } = require('../models/CoursesModel')
 
 /**
  * return a list of all subjects
@@ -9,8 +10,18 @@ const getAllSubjects = async () => {
 }
 
 /**
+ * Get all courses in a subject by subjectId or by subject_name
+ * @param {String} field 
+ */
+const getCoursesBySubject = async (field) => {
+    // if searchField is numeric (isNan => false), search by it's numeric value
+    let searchField = isNaN(field) ? field.toLowerCase() : parseInt(field)
+    return CoursesModel.getCoursesBySubject(searchField)
+}
+
+/**
  * Get the courses a user is enrolled in
- * @param {string} uid 
+ * @param {String} uid 
  */
 const getEnrolledCourses = async (uid) => {
     return CoursesModel.getEnrolledCourses(uid)
@@ -18,7 +29,7 @@ const getEnrolledCourses = async (uid) => {
 
 /**
  * Enroll in a course by marking the first chapter as 'in progress'
- * @param {string} uid 
+ * @param {String} uid 
  * @param {integer} courseId 
  */
 const enrollInCourse = async (uid, courseId) => {
@@ -46,5 +57,6 @@ const enrollInCourse = async (uid, courseId) => {
 module.exports = {
     getAllSubjects: getAllSubjects,
     getEnrolledCourses: getEnrolledCourses,
-    enrollInCourse: enrollInCourse
+    enrollInCourse: enrollInCourse,
+    getCoursesBySubject: getCoursesBySubject
 }
