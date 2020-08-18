@@ -28,7 +28,7 @@ const createUser = async (user) => {
             }
         })
     }
-    throw new Error(400) // bad request
+    throw new Error("Need firstname, lastname, uid, email, birthday, and gradeTypeId to create a user in the db") // bad request
 }
 
 module.exports = {

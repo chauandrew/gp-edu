@@ -15,7 +15,7 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
         // Declares new function in order to utilize asynchronous features. 
         const getUser = async () => {
             try {
-                let user = await api.getUser(currentUser.uid);
+                let user = await api.getUser();
 
                 // Handles creation of user object when object is not created but auth has already been set 
                 if (!user.data) {

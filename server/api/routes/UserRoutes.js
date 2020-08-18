@@ -3,9 +3,13 @@ const router = express.Router();
 const { checkIfAuthenticated } = require('../middleware/AuthMiddleware');
 const UserModel = require('../../models/UserModel');
 
+/*
+All routes have the prefix: `/api/v1/user` *
+*/
+
 router.get('/', checkIfAuthenticated, (req, res) => {
     try {
-        UserModel.getUserByUid(req.query.uid).then((user) => {
+        UserModel.getUserByUid(req.authId).then((user) => {
             res.json(user)
         });
     } catch(err) {

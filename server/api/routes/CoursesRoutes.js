@@ -1,13 +1,55 @@
 const express = require('express')
 const router = express.Router();
 const { checkIfAuthenticated } = require('../middleware/AuthMiddleware');
-const CoursesModel = require('../../models/CoursesModel');
+const CoursesService = require('../../services/CoursesService');
 
+/*
+All routes have the prefix: `/api/v1/courses` *
+*/
+
+/**
+ * Get all subjects
+ */
 router.get('/all', checkIfAuthenticated, (req, res) => {
     try {
-        CoursesModel.getAllSubjects().then((subjects) => {
+        CoursesService.getAllSubjects().then((subjects) => {
             res.json(subjects)
         })
+    } catch (err) {
+        res.status(400);
+        res.send(err)
+    }
+})
+
+/**
+ * Return a list of the courses a user is enrolled in
+ */
+router.get('/enrolled', checkIfAuthenticated, (req, res) => {
+    try {
+        CoursesService.getEnrolledCourses(req.authId).then(
+            (courses) => { res.json(courses) 
+        })
+    } catch (err) {
+        res.status(400);
+        res.send(err)
+    }
+})
+
+/**
+ * Arguments
+ * courseId: course to enroll in
+ * 
+ * Response:
+ * Course we just enrolled in OR null if already enrolled
+ */
+router.post('/enroll', checkIfAuthenticated, (req, res) => {
+    if (!("courseId" in req.body)) {
+        res.status(400)
+        res.send("courseId must be specified!")
+    }
+    try {
+        CoursesService.enrollInCourse(req.authId, req.body.courseId).then(
+            (courses) => { res.json(courses) })
     } catch (err) {
         res.status(400);
         res.send(err)

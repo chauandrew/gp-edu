@@ -19,6 +19,7 @@ const Courses = ({ currentUser }) => {
     });
 
     api.getAllSubjects().then((d => console.log(d)))
+    api.getEnrolledCourses().then((d => console.log(d)))
     return (
         <div className="page-content">
             <HeroImage value="OUR STORY" src={Placeholders.standard} />

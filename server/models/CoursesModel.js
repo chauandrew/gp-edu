@@ -1,6 +1,8 @@
 const pgclient = require('../loaders/postgres')
-var SignedURLService = require('../services/SignedURLService')
 
+/**
+ * Return every subject
+ */
 const getAllSubjects = async () => {
     let query = "SELECT * FROM subjects"
     let err, res = await pgclient.query(query)
@@ -11,4 +13,107 @@ const getAllSubjects = async () => {
     }
 }
 
-module.exports = {getAllSubjects: getAllSubjects};
+/**
+ * Return all courses a user is enrolled in
+ * @param {Integer} userId 
+ */
+const getEnrolledCourses = async (userId) => {
+    let query = 
+    `SELECT up.*, c.course_name
+    FROM user_progress up
+    JOIN courses c ON up.course_id = c.id
+    JOIN users u on up.user_id = u.id
+    WHERE u.uid = $1`
+    let err, res = await pgclient.query(query, [userId])
+    if (!err) {
+        return res.rows
+    } else {
+        throw new Error(err)
+    }
+}
+
+/**
+ * Get the first chapter of a particular course
+ * @param {Integer} courseId 
+ */
+const getFirstChapter = async (courseId) => {
+    let query = 
+    `SELECT ch.* FROM courses c
+        JOIN chapters ch ON ch.course_id = c.id
+        WHERE c.id = $1
+        ORDER BY chapter_num ASC LIMIT 1`
+    let err, res = await pgclient.query(query, [courseId])
+    if (!err && res.rowCount != 0) {
+        return res.rows[0]
+    } else {
+        throw new Error(err)
+    }
+}
+
+/**
+ * Enroll in a course by adding a record to the user_progress table pointing
+ * to the first chapter
+ * @param {Integer} userId 
+ * @param {Integer} courseId 
+ * @param {Integer} chapterId 
+ */
+const enrollInCourse = async (userId, courseId, chapterId) => {
+    let query = `INSERT INTO user_progress 
+        (id, user_id, course_id, current_chapter_id)
+        values (default, $1, $2, $3)`
+    values = [userId, courseId, chapterId]
+    let err, res = await pgclient.query(query, values)
+    if (!err) {
+        return res.rows 
+    } else {
+        throw new Error(err)
+    }
+}
+
+/**
+ * get a course by the course id or course_name
+ * @param {Integer OR string} field 
+ */
+const getCourse = async (field) => {
+    let query = ""
+    if (Number.isInteger(field)) {
+        query = `SELECT * FROM courses WHERE id = $1`
+    } else if (typeof(field) == "string") {
+        query = `SELECT * FROM courses WHERE course_name = $1`
+    } else {
+        throw new Error("Field must be a course id or course_name")
+    }
+    let err, res = await pgclient.query(query, [field])
+    if (!err) {
+        return res.rows 
+    } else {
+        throw new Error(err)
+    }
+}
+
+/**
+ * Get the next chapter OR null if given the last chapter
+ * @param {Integer} chapterId 
+ */
+const getNextChapter = async (chapterId) => {
+    let query = `SELECT * FROM chapters WHERE prev_chapter_id = $1`
+    let err, res = pgclient.query(query, [chapterId])
+    if (!err) {
+        if (res.rowCount == 0) {
+            return null
+        } else {
+            return res.rows
+        }
+    } else {
+        throw new Error(err)
+    }
+}
+
+module.exports = {
+    getAllSubjects: getAllSubjects,
+    getEnrolledCourses: getEnrolledCourses,
+    getFirstChapter: getFirstChapter,
+    enrollInCourse: enrollInCourse,
+    getCourse: getCourse,
+    getNextChapter: getNextChapter
+}

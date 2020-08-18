@@ -12,6 +12,13 @@ const getAuthToken = (req, res, next) => {
     next();
 };
 
+/**
+ * Middleware that takes an authToken, checks if it's valid, and sets
+ * req.authId to the appropriate uid. 
+ * @param {request} req 
+ * @param {response} res 
+ * @param {next} next 
+ */
 const checkIfAuthenticated = (req, res, next) => {
     getAuthToken(req, res, async () => {
         try {

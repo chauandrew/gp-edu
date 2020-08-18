@@ -10,20 +10,19 @@ var prefix = "https://gp-edu.herokuapp.com"
 // var prefix = ""
 
 export default {
-    getUser: async function (uid) {
+    // Get user details (firstname, lastname, email, bday)
+    getUser: async function () {
         return getAuthToken().then(function(authToken) {
             const config = {
-                params: {
-                    uid: uid
-                },
                 headers: {
                     Authorization: `Bearer ${authToken}`
                 }
             };
-            console.log(config)
             return axios.get(`${prefix}/api/v1/user`, config);
         })
     },
+
+    // Create a user
     createUser: function(firstName, lastName, birthday, 
                          gradeTypeId, email, password) {
         const config = {
@@ -38,12 +37,15 @@ export default {
         }; 
         return axios(config);
     },
+
+    // login with an email / password
     loginUser: function(email, password) {
         return db.auth().signInWithEmailAndPassword(email, password);
     },
+
+    // Return all subjects
     getAllSubjects: function() {
-        return getAuthToken()
-        .then(function(authToken) {
+        return getAuthToken().then(function(authToken) {
             let config = {
                 headers: {
                     Authorization: `Bearer ${authToken}`
@@ -51,5 +53,17 @@ export default {
                 }
             return axios.get(`${prefix}/api/v1/courses/all`, config)
         })
+    },
+
+    // Get all courses a user is enrolled in
+    getEnrolledCourses: function() {
+        return getAuthToken().then(function(authToken) {
+            let config = {
+                headers: { Authorization: `Bearer ${authToken}` }
+            }
+            return axios.get(`${prefix}/api/v1/courses/enrolled`, config)
+        })
+        
     }
+
 }
