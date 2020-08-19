@@ -71,8 +71,8 @@ const enrollInCourse = async (userId, courseId, chapterId) => {
 }
 
 /**
- * get a course by the course id or course_name
- * @param {Integer OR string} field 
+ * get a course by the courseId(Integer) or courseName(String)
+ * @param {} field 
  */
 const getCourse = async (field) => {
     let query = ""
@@ -112,7 +112,7 @@ const getNextChapter = async (chapterId) => {
 /**
  * Get all courses related to a subject, grouped by subjectId (Integer) or 
  * subjectName (String)
- * @param {String,Integer} searchField 
+ * @param {} searchField 
  */
 const getCoursesBySubject = async (searchField) => {
     let query = ""
