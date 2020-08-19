@@ -45,14 +45,7 @@ export default {
 
     // Return all subjects
     getAllSubjects: function() {
-        return getAuthToken().then(function(authToken) {
-            let config = {
-                headers: {
-                    Authorization: `Bearer ${authToken}`
-                    }
-                }
-            return axios.get(`${prefix}/api/v1/courses/all`, config)
-        })
+        return axios.get(`${prefix}/api/v1/courses/all`)
     },
 
     // Get all courses a user is enrolled in
@@ -67,11 +60,6 @@ export default {
 
     // get courses by subject name OR id 
     getCoursesBySubject: function(field) {
-        return getAuthToken().then(function(authToken) {
-            let config = {
-                headers: { Authorization: `Bearer ${authToken}` }
-            }
-            return axios.get(`${prefix}/api/v1/courses/subjects/${field}`, config)
-        })
+        return axios.get(`${prefix}/api/v1/courses/subjects/${field}`)
     }
 }

@@ -6,6 +6,7 @@ import * as icons from "../../assets/icons";
 import logo from '../../assets/logo.png';
 import './Header.css';
 import db from '../../firebase';
+import api from '../../utils/api'
 
 
 const Header = () => {
@@ -13,6 +14,8 @@ const Header = () => {
   const [isMobile, setIsMobile] = useState(
     window.innerWidth < 992 ? true : false
   )
+  const [subjectElement, setSubjectElement] = useState([])
+
   // event handler on window resize
   useEffect(() => {
     const widthHandler = () => {
@@ -20,9 +23,25 @@ const Header = () => {
     }
     window.addEventListener('resize', widthHandler)
     return () => { window.removeEventListener('resize', widthHandler) }
-  })
+  }, [])
 
+  // get subject list
+  useEffect(() => {
+    api.getAllSubjects().then((res) => {
+      // Create nav dropdown items for each subject
+      let navElements = res.data.map((subject) => {
+        let subjectName = subject.subject_name
+        return (<NavDropdown.Item href={"/subjects/" + subjectName}>
+                  {subjectName}</NavDropdown.Item>)
+      })
+      // wrap elements in a dropdown
+      let dropdown = <NavDropdown title="Subjects" id="basic-nav-dropdown" 
+        className='text-dark mt-auto mb-auto'>{navElements}</NavDropdown>
+      setSubjectElement(dropdown)
+    })
+  }, [])
 
+  // Separate mobile UI for profile element
   if (isMobile) {
     var profileElement =
       <>
@@ -30,7 +49,6 @@ const Header = () => {
         <Nav.Link href='/login' className='text-secondary mt-auto mb-auto'
           onClick={() => { db.auth().signOut() }}>Logout</Nav.Link>
       </>
-
   } else {
     profileElement =
       <NavDropdown id='profile-dropdown' className="dropdown-menu-right"
@@ -41,10 +59,10 @@ const Header = () => {
       </NavDropdown>
   }
 
-  // Different headers based on whether user is signed in or not
+  // Show different pages based on whether user is signed in or not
   if (currentUser) {
     return (
-      <Navbar collapseOnSelect fixed='top' expand='lg' bg='light' variant='light'>
+      <Navbar collapseOnSelect fixed='top' expand='lg' bg='light'>
         <Navbar.Brand href='/'>
           <img src={logo} alt='logo' width='50' height='50'></img>
         </Navbar.Brand>
@@ -54,6 +72,7 @@ const Header = () => {
             <Nav.Link href='/' className='text-secondary mt-auto mb-auto'>Home</Nav.Link>
             <Nav.Link href='/browse' className='text-secondary mt-auto mb-auto'>Browse</Nav.Link>
             <Nav.Link href='/courses' className='text-secondary mt-auto mb-auto'>My Courses</Nav.Link>
+            {subjectElement}
             {profileElement}
           </Nav>
         </Navbar.Collapse>
@@ -69,6 +88,7 @@ const Header = () => {
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
           <Nav className="ml-auto">
             <Nav.Link href='/' className='text-secondary mt-auto mb-auto'>Home</Nav.Link>
+            {subjectElement}
             <Nav.Link href='/login' className='text-dark font-weight-bold'>Login</Nav.Link>
           </Nav>
         </Navbar.Collapse>

@@ -8,9 +8,9 @@ All routes have the prefix: `/api/v1/courses` *
 */
 
 /**
- * Get all subjects
+ * Get all subjects, does NOT require auth
  */
-router.get('/all', checkIfAuthenticated, (req, res) => {
+router.get('/all', (req, res) => {
     try {
         CoursesService.getAllSubjects().then((subjects) => {
             res.json(subjects)
@@ -63,7 +63,7 @@ router.post('/enroll', checkIfAuthenticated, (req, res) => {
  * Response:
  * List of courses related to that subject
  */
-router.get('/subjects/:subjectField', checkIfAuthenticated, (req, res) => {
+router.get('/subjects/:subjectField', (req, res) => {
     try {
         CoursesService.getCoursesBySubject(req.params.subjectField)
             .then( courses => res.json(courses) )
