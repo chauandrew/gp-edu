@@ -1,5 +1,6 @@
 // Imports to simplify App.js
 import Homepage from './Homepage/Homepage';
+import About from './About/About';
 import Profile from './Profile/Profile';
 import Courses from './Courses/Courses';
 import Browse from './Browse/Browse';
@@ -9,5 +10,5 @@ import Signup from './Signup/Signup';
 import Error404 from './404/404';
 
 export {
-    Homepage, Profile, Courses, Browse, Subject, Login, Signup, Error404
+    Homepage, About, Profile, Courses, Browse, Subject, Login, Signup, Error404
 }

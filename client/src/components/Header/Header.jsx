@@ -70,6 +70,7 @@ const Header = () => {
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
           <Nav className="ml-auto">
             <Nav.Link href='/' className='text-secondary mt-auto mb-auto'>Home</Nav.Link>
+            <Nav.Link href='/about' className='text-secondary mt-auto mb-auto'>About</Nav.Link>
             <Nav.Link href='/browse' className='text-secondary mt-auto mb-auto'>Browse</Nav.Link>
             <Nav.Link href='/courses' className='text-secondary mt-auto mb-auto'>My Courses</Nav.Link>
             {subjectElement}
@@ -88,6 +89,7 @@ const Header = () => {
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
           <Nav className="ml-auto">
             <Nav.Link href='/' className='text-secondary mt-auto mb-auto'>Home</Nav.Link>
+            <Nav.Link href='/about' className='text-secondary mt-auto mb-auto'>About</Nav.Link>
             {subjectElement}
             <Nav.Link href='/login' className='text-dark font-weight-bold'>Login</Nav.Link>
           </Nav>
