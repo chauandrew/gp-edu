@@ -14,6 +14,24 @@ const getAllSubjects = async () => {
 }
 
 /**
+ * Return subject table joined w/ course table
+ */
+const getAllSubjectsAndCourses = async () => {
+    let query = 
+        `SELECT s.subject_name, c.id as course_id, s.id as subject_id,
+                c.course_name as course_name, c.sequence as course_sequence
+         FROM subjects s JOIN courses c ON c.subject_id = s.id
+         ORDER BY s.id`
+    let err, res = await pgclient.query(query)
+    if (!err) {
+        return res.rows 
+    } else {
+        throw new Error(err)
+    }
+}
+
+
+/**
  * Return all courses a user is enrolled in
  * @param {Integer} userId 
  */
@@ -136,6 +154,7 @@ const getCoursesBySubject = async (searchField) => {
 
 module.exports = {
     getAllSubjects: getAllSubjects,
+    getAllSubjectsAndCourses: getAllSubjectsAndCourses,
     getEnrolledCourses: getEnrolledCourses,
     getFirstChapter: getFirstChapter,
     enrollInCourse: enrollInCourse,

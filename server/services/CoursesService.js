@@ -10,6 +10,23 @@ const getAllSubjects = async () => {
 }
 
 /**
+ * Return a list of all courses, grouped by subject
+ */
+const getAllSubjectsAndCourses = async () => {
+    let rows = await CoursesModel.getAllSubjectsAndCourses();
+    let response = {}
+    for (let i in rows) {
+        subject = rows[i]['subject_name']
+        if (subject in response) {
+            response[subject].push(rows[i])
+        } else {
+            response[subject] = [rows[i]]
+        }
+    }
+    return response
+}
+
+/**
  * Get all courses in a subject by subjectId or by subject_name
  * @param {String} field 
  */
@@ -56,6 +73,7 @@ const enrollInCourse = async (uid, courseId) => {
 
 module.exports = {
     getAllSubjects: getAllSubjects,
+    getAllSubjectsAndCourses: getAllSubjectsAndCourses,
     getEnrolledCourses: getEnrolledCourses,
     enrollInCourse: enrollInCourse,
     getCoursesBySubject: getCoursesBySubject

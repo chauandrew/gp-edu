@@ -12,7 +12,7 @@ All routes have the prefix: `/api/v1/courses` *
  */
 router.get('/all', (req, res) => {
     try {
-        CoursesService.getAllSubjects().then((subjects) => {
+        CoursesService.getAllSubjectsAndCourses().then((subjects) => {
             res.json(subjects)
         })
     } catch (err) {

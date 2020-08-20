@@ -29,11 +29,12 @@ const Header = () => {
   useEffect(() => {
     api.getAllSubjects().then((res) => {
       // Create nav dropdown items for each subject
-      let navElements = res.data.map((subject) => {
-        let subjectName = subject.subject_name
-        return (<NavDropdown.Item href={"/subjects/" + subjectName}>
+      let navElements = []
+      for (let subjectName in res.data) {
+        // TODO: You can find courses in res.data[subjectName]
+        navElements.push(<NavDropdown.Item href={"/subjects/" + subjectName}>
                   {subjectName}</NavDropdown.Item>)
-      })
+      }
       // wrap elements in a dropdown
       let dropdown = <NavDropdown title="Subjects" id="basic-nav-dropdown" 
         className='text-dark mt-auto mb-auto'>{navElements}</NavDropdown>
