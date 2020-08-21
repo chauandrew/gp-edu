@@ -64,8 +64,9 @@ const Header = () => {
   if (currentUser) {
     return (
       <Navbar collapseOnSelect fixed='top' expand='lg' bg='light'>
-        <Navbar.Brand href='/'>
+        <Navbar.Brand href='/' id="navbrand">
           <img src={logo} alt='logo' width='50' height='50'></img>
+          AREA YOUTH EDUCATION
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
