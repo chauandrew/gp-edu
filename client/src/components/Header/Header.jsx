@@ -37,7 +37,7 @@ const Header = () => {
                   {subjectName.toUpperCase()}</NavDropdown.Item>)
       }
       // wrap elements in a dropdown
-      let dropdown = <NavDropdown title="COURSES" id="basic-nav-dropdown" 
+      let dropdown = <NavDropdown renderMenuOnMount={true} title="COURSES" id="basic-nav-dropdown" 
         className='text-dark mt-auto mb-auto'>{navElements}</NavDropdown>
       setSubjectElement(dropdown)
     })
@@ -52,7 +52,7 @@ const Header = () => {
           onClick={() => { db.auth().signOut() }}>Logout</Nav.Link>
       </>
   } else {
-    profileElement =
+    var profileElement =
       <NavDropdown title="MY PROFILE" id='profile-dropdown' className="dropdown-menu-right">
         <NavDropdown.Item href='/profile' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'>Profile</NavDropdown.Item>
         <NavDropdown.Item href='/login' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'
