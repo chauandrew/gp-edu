@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const { checkIfAuthenticated } = require('../middleware/AuthMiddleware');
+const { checkIfAuthenticated, checkIfAdmin } = require('../middleware/AuthMiddleware');
 const CoursesService = require('../../services/CoursesService');
 
 /*
@@ -10,7 +10,7 @@ All routes have the prefix: `/api/v1/courses` *
 /**
  * Get all subjects, does NOT require auth
  */
-router.get('/all', (req, res) => {
+router.get('/all', (_, res) => {
     try {
         CoursesService.getAllSubjectsAndCourses().then((subjects) => {
             res.json(subjects)
@@ -72,5 +72,29 @@ router.get('/subjects/:subjectField', (req, res) => {
         res.send(err)
     }
 })
+
+/**
+ * Arguments:
+ * subjectId: Integer id of subject
+ * courseName: name of new course to create
+ * sequence: (optional) the sequence number to use
+ * 
+ * Response:
+ * Handle to the new course
+ */
+router.post('/course/create', checkIfAdmin, (req, res) => {
+    if (!("subjectId" in req.body) || !("courseName" in req.body)) {
+        res.status(400)
+        res.send("subjectId and courseName must be specified!")
+    }
+    try {
+        CoursesService.createCourse(req.body.subjectId, req.body.courseName, 
+            req.body.sequence).then(course => res.json(course));
+    } catch (err) {
+        res.status(400)
+        res.send(err)
+    }
+})
+
 
 module.exports = router;

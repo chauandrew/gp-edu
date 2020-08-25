@@ -1,6 +1,5 @@
 const CoursesModel = require('../models/CoursesModel')
 const UserModel = require('../models/UserModel')
-const { getCourse } = require('../models/CoursesModel')
 
 /**
  * return a list of all subjects
@@ -63,7 +62,6 @@ const enrollInCourse = async (uid, courseId) => {
         let user = await UserModel.getUserByUid(uid)
         userId = user.id
     }
-    console.log(userId)
     return CoursesModel.getFirstChapter(courseId).then(
         (firstChapter) => {
             return CoursesModel.enrollInCourse(userId, courseId, firstChapter.id)
@@ -71,10 +69,47 @@ const enrollInCourse = async (uid, courseId) => {
     )
 }
 
+/**
+ * Create a new course
+ * @param {Integer} subjectId 
+ * @param {String} courseName 
+ * @param {Integer} sequence 
+ */
+const createCourse = async (subjectId, courseName, sequence=null) => {
+    // check that subjectId is a number 
+    if (Number.isInteger(subjectId)==NaN) {
+        throw new Error("'subjectId' must be an integer")
+    } else if (sequence != null && parseInt(sequence) == NaN) {
+        throw new Error("'sequence' must be an integer")
+    }
+    // use lowercase course name w/ ' ' instead of '_'
+    courseName = courseName.toLowerCase().split('_').join(' ')
+    subjectId = parseInt(subjectId)
+
+    // make sure subject is valid and course is not already created
+    // TODO: run these async
+    subjects = await CoursesModel.getSubject(subjectId);
+    courses = await CoursesModel.getCoursesBySubject(subjectId)
+    if (subject.length == 0) {
+        throw new Error(`Could not find subject with id ${subjectId}`)
+    }
+    for (let i in courses) {
+        if (courses[i].course_name == courseName) {
+            throw new Error(`Course name ${courseName} already exists!`)
+        }
+    }
+
+    CoursesModel.createCourse(parseInt(subjectId), courseName, sequence);
+}
+
+// TODO: Function to change sequence of course / chapter / steps
+
+
 module.exports = {
     getAllSubjects: getAllSubjects,
     getAllSubjectsAndCourses: getAllSubjectsAndCourses,
     getEnrolledCourses: getEnrolledCourses,
     enrollInCourse: enrollInCourse,
-    getCoursesBySubject: getCoursesBySubject
+    getCoursesBySubject: getCoursesBySubject,
+    createCourse: createCourse
 }

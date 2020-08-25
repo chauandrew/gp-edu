@@ -110,6 +110,26 @@ const getCourse = async (field) => {
 }
 
 /**
+ * Get subject by id  or by name
+ * @param {*} searchField 
+ */
+const getSubject = async (searchField) => {
+    let query = ""
+    if (Number.isInteger(searchField)) {
+        searchField = parseInt(searchField)
+        query = 'SELECT * FROM subjects WHERE id = $1'
+    } else if (typeof(searchField) == "string") {
+        query = 'SELECT * FROM subjects WHERE subject_name = $1'
+    }
+    let err, res = await pgclient.query(query, [searchField])
+    if (!err) {
+        return res.rows 
+    } else {
+        throw new Error(err)
+    }
+}
+
+/**
  * Get the next chapter OR null if given the last chapter
  * @param {Integer} chapterId 
  */
@@ -126,6 +146,7 @@ const getNextChapter = async (chapterId) => {
         throw new Error(err)
     }
 }
+
 
 /**
  * Get all courses related to a subject, grouped by subjectId (Integer) or 
@@ -152,6 +173,21 @@ const getCoursesBySubject = async (searchField) => {
     }
 }
 
+/**
+ * Create a new course in the given subject
+ * @param {integer} subjectId 
+ * @param {name of new course} courseName 
+ * @param {integer (optional)} sequence 
+ */
+const createCourse = async (subjectId, courseName, sequence=null) => {
+    let query = "INSERT INTO courses values (default, $1, $2, $3)"
+    let values = [courseName, subjectId, sequence]
+    let err, _ = await pgclient.query(query, values)
+    if (err) {
+        throw new Error(err)
+    }
+}
+
 module.exports = {
     getAllSubjects: getAllSubjects,
     getAllSubjectsAndCourses: getAllSubjectsAndCourses,
@@ -159,6 +195,8 @@ module.exports = {
     getFirstChapter: getFirstChapter,
     enrollInCourse: enrollInCourse,
     getCourse: getCourse,
+    getSubject: getSubject,
     getNextChapter: getNextChapter,
-    getCoursesBySubject: getCoursesBySubject
+    getCoursesBySubject: getCoursesBySubject,
+    createCourse: createCourse
 }

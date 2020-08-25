@@ -1,4 +1,5 @@
 var admin = require('../../loaders/firebaseAdmin');
+const AuthService = require('../../services/AuthService');
 
 const getAuthToken = (req, res, next) => {
     if (
@@ -36,6 +37,24 @@ const checkIfAuthenticated = (req, res, next) => {
     });
 }
 
+const checkIfAdmin = (req, res, next) => {
+    checkIfAuthenticated(req, res, async () => {
+        try {
+            let isAdmin = await AuthService.isAdmin(req.authId)
+            if (isAdmin) {
+                return next();
+            } else {
+                return res.status(401).send({error: 'You must be a site admin to make this request!'})
+            }
+        } catch (e) {
+            return res
+                .status(401)
+                .send({ error: 'You are not authorized to make this request' });
+        }
+    })
+}
+
 module.exports = {
-    checkIfAuthenticated: checkIfAuthenticated
+    checkIfAuthenticated: checkIfAuthenticated,
+    checkIfAdmin: checkIfAdmin
 };
