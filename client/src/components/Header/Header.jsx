@@ -32,11 +32,12 @@ const Header = () => {
       let navElements = []
       for (let subjectName in res.data) {
         // TODO: You can find courses in res.data[subjectName]
+        console.log(res.data)
         navElements.push(<NavDropdown.Item href={"/subjects/" + subjectName}>
                   {subjectName}</NavDropdown.Item>)
       }
       // wrap elements in a dropdown
-      let dropdown = <NavDropdown title="Subjects" id="basic-nav-dropdown" 
+      let dropdown = <NavDropdown title="COURSES" id="basic-nav-dropdown" 
         className='text-dark mt-auto mb-auto'>{navElements}</NavDropdown>
       setSubjectElement(dropdown)
     })
@@ -52,8 +53,7 @@ const Header = () => {
       </>
   } else {
     profileElement =
-      <NavDropdown id='profile-dropdown' className="dropdown-menu-right"
-        title={<img src={icons.PersonCircle} alt='logo' width='35' height='35'></img>}>
+      <NavDropdown title="MY PROFILE" id='profile-dropdown' className="dropdown-menu-right">
         <NavDropdown.Item href='/profile' className='text-secondary mt-auto mb-auto'>Profile</NavDropdown.Item>
         <NavDropdown.Item href='/login' className='text-secondary mt-auto mb-auto'
           onClick={() => { db.auth().signOut() }}>Logout</NavDropdown.Item>
@@ -71,12 +71,11 @@ const Header = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
           <Nav className="ml-auto">
-            <Nav.Link href='/' className='text-secondary mt-auto mb-auto'>Home</Nav.Link>
-            <Nav.Link href='/about' className='text-secondary mt-auto mb-auto'>About</Nav.Link>
-            <Nav.Link href='/browse' className='text-secondary mt-auto mb-auto'>Browse</Nav.Link>
-            <Nav.Link href='/courses' className='text-secondary mt-auto mb-auto'>My Courses</Nav.Link>
+            <Nav.Link href='/about' className='text-secondary mt-auto mb-auto'>ABOUT US</Nav.Link>
+            {/* <Nav.Link href='/courses' className='text-secondary mt-auto mb-auto'>My Courses</Nav.Link> */}
             {subjectElement}
             {profileElement}
+            <img src={icons.PersonCircle} alt='logo' width='35' height='35'></img>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -86,14 +85,15 @@ const Header = () => {
       <Navbar collapseOnSelect fixed='top' expand='lg' bg='light' variant='light'>
         <Navbar.Brand href='/'>
           <img src={logo} alt='logo' width='50' height='50'></img>
+          AREA YOUTH EDUCATION
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
           <Nav className="ml-auto">
-            <Nav.Link href='/' className='text-secondary mt-auto mb-auto'>Home</Nav.Link>
-            <Nav.Link href='/about' className='text-secondary mt-auto mb-auto'>About</Nav.Link>
+            <Nav.Link href='/about' className='text-secondary mt-auto mb-auto'>ABOUT US</Nav.Link>
             {subjectElement}
-            <Nav.Link href='/login' className='text-dark font-weight-bold'>Login</Nav.Link>
+            <Nav.Link href='/login' className='text-secondary mt-auto mb-auto'>LOGIN</Nav.Link>
+            <Nav.Link href='/signup' className='text-dark font-weight-bold'>SIGN UP</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -1,6 +1,6 @@
-#profile-dropdown.nav-link::after{
+/* #profile-dropdown.nav-link::after{
     display: none; 
-}
+} */
 .dropdown-menu {
     right: 0;
     left: auto;
