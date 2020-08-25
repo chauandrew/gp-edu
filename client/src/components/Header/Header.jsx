@@ -47,15 +47,15 @@ const Header = () => {
   if (isMobile) {
     var profileElement =
       <>
-        <Nav.Link href='/profile' className='text-secondary mt-auto mb-auto'>Profile</Nav.Link>
-        <Nav.Link href='/login' className='text-secondary mt-auto mb-auto'
+        <Nav.Link href='/profile' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'>Profile</Nav.Link>
+        <Nav.Link href='/login' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'
           onClick={() => { db.auth().signOut() }}>Logout</Nav.Link>
       </>
   } else {
     profileElement =
       <NavDropdown title="MY PROFILE" id='profile-dropdown' className="dropdown-menu-right">
-        <NavDropdown.Item href='/profile' className='text-secondary mt-auto mb-auto'>Profile</NavDropdown.Item>
-        <NavDropdown.Item href='/login' className='text-secondary mt-auto mb-auto'
+        <NavDropdown.Item href='/profile' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'>Profile</NavDropdown.Item>
+        <NavDropdown.Item href='/login' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'
           onClick={() => { db.auth().signOut() }}>Logout</NavDropdown.Item>
       </NavDropdown>
   }
@@ -69,8 +69,8 @@ const Header = () => {
   } else {
     var endNavElement = 
       <>
-        <Nav.Link href='/login' className='text-secondary mt-auto mb-auto'>LOGIN</Nav.Link>
-        <Nav.Link href='/signup' className='text-dark font-weight-bold'>SIGN UP</Nav.Link>
+        <Nav.Link href='/login' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'>LOGIN</Nav.Link>
+        <Nav.Link href='/signup' className='text-dark font-weight-bold nav-link nav-link-fade-up'>SIGN UP</Nav.Link>
       </>
   }
 
@@ -83,7 +83,7 @@ const Header = () => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
         <Nav className="ml-auto">
-          <Nav.Link href='/about' className='text-secondary mt-auto mb-auto'>ABOUT US</Nav.Link>
+          <Nav.Link href='/about' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'>ABOUT US</Nav.Link>
           {/* <Nav.Link href='/courses' className='text-secondary mt-auto mb-auto'>My Courses</Nav.Link> */}
           {subjectElement}
           {endNavElement}
