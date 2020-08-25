@@ -32,9 +32,9 @@ const Header = () => {
       let navElements = []
       for (let subjectName in res.data) {
         // TODO: You can find courses in res.data[subjectName]
-        console.log(res.data)
+        // console.log(res.data)
         navElements.push(<NavDropdown.Item href={"/subjects/" + subjectName}>
-                  {subjectName}</NavDropdown.Item>)
+                  {subjectName.toUpperCase()}</NavDropdown.Item>)
       }
       // wrap elements in a dropdown
       let dropdown = <NavDropdown title="COURSES" id="basic-nav-dropdown" 
