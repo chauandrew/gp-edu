@@ -60,45 +60,37 @@ const Header = () => {
       </NavDropdown>
   }
 
-  // Show different pages based on whether user is signed in or not
   if (currentUser) {
-    return (
-      <Navbar collapseOnSelect fixed='top' expand='lg' bg='light'>
-        <Navbar.Brand href='/' id="navbrand">
-          <img src={logo} alt='logo' width='50' height='50'></img>
-          AREA YOUTH EDUCATION
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-          <Nav className="ml-auto">
-            <Nav.Link href='/about' className='text-secondary mt-auto mb-auto'>ABOUT US</Nav.Link>
-            {/* <Nav.Link href='/courses' className='text-secondary mt-auto mb-auto'>My Courses</Nav.Link> */}
-            {subjectElement}
-            {profileElement}
-            <img src={icons.PersonCircle} alt='logo' width='35' height='35'></img>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-    )
+    var endNavElement = 
+      <>
+        {profileElement}
+        <img src={icons.PersonCircle} alt='logo' width='35' height='35'></img>
+      </>
   } else {
-    return (
-      <Navbar collapseOnSelect fixed='top' expand='lg' bg='light' variant='light'>
-        <Navbar.Brand href='/'>
-          <img src={logo} alt='logo' width='50' height='50'></img>
-          AREA YOUTH EDUCATION
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-          <Nav className="ml-auto">
-            <Nav.Link href='/about' className='text-secondary mt-auto mb-auto'>ABOUT US</Nav.Link>
-            {subjectElement}
-            <Nav.Link href='/login' className='text-secondary mt-auto mb-auto'>LOGIN</Nav.Link>
-            <Nav.Link href='/signup' className='text-dark font-weight-bold'>SIGN UP</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-    )
+    var endNavElement = 
+      <>
+        <Nav.Link href='/login' className='text-secondary mt-auto mb-auto'>LOGIN</Nav.Link>
+        <Nav.Link href='/signup' className='text-dark font-weight-bold'>SIGN UP</Nav.Link>
+      </>
   }
+
+  return (
+    <Navbar collapseOnSelect fixed='top' expand='lg' bg='light'>
+      <Navbar.Brand href='/' id="navbrand">
+        <img src={logo} alt='logo' width='50' height='50'></img>
+        AREA YOUTH EDUCATION
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+        <Nav className="ml-auto">
+          <Nav.Link href='/about' className='text-secondary mt-auto mb-auto'>ABOUT US</Nav.Link>
+          {/* <Nav.Link href='/courses' className='text-secondary mt-auto mb-auto'>My Courses</Nav.Link> */}
+          {subjectElement}
+          {endNavElement}
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  )
 }
 
 export default Header;
