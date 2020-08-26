@@ -87,14 +87,36 @@ router.post('/course/create', checkIfAdmin, (req, res) => {
         res.status(400)
         res.send("subjectId and courseName must be specified!")
     }
-    try {
-        CoursesService.createCourse(req.body.subjectId, req.body.courseName, 
-            req.body.sequence).then(course => res.json(course));
-    } catch (err) {
-        res.status(400)
-        res.send(err)
-    }
+    CoursesService.createCourse(req.body.subjectId, req.body.courseName, 
+        req.body.sequence)
+        .then(course => res.json(course))
+        .catch(err => {
+            res.status(400)
+            res.send(`${err}`)
+        })
 })
 
+/**
+ * Arguments:
+ * courseId: Integer id of course
+ * chapterName: name of new chapter to create
+ * sequence: (optional) the sequence number to use
+ * 
+ * Response:
+ * Handle to the new chapter
+ */
+router.post('/chapter/create', checkIfAdmin, (req, res) => {
+    if (!("courseId" in req.body) || !("chapterName" in req.body)) {
+        res.status(400)
+        res.send("courseId and chapterName must be specified!")
+    }
+    CoursesService.createChapter(req.body.courseId, req.body.chapterName, 
+        req.body.sequence)
+        .then(chapter => res.json(chapter))
+        .catch(err => {
+            res.status(400)
+            res.send(`${err}`)
+        })
+})
 
 module.exports = router;

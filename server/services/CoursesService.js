@@ -75,9 +75,9 @@ const enrollInCourse = async (uid, courseId) => {
  * @param {String} courseName 
  * @param {Integer} sequence 
  */
-const createCourse = async (subjectId, courseName, sequence=null) => {
+const createCourse = async (subjectId, courseName, sequence = null) => {
     // check that subjectId is a number 
-    if (Number.isInteger(subjectId)==NaN) {
+    if (Number.isInteger(subjectId) == NaN) {
         throw new Error("'subjectId' must be an integer")
     } else if (sequence != null && parseInt(sequence) == NaN) {
         throw new Error("'sequence' must be an integer")
@@ -87,9 +87,8 @@ const createCourse = async (subjectId, courseName, sequence=null) => {
     subjectId = parseInt(subjectId)
 
     // make sure subject is valid and course is not already created
-    // TODO: run these async
-    subjects = await CoursesModel.getSubject(subjectId);
-    courses = await CoursesModel.getCoursesBySubject(subjectId)
+    let [subject, courses] = await Promise.all(
+        [CoursesModel.getSubject(subjectId), CoursesModel.getCoursesBySubject(subjectId)])
     if (subject.length == 0) {
         throw new Error(`Could not find subject with id ${subjectId}`)
     }
@@ -99,10 +98,33 @@ const createCourse = async (subjectId, courseName, sequence=null) => {
         }
     }
 
-    CoursesModel.createCourse(parseInt(subjectId), courseName, sequence);
+    return CoursesModel.createCourse(parseInt(subjectId), courseName, sequence);
 }
 
 // TODO: Function to change sequence of course / chapter / steps
+const createChapter = async(courseId, chapterName, sequence=null) => {
+    // check that courseId is a number 
+    if (Number.isInteger(courseId) == NaN) {
+        throw new Error("'courseId' must be an integer")
+    } else if (sequence != null && parseInt(sequence) == NaN) {
+        throw new Error("'sequence' must be an integer")
+    }
+
+    courseId = parseInt(courseId)
+
+    // validate courseId exists and chapter isn't a duplicate
+    let [course, chapter] = await Promise.all(
+        [CoursesModel.getCourse(courseId), CoursesModel.getChapter(chapterName)])
+    if (course.length == 0) {
+        throw new Error(`Could not find course with courseId ${courseId}`)
+    } else if (chapter.length != 0) {
+        throw new Error(`Chapter with name ${chapterName} already exists!`)
+    }
+
+    return CoursesModel.createChapter(course[0].subject_id, courseId, chapterName, sequence)
+}
+
+
 
 
 module.exports = {
@@ -111,5 +133,6 @@ module.exports = {
     getEnrolledCourses: getEnrolledCourses,
     enrollInCourse: enrollInCourse,
     getCoursesBySubject: getCoursesBySubject,
-    createCourse: createCourse
+    createCourse: createCourse,
+    createChapter: createChapter
 }
