@@ -1,6 +1,7 @@
 /* #profile-dropdown.nav-link::after{
     display: none; 
 } */
+
 .dropdown-menu {
     right: 0;
     left: auto;
@@ -12,12 +13,17 @@
     font-size: 27px;
 }
 
+.dropdown-nav-link-edit {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
 /* Navbar Hover Animation */
 .nav-link {
     font-size: 14px;
     text-decoration: none;
     padding: 20px 0px;
-    margin: 0px 20px;
+    margin: 0px 0px;
     display: inline-block;
     position: relative;
     opacity: 0.75;
@@ -33,7 +39,7 @@
     background-color: #031D44;
 }
 .nav-link-fade-up::before {
-    width: 100%;
+    width: 85%;
     bottom: 5px;
     opacity: 0;
 }

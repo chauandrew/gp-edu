@@ -38,7 +38,7 @@ const Header = () => {
       }
       // wrap elements in a dropdown
       let dropdown = <NavDropdown renderMenuOnMount={true} title="COURSES" id="basic-nav-dropdown" 
-        className='text-dark mt-auto mb-auto'>{navElements}</NavDropdown>
+        className='text-dark mt-auto mb-auto dropdown-nav-link-edit nav-link nav-link-fade-up'>{navElements}</NavDropdown>
       setSubjectElement(dropdown)
     })
   }, [])
@@ -47,13 +47,13 @@ const Header = () => {
   if (isMobile) {
     var profileElement =
       <>
-        <Nav.Link href='/profile' className='text-secondary mt-auto mb-auto'>Profile</Nav.Link>
-        <Nav.Link href='/login' className='text-secondary mt-auto mb-auto'
+        <Nav.Link href='/profile' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'>Profile</Nav.Link>
+        <Nav.Link href='/login' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'
           onClick={() => { db.auth().signOut() }}>Logout</Nav.Link>
       </>
   } else {
     var profileElement =
-      <NavDropdown title="MY PROFILE" renderMenuOnMount={true} id='profile-dropdown' className="dropdown-menu-right">
+      <NavDropdown title="MY PROFILE" renderMenuOnMount={true} id='profile-dropdown' className="dropdown-menu-right dropdown-nav-link-edit nav-link nav-link-fade-up">
         <NavDropdown.Item href='/profile' className='text-secondary mt-auto mb-auto'>Profile</NavDropdown.Item>
         <NavDropdown.Item href='/login' className='text-secondary mt-auto mb-auto'
           onClick={() => { db.auth().signOut() }}>Logout</NavDropdown.Item>
@@ -64,7 +64,6 @@ const Header = () => {
     var endNavElement = 
       <>
         {profileElement}
-        <img src={icons.PersonCircle} alt='logo' width='50' height='50'></img>
       </>
   } else {
     var endNavElement = 
