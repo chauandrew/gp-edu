@@ -4,7 +4,7 @@ import './About.css'
 const About = () => {
     return (
         <div className="page-content">
-            <h1 style = {{position:absolute, left:80px, top:20px, background-color:"yellow"}}>
+            <h1 style = {{position:absolute, left:80, top:20, background-color:"yellow"}}>
                 About us
             </h1>
         </div>
