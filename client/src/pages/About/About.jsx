@@ -7,7 +7,7 @@ const About = () => {
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
             </style>
-            <h1 style = {{fontSize: "40px", position: 'absolute', left: 299.82, top: 167.06, fontWeight: "bold", fontFamily: "DM Sans"}}>
+            <h1 style = {{fontSize: "30px", position: 'absolute', left: 275, top: 150, fontWeight: "bold", fontFamily: "DM Sans"}}>
                 ABOUT US
             </h1>
             <h2 style = {{fontSize: "20px", position: 'absolute', left: 371.93, top: 274.62, fontWeight: "bold", fontFamily: "DM Sans"}}>
