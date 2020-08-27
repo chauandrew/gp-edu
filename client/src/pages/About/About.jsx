@@ -13,7 +13,7 @@ const About = () => {
             <h2 style = {{fontSize: "18px", position: 'absolute', left: 320, top: 235, fontWeight: "bold", fontFamily: "DM Sans"}}>
                 WHO WE ARE
             </h2>
-            <p style = {{fontSize: "12px", position: "absolute", left: 315, top: 260, fontFamily: "Helvetica Neue"}}>
+            <p style = {{fontSize: "12px", position: "absolute", left: 315, top: 285, fontFamily: "Helvetica Neue"}}>
                 We are a cool group of people called Area Youth Ministries. We care about educational equality and growth for are youth, especially in underserved areas.
             </p>
         </div>
