@@ -16,6 +16,7 @@ const Subject = () => {
 
     useEffect(() => {
         api.getCoursesBySubject(subjectId).then(c => {
+            console.log(c.data)
             setCourses(c.data)
         })
     }, [subjectId])

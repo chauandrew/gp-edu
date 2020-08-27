@@ -23,6 +23,7 @@ app.get('/subjects/*', (_, res) => { res.sendFile(reactBuildPath); })
 app.get('/login', (_, res) => { res.sendFile(reactBuildPath); })
 app.get('/signup', (_, res) => { res.sendFile(reactBuildPath); })
 app.get('/404', (_, res) => { res.sendFile(reactBuildPath); })
+app.get('/admin', (_, res) => { res.sendFile(reactBuildPath); })
 
 // API calls organized in server/api/index
 const routes = require('./server/api/index');
