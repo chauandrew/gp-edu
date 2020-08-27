@@ -1,0 +1,32 @@
+.page-content {
+	padding: 10%;
+}
+
+.button {
+	background-color: #D66E6E;
+	border: 1px solid #D66E6E;
+	color: white;
+	padding: 12px 24px;
+	cursor: pointer;
+	float: none;
+	text-align: center;
+}
+
+/* Clear floats (clearfix hack) */
+/* IDK what this does LOL */
+.btn-group:after {
+	content: "";
+	clear: both;
+	display: table;
+}
+  
+.btn-group button:not(:last-child) {
+	border-right: none;
+}
+  
+/* Change background color on hover */
+.button:hover {
+	background-color: #BA0000;
+	color: white;
+	text-decoration: none;
+}
