@@ -4,7 +4,7 @@ import './About.css'
 const About = () => {
     return (
         <div className="page-content">
-            <h1 style = {{fontSize: "40px", position: 'absolute', left: 283.59, top: 89.64, fontWeight: "bold", fontFamily: "DM Sans"}}>
+            <h1 style = {{fontSize: "40px", position: 'absolute', left: 299.82, top: 167.06, fontWeight: "bold", fontFamily: "DM Sans"}}>
                 ABOUT US
             </h1>
             <h2 style = {{fontSize: "20px", position: 'absolute', left: 371.93, top: 274.62, fontWeight: "bold", fontFamily: "DM Sans"}}>
