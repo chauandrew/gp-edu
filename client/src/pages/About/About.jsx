@@ -14,10 +14,7 @@ const About = () => {
                 WHO WE ARE
             </h2>
             <p style = {{fontSize: "12px", position: "absolute", left: 315, top: 275, fontFamily: "Helvetica Neue"}}>
-                We are a cool group of people called
-                Area Youth Ministries. We care about 
-                educational equality and growth for are
-                youth, especially in underserved areas.
+                We are a cool group of people called <br> Area Youth Ministries. We care about <br> educational equality and growth for are <br> youth, especially in underserved areas.
             </p>
         </div>
     )
