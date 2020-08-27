@@ -203,11 +203,11 @@ const getCoursesBySubject = async (searchField) => {
 const createCourse = async (subjectId, courseName, sequence=null) => {
     let query = "INSERT INTO courses values (default, $1, $2, $3)"
     let values = [courseName, subjectId, sequence]
-    let err, _ = await pgclient.query(query, values)
+    let err, response = await pgclient.query(query, values)
     if (err) {
         throw new Error(err)
     }
-    return response
+    return response.rows
 }
 
 /**
@@ -225,7 +225,24 @@ const createChapter = async (subjectId, courseId, chapterName, sequence=null) =>
     if (err) {
         throw new Error(err)
     }
-    return response
+    return response.rows
+}
+
+/**
+ * 
+ * @param {Integer} chapterId 
+ * @param {Integer} lessonNum 
+ * @param {String} contentUrl 
+ * @param {String} description 
+ */
+const createLesson = async (chapterId, lessonNum, contentUrl, description) => {
+    let query = "INSERT INTO lessons values (default, $1, $2, $3, $4)"
+    let values = [chapterId, lessonNum, contentUrl, description]
+    let err, response = await pgclient.query(query, values)
+    if (err) {
+        throw new Error(err)
+    }
+    return response.rows
 }
 
 module.exports = {
@@ -240,5 +257,6 @@ module.exports = {
     getNextChapter: getNextChapter,
     getCoursesBySubject: getCoursesBySubject,
     createCourse: createCourse,
-    createChapter: createChapter
+    createChapter: createChapter,
+    createLesson: createLesson
 }

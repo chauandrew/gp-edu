@@ -1,6 +1,8 @@
 const CoursesModel = require('../models/CoursesModel')
 const UserModel = require('../models/UserModel')
 
+// TODO: Function to change sequence of course / chapter / steps
+
 /**
  * return a list of all subjects
  */
@@ -101,7 +103,6 @@ const createCourse = async (subjectId, courseName, sequence = null) => {
     return CoursesModel.createCourse(parseInt(subjectId), courseName, sequence);
 }
 
-// TODO: Function to change sequence of course / chapter / steps
 const createChapter = async(courseId, chapterName, sequence=null) => {
     // check that courseId is a number 
     if (Number.isInteger(courseId) == NaN) {
@@ -124,7 +125,33 @@ const createChapter = async(courseId, chapterName, sequence=null) => {
     return CoursesModel.createChapter(course[0].subject_id, courseId, chapterName, sequence)
 }
 
+/**
+ * @param {Integer} chapterId 
+ * @param {Integer} lessonNum 
+ * @param {String} contentUrl 
+ * @param {String} description 
+ */
+const createLesson = async (chapterId, lessonNum=null, contentUrl, description) => {
+    if (Number.isInteger(chapterId) == NaN) {
+        throw new Error("'chapterId' must be an integer")
+    } else if (lessonNum != null && parseInt(lessonNum) == NaN) {
+        throw new Error("'lessonNum' must be an integer")
+    } else if (!contentUrl) {
+        throw new Error("'contentUrl' must be specified")
+    } else if (!description) {
+        throw new Error("'description' must be specified")
+    }
+    
+    chapterId = parseInt(chapterId)
 
+    // validate chapter exists
+    let chapter = await CoursesModel.getChapter(chapterId);
+    if (chapter.length == 0) {
+        throw new Error (`Could not find chapter with chapterId ${chapterId}`)
+    }
+    
+    return CoursesModel.createLesson(chapterId, lessonNum, contentUrl, description)
+}
 
 
 module.exports = {
@@ -134,5 +161,6 @@ module.exports = {
     enrollInCourse: enrollInCourse,
     getCoursesBySubject: getCoursesBySubject,
     createCourse: createCourse,
-    createChapter: createChapter
+    createChapter: createChapter,
+    createLesson: createLesson
 }
