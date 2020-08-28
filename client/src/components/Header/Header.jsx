@@ -38,7 +38,7 @@ const Header = () => {
       }
       // wrap elements in a dropdown
       let dropdown = <NavDropdown renderMenuOnMount={true} title="COURSES" id="basic-nav-dropdown" 
-        className='text-dark mt-auto mb-auto dropdown-nav-link-edit nav-link nav-link-fade-up'>{navElements}</NavDropdown>
+        className='text-body mt-auto mb-auto dropdown-nav-link-edit nav-link nav-link-fade-up'>{navElements}</NavDropdown>
       setSubjectElement(dropdown)
     })
   }, [])
@@ -68,13 +68,13 @@ const Header = () => {
   } else {
     var endNavElement = 
       <>
-        <Nav.Link href='/login' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'>LOGIN</Nav.Link>
-        <Nav.Link href='/signup' className='text-dark font-weight-bold nav-link nav-link-fade-up'>SIGN UP</Nav.Link>
+        <Nav.Link href='/login' className='mt-auto mb-auto nav-link nav-link-fade-up' id="login-link">LOGIN</Nav.Link>
+        <Nav.Link href='/signup' className='text-white btn btn-primary font-weight-bold' id="sign-up-link">SIGN UP</Nav.Link>
       </>
   }
 
   return (
-    <Navbar collapseOnSelect fixed='top' expand='lg' bg='light'>
+    <Navbar collapseOnSelect fixed='top' expand='lg' bg='light' className="font-weight-bold">
       <Navbar.Brand href='/' id="navbrand">
         <img src={logo} alt='logo' width='50' height='50'></img>
         AREA YOUTH EDUCATION
@@ -82,8 +82,7 @@ const Header = () => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
         <Nav className="ml-auto">
-          <Nav.Link href='/about' className='text-secondary mt-auto mb-auto nav-link nav-link-fade-up'>ABOUT US</Nav.Link>
-          {/* <Nav.Link href='/courses' className='text-secondary mt-auto mb-auto'>My Courses</Nav.Link> */}
+          <Nav.Link href='/about' className='text-body mt-auto mb-auto nav-link nav-link-fade-up'>ABOUT US</Nav.Link>
           {subjectElement}
           {endNavElement}
         </Nav>

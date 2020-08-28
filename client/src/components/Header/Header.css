@@ -2,15 +2,28 @@
     display: none; 
 } */
 
+.navbar {
+    font-family: 'Karla', Arial, Helvetica, sans-serif;
+}
+
 .dropdown-menu {
     right: 0;
     left: auto;
  }
 
 #navbrand {
-    font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
     font-size: 27px;
+}
+
+/* Font Colors */
+#basic-nav-dropdown {
+    color: black;
+}
+#login-link {
+    color: #7F9CF5;
+}
+#sign-up-link {
 }
 
 .dropdown-nav-link-edit {
