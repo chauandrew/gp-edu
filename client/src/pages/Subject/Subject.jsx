@@ -77,7 +77,7 @@ const Subject = () => {
     }, [subjectId])
 
     return (
-        <div class="page-content" className="page-content">
+        <div className="page-content-subject">
             <h1>{subjectId}</h1>
             {courseList}
         </div>
