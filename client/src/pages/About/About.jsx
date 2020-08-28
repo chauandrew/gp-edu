@@ -22,6 +22,12 @@ const About = () => {
             <p style = {{fontSize: "12px", position: "absolute", left: 327, top: 385, fontFamily: "Helvetica Neue"}}>
                 Our mission is to inspire and educate <br /> the next generation of young learners <br /> and help them realize their potential <br /> to change the world.
             </p>
+             <h2 style = {{fontSize: "18px", position: 'absolute', left: 330, top: 475, fontWeight: "bold", fontFamily: "DM Sans"}}>
+                INTERACTIVE EDUCATION
+            </h2>
+            <p style = {{fontSize: "12px", position: "absolute", left: 327, top: 510, fontFamily: "Helvetica Neue"}}>
+                This platform offers a wide variety of <br /> interactive courses in mathematics, <br /> science, humanities, programming, <br /> and life skills.
+            </p>
         </div>
     )
 }
