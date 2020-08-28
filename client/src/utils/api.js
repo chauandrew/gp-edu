@@ -64,45 +64,46 @@ export default {
     },
 
     createCourse: function(subjectId, courseName, sequence) {
+        let data = {
+            subjectId: subjectId,
+            courseName: courseName,
+            sequence: sequence
+        }
         return getAuthToken().then(function(authToken) {
             let config = {
-                data: {
-                    subjectId: subjectId,
-                    courseName: courseName,
-                    sequence: sequence
-                }, 
                 headers: { Authorization: `Bearer ${authToken}` }
             }
-            return axios.post(`${prefix}/api/v1/courses/create/course`, config)
+            return axios.post(`${prefix}/api/v1/courses/create/course`, data, config)
         })
     },
 
     createChapter: function(courseId, chapterName, sequence=null) {
+        let data = {
+            courseId: courseId,
+            chapter: chapterName,
+            sequence: sequence
+        }
         return getAuthToken().then(function(authToken) {
+
             let config = {
-                data: {
-                    courseId: courseId,
-                    chapter: chapterName,
-                    sequence: sequence
-                }, 
                 headers: { Authorization: `Bearer ${authToken}` }
             }
-            return axios.post(`${prefix}/api/v1/courses/create/chapter`, config)
+            return axios.post(`${prefix}/api/v1/courses/create/chapter`, data, config)
         })
     },
 
     createLesson: function(chapterId, lessonNum=null, contentUrl, description) {
+        let data = {
+            chapterId: chapterId,
+            lessonNum: lessonNum,
+            contentUrl: contentUrl,
+            description: description
+        }
         return getAuthToken().then(function(authToken) {
             let config = {
-                data: {
-                    chapterId: chapterId,
-                    lessonNum: lessonNum,
-                    contentUrl: contentUrl,
-                    description: description
-                }, 
                 headers: { Authorization: `Bearer ${authToken}` }
             }
-            return axios.post(`${prefix}/api/v1/courses/create/lesson`, config)
+            return axios.post(`${prefix}/api/v1/courses/create/lesson`, data, config.headers)
         })
     }
 }

@@ -103,7 +103,7 @@ const Signup = ({ history }) => {
     return (
         <div className="page-content">
             <Modal.Dialog>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Sign Up</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

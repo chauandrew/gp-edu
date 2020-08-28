@@ -3,7 +3,7 @@ export const createToast = (message) => {
     x.className = "show snackbar";
     x.innerHTML = message;
     document.body.appendChild(x);
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
 }
 
 export default createToast;

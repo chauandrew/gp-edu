@@ -39,7 +39,7 @@ const Login = ({ history }) => {
     return (
         <div className="page-content">
             <Modal.Dialog>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Login</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
