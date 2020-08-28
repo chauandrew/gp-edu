@@ -24,6 +24,8 @@
     color: #7F9CF5;
 }
 #sign-up-link {
+    background-color: #7F9CF5;
+    /* TODO: style button to spec */
 }
 
 .dropdown-nav-link-edit {

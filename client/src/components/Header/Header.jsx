@@ -69,7 +69,7 @@ const Header = () => {
     var endNavElement = 
       <>
         <Nav.Link href='/login' className='mt-auto mb-auto nav-link nav-link-fade-up' id="login-link">LOGIN</Nav.Link>
-        <Nav.Link href='/signup' className='text-white btn btn-primary font-weight-bold' id="sign-up-link">SIGN UP</Nav.Link>
+        <Nav.Link href='/signup' className='text-white font-weight-bold' id="sign-up-link">SIGN UP</Nav.Link>
       </>
   }
 
