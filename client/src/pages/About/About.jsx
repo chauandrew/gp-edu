@@ -28,16 +28,16 @@ const About = () => {
             <p style = {{fontSize: "12px", position: "absolute", left: 328, top: 510, fontFamily: "Helvetica Neue", letterSpacing: "0.07em", lineHeight: "169.5%"}}>
                 This platform offers a wide variety of <br /> interactive courses in mathematics, <br /> science, humanities, programming, <br /> and life skills.
             </p>
-            <h2 style = {{fontSize: "18px", position: 'absolute', left: 730, top: 205, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
+            <h2 style = {{fontSize: "18px", position: 'absolute', left: 830, top: 205, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
                 COLLABORATION
             </h2>
-            <p style = {{fontSize: "12px", position: "absolute", left: 728, top: 242, fontFamily: "Helvetica Neue", letterSpacing: "0.07em", lineHeight: "169.5%"}}>
+            <p style = {{fontSize: "12px", position: "absolute", left: 828, top: 242, fontFamily: "Helvetica Neue", letterSpacing: "0.07em", lineHeight: "169.5%"}}>
                 Meet classmates from your courses. <br /> Ask or answer questions on course <br /> forums – anytime and anywhere.
             </p>
-            <h2 style = {{fontSize: "18px", position: 'absolute', left: 730, top: 339, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
+            <h2 style = {{fontSize: "18px", position: 'absolute', left: 830, top: 339, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
                 ACHIEVABLE GOALS
             </h2>
-            <p style = {{fontSize: "12px", position: "absolute", left: 728, top: 376, fontFamily: "Helvetica Neue", letterSpacing: "0.07em", lineHeight: "169.5%"}}>
+            <p style = {{fontSize: "12px", position: "absolute", left: 828, top: 376, fontFamily: "Helvetica Neue", letterSpacing: "0.07em", lineHeight: "169.5%"}}>
                 Earn badges as you complete course <br /> milestones. You can easily check your <br /> course progress and see how far you <br /> have come since the beginning.
             </p>
         </div>
