@@ -31,7 +31,7 @@ const About = () => {
             <h2 style = {{fontSize: "18px", position: 'absolute', left: 830, top: 205, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
                 COLLABORATION
             </h2>
-            <p style = {{fontSize: "12px", position: "absolute", left: 828, top: 252, fontFamily: "Helvetica Neue", letterSpacing: "0.07em", lineHeight: "169.5%"}}>
+            <p style = {{fontSize: "12px", position: "absolute", left: 828, top: 250, fontFamily: "Helvetica Neue", letterSpacing: "0.07em", lineHeight: "169.5%"}}>
                 Meet classmates from your courses. <br /> Ask or answer questions on course <br /> forums – anytime and anywhere.
             </p>
             <h2 style = {{fontSize: "18px", position: 'absolute', left: 830, top: 339, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
