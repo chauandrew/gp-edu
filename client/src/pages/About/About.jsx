@@ -7,19 +7,19 @@ const About = () => {
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
             </style>
-            <h1 style = {{fontSize: "35px", position: 'absolute', left: 275, top: 150, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
+            <h1 style = {{fontSize: "35px", position: 'absolute', left: 262, top: 130, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
                 ABOUT US
             </h1>
-            <h2 style = {{fontSize: "18px", position: 'absolute', left: 330, top: 225, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
+            <h2 style = {{fontSize: "18px", position: 'absolute', left: 330, top: 205, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
                 WHO WE ARE
             </h2>
-            <p style = {{fontSize: "12px", position: "absolute", left: 328, top: 260, fontFamily: "Helvetica Neue", letterSpacing: "0.07em", lineHeight: "169.5%"}}>
+            <p style = {{fontSize: "12px", position: "absolute", left: 328, top: 240, fontFamily: "Helvetica Neue", letterSpacing: "0.07em", lineHeight: "169.5%"}}>
                 We are a cool group of people called <br /> Area Youth Ministries. We care about <br /> educational equality and growth for are <br /> youth, especially in underserved areas.
             </p>
-            <h2 style = {{fontSize: "18px", position: 'absolute', left: 330, top: 350, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
+            <h2 style = {{fontSize: "18px", position: 'absolute', left: 330, top: 335, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
                 OUR MISSION
             </h2>
-            <p style = {{fontSize: "12px", position: "absolute", left: 328, top: 385, fontFamily: "Helvetica Neue", letterSpacing: "0.07em", lineHeight: "169.5%"}}>
+            <p style = {{fontSize: "12px", position: "absolute", left: 328, top: 380, fontFamily: "Helvetica Neue", letterSpacing: "0.07em", lineHeight: "169.5%"}}>
                 Our mission is to inspire and educate <br /> the next generation of young learners <br /> and help them realize their potential <br /> to change the world.
             </p>
              <h2 style = {{fontSize: "18px", position: 'absolute', left: 330, top: 475, fontWeight: "bold", fontFamily: "DM Sans", letterSpacing: "0.07em"}}>
