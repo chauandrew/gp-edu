@@ -17,7 +17,7 @@ const About = () => {
                 style = {{position: 'relative', left: 715, top: 45, height: '3.187%', width: '3.187%'}}
             />
             <img src={treesBig} alt = "big trees"
-                style = {{position: 'relative', left: 400, top: 370, height: '12%', width: '12%'}}
+                style = {{position: 'relative', left: 480, top: 370, height: '12%', width: '12%'}}
             />
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
