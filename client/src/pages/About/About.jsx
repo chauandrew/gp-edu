@@ -23,10 +23,10 @@ const About = () => {
                 style = {{position: 'relative', left: 1000, top: 388, height: '9%', width: '9%'}}
             />
             <img src={ladyLaptop} alt = "lady laptop"
-                style = {{position: 'relative', left: 440, top: 310, height: '9.1%', width: '9.1%'}}
+                style = {{position: 'relative', left: 455, top: 310, height: '9.1%', width: '9.1%'}}
             />
             <img src={manLaptop} alt = "man laptop"
-                style = {{position: 'relative', left: 510, top: 289, height: '12%', width: '12%'}}
+                style = {{position: 'relative', left: 505, top: 291, height: '12%', width: '12%'}}
             />
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
