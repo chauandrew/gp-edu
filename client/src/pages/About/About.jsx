@@ -2,6 +2,10 @@ import React from 'react'
 import './About.css'
 import flowers3 from '../../assets/Flowers3.png'
 import flowers2 from '../../assets/Flowers2.png'
+import treesBig from '../../assets/TreesBig.png'
+import treesSmall from '../../assets/TreesSmall.png'
+import ladyLaptop from '../../assets/LadyLaptop.png'
+import manLaptop from '../../assets/ManLaptop.png'
 
 const About = () => {
     return (
@@ -11,7 +15,10 @@ const About = () => {
             />
             <img src={flowers2} alt = "two flowers"
                 style = {{position: 'relative', left: 715, top: 45, height: '3.187%', width: '3.187%'}}
-             />
+            />
+            <img src={treesBig} alt = "big trees"
+                style = {{position: 'relative', left:500, top :500, height: '3.187%', width: '3.187%'}}
+            />
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
             </style>
