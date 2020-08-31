@@ -1,6 +1,7 @@
 import React from 'react'
 import './About.css'
 import flowers3 from '../../assets/Flowers3.png'
+import flowers2 from '../../assets/Flowers2.png'
 
 const About = () => {
     return (
@@ -8,6 +9,9 @@ const About = () => {
             <img src={flowers3} alt = "three flowers" 
                 style = {{position: 'relative', left: 260, top: 113, height: '3.187%', width: '3.187%'}}
             />
+            <img src={flowers2} alt = "two flowers"
+                
+                />
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
             </style>
