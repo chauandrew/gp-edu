@@ -17,13 +17,13 @@ const About = () => {
                 style = {{position: 'relative', left: 715, top: 45, height: '3.187%', width: '3.187%'}}
             />
             <img src={treesBig} alt = "big trees"
-                style = {{position: 'relative', left: 480, top: 370, height: '12%', width: '12%'}}
+                style = {{position: 'relative', left: 510, top: 370, height: '12%', width: '12%'}}
             />
             <img src={treesSmall} alt = "small trees"
                 style = {{position: 'relative', left: 1000, top: 388, height: '9%', width: '9%'}}
             />
             <img src={ladyLaptop} alt = "lady laptop"
-                style = {{position: 'relative', left: 410, top: 307, height: '9.3%', width: '9.3%'}}
+                style = {{position: 'relative', left: 440, top: 310, height: '9.1%', width: '9.1%'}}
             />
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
