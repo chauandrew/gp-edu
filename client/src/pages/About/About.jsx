@@ -17,7 +17,7 @@ const About = () => {
                 style = {{position: 'relative', left: 715, top: 45, height: '3.187%', width: '3.187%'}}
             />
             <img src={treesBig} alt = "big trees"
-                style = {{position: 'relative', left: 545, top: 370, height: '12%', width: '12%'}}
+                style = {{position: 'relative', left: 565, top: 370, height: '12%', width: '12%'}}
             />
             <img src={treesSmall} alt = "small trees"
                 style = {{position: 'relative', left: 1000, top: 388, height: '9%', width: '9%'}}
