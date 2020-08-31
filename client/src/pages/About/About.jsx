@@ -1,10 +1,11 @@
 import React from 'react'
 import './About.css'
-import flower3 from '../../assets/Flowers3.png'
+import flowers3 from '../../assets/Flowers3.png'
 
 const About = () => {
     return (
         <div className="page-content">
+            <img src={flowers3} alt = "three flowers" />
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
             </style>
