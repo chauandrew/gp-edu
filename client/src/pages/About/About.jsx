@@ -1,6 +1,6 @@
 import React from 'react'
 import './About.css'
-import flower3 from client/src/assets/Flower3.png
+import flower3 from 'client/src/assets/Flower3.png'
 
 const About = () => {
     return (
