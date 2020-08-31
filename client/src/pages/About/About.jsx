@@ -10,8 +10,8 @@ const About = () => {
                 style = {{position: 'relative', left: 260, top: 113, height: '3.187%', width: '3.187%'}}
             />
             <img src={flowers2} alt = "two flowers"
-                
-                />
+                style = {{position: 'relative', left: 820, top; 113, height: '3.187%', width: '3.187%'}}
+             />
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
             </style>
