@@ -6,7 +6,7 @@ const About = () => {
     return (
         <div className="page-content">
             <img src={flowers3} alt = "three flowers" 
-                style = {{position: 'relative', left: 260 top: 113, height: '3.187%', width: '3.187%'}}
+                style = {{position: 'relative', left: 260, top: 113, height: '3.187%', width: '3.187%'}}
             />
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
