@@ -5,7 +5,7 @@ import flowers3 from '../../assets/Flowers3.png'
 const About = () => {
     return (
         <div className="page-content">
-            <img src={flowers3} alt = "three flowers" height={200} width={200} />
+            <img src={flowers3} alt = "three flowers" height={200} width={100%} />
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
             </style>
