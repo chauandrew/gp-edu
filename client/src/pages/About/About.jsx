@@ -25,6 +25,9 @@ const About = () => {
             <img src={ladyLaptop} alt = "lady laptop"
                 style = {{position: 'relative', left: 440, top: 310, height: '9.1%', width: '9.1%'}}
             />
+            <img src={manLaptop} alt = "man laptop"
+                style = {{position: 'relative', left: 640, top: 250, height: '9.1%', width: '9.1%'}}
+            />
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
             </style>
