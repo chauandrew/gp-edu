@@ -85,11 +85,10 @@ export default {
     createChapter: function(courseId, chapterName, sequence=null) {
         let data = {
             courseId: courseId,
-            chapter: chapterName,
+            chapterName: chapterName,
             sequence: sequence
         }
         return getAuthToken().then(function(authToken) {
-
             let config = {
                 headers: { Authorization: `Bearer ${authToken}` }
             }
@@ -108,7 +107,7 @@ export default {
             let config = {
                 headers: { Authorization: `Bearer ${authToken}` }
             }
-            return axios.post(`${prefix}/api/v1/courses/create/lesson`, data, config.headers)
+            return axios.post(`${prefix}/api/v1/courses/create/lesson`, data, config)
         })
     }
 }
