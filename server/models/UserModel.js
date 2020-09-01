@@ -17,8 +17,8 @@ const getUserByUid = async (uid) => {
 const createUser = async (user) => {
     if ("firstName" in user && "lastName" in user && "uid" in user &&
         "email" in user && "birthday" && "gradeTypeId" in user) {
-        let query = 'INSERT INTO users(id, uid, firstname, lastname, email, birthday, created_date, grade_type_id)' + 
-                     'VALUES (default, $1, $2, $3, $4, $5, NOW(), $6)'
+        let query = 'INSERT INTO users(id, uid, firstname, lastname, email, birthday, created_date, grade_type_id, is_admin)' + 
+                    'VALUES (default, $1, $2, $3, $4, $5, NOW(), $6, false)'
         let values = [user.uid, user.firstName, user.lastName, user.email, user.birthday, user.gradeTypeId]
         return pgclient.query(query, values, (err, response) => {
             if (err) {
@@ -31,7 +31,21 @@ const createUser = async (user) => {
     throw new Error("Need firstname, lastname, uid, email, birthday, and gradeTypeId to create a user in the db") // bad request
 }
 
+/**
+ * Is the user with the given uid an admin?
+ * @param {String} uid 
+ */
+const isAdmin = async (uid) => {
+    let err, res = await pgclient.query("SELECT * FROM users u WHERE uid=$1", [uid])
+    if (!err) {
+        return res.rows
+    } else {
+        throw new Error(err)
+    }
+}
+
 module.exports = {
     getUserByUid: getUserByUid,
-    createUser: createUser
+    createUser: createUser,
+    isAdmin: isAdmin
 }

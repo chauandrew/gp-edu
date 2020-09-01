@@ -8,7 +8,9 @@ import Subject from './Subject/Subject';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import Error404 from './404/404';
+import Admin from './Admin/Admin';
 
 export {
-    Homepage, About, Profile, Courses, Browse, Subject, Login, Signup, Error404
+    Homepage, About, Profile, Courses, Browse, Subject, Login, 
+    Signup, Error404, Admin
 }

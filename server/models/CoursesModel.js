@@ -110,6 +110,47 @@ const getCourse = async (field) => {
 }
 
 /**
+ * Get subject by id  or by name
+ * @param {*} searchField 
+ */
+const getSubject = async (searchField) => {
+    let query = ""
+    if (Number.isInteger(searchField)) {
+        searchField = parseInt(searchField)
+        query = 'SELECT * FROM subjects WHERE id = $1'
+    } else if (typeof(searchField) == "string") {
+        query = 'SELECT * FROM subjects WHERE subject_name = $1'
+    }
+    let err, res = await pgclient.query(query, [searchField])
+    if (!err) {
+        return res.rows 
+    } else {
+        throw new Error(err)
+    }
+}
+
+/**
+ * Get chapter by id or by name
+ * @param {*} searchField 
+ */
+const getChapter = async (searchField) => {
+    let query = ""
+    if (Number.isInteger(searchField)) {
+        searchField = parseInt(searchField)
+        query = 'SELECT * FROM chapters WHERE id = $1'
+    } else if (typeof(searchField) == "string") {
+        query = 'SELECT * FROM chapters WHERE chapter_name = $1'
+    }
+    let err, res = await pgclient.query(query, [searchField])
+    if (!err) {
+        return res.rows 
+    } else {
+        throw new Error(err)
+    }
+}
+
+
+/**
  * Get the next chapter OR null if given the last chapter
  * @param {Integer} chapterId 
  */
@@ -152,6 +193,74 @@ const getCoursesBySubject = async (searchField) => {
     }
 }
 
+/**
+ * Create a new course in the given subject
+ * @param {integer} subjectId 
+ * @param {name of new course} courseName 
+ * @param {integer (optional)} sequence 
+ */
+const createCourse = async (subjectId, courseName, sequence=null) => {
+    let query = "INSERT INTO courses values (default, $1, $2, $3)"
+    let values = [courseName, subjectId, sequence]
+    let err, response = await pgclient.query(query, values)
+    if (err) {
+        throw new Error(err)
+    }
+    return response.rows
+}
+
+/**
+ * Create a new chapter with the appropriate parameters, sequence defaults to
+ * null
+ * @param {Integer} subjectId 
+ * @param {Integer} courseId 
+ * @param {String} chapterName 
+ * @param {Integer} sequence 
+ */
+const createChapter = async (subjectId, courseId, chapterName, sequence=null) => {
+    let query = "INSERT INTO chapters values (default, $1, $2, $3, $4)"
+    let values = [chapterName, subjectId, courseId, sequence]
+    let err, response = await pgclient.query(query, values)
+    if (err) {
+        throw new Error(err)
+    }
+    return response.rows
+}
+
+/**
+ * 
+ * @param {Integer} chapterId 
+ * @param {Integer} lessonNum 
+ * @param {String} contentUrl 
+ * @param {String} description 
+ */
+const createLesson = async (chapterId, lessonNum, contentUrl, description) => {
+    let query = "INSERT INTO lessons values (default, $1, $2, $3, $4)"
+    let values = [chapterId, lessonNum, contentUrl, description]
+    let err, response = await pgclient.query(query, values)
+    if (err) {
+        throw new Error(err)
+    }
+    return response.rows
+}
+
+/**
+ * return list of all chapters with a given courseId
+ * @param {Integer} courseId 
+ */
+const getChaptersByCourseId = async (courseId) => {
+    if (!parseInt(courseId)) {
+        throw new Error(`courseId must be an integer: received ${courseId}`)
+    }
+    let query = "SELECT * FROM chapters WHERE course_id = $1"
+    let err, res = await pgclient.query(query, [courseId])
+    if (!err) {
+        return res.rows
+    } else {
+        throw new Error(err);
+    }
+}
+
 module.exports = {
     getAllSubjects: getAllSubjects,
     getAllSubjectsAndCourses: getAllSubjectsAndCourses,
@@ -159,6 +268,12 @@ module.exports = {
     getFirstChapter: getFirstChapter,
     enrollInCourse: enrollInCourse,
     getCourse: getCourse,
+    getSubject: getSubject,
+    getChapter: getChapter,
     getNextChapter: getNextChapter,
-    getCoursesBySubject: getCoursesBySubject
+    getCoursesBySubject: getCoursesBySubject,
+    createCourse: createCourse,
+    createChapter: createChapter,
+    createLesson: createLesson,
+    getChaptersByCourseId: getChaptersByCourseId
 }
