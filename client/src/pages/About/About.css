@@ -1,1 +1,79 @@
+.flowers3 {
+  position: relative;
+  left: 260px;
+  top: 113px;
+  height: 3.187%;
+  width: 3.187%;
+}
 
+.flowers2 {
+  /*display: inline-block;
+  float: right;
+  margin-right: 50%;*/
+  position: relative;
+  left: 715px;
+  top: 45px;
+  height: 3.187%;
+  width: 3.187%;
+}
+
+.bigTrees {
+  position: relative;
+  left: 565px;
+  top: 370px;
+  height: 12%;
+  width: 12%;
+}
+
+.smallTrees {
+  position: relative;
+  left: 1000px;
+  top: 388px;
+  height: 9%;
+  width: 9%;
+}
+
+.ladyLaptop {
+  position: relative;
+  left: 490px;
+  top: 310px;
+  height: 9.1%;
+  width: 9.1%;
+}
+
+.manLaptop  {
+  position: relative;
+  left: 505px;
+  top: 291px;
+  height: 12%;
+  width: 12%;
+}
+
+.about-style {
+  position: absolute;
+  font-size: 35px;
+  font-weight: bold;
+  font-family: DM Sans;
+  letter-spacing: 0.07em;
+}
+
+#title {
+  font-size: 18px;
+}
+
+#description {
+  font-size: 12px;
+  font-family: Helvetica;
+  font-weight: normal;
+  line-height: 169.5%;
+  width: 250px;
+}
+
+@media screen and (max-width: 1200px) {
+  .about-style {
+    width: 100%;
+  }
+  /*#image {
+    width: 3.5%;
+  }*/
+}
