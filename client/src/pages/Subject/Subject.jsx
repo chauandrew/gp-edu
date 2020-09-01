@@ -1,36 +1,3 @@
-<<<<<<< HEAD
-import React, {useState, useEffect} from 'react'
-import { useParams } from 'react-router-dom'
-import api from '../../utils/api'
-import './Subject.css'
-
-const Subject = () => {
-    const { subjectId } = useParams()
-    const [courses, setCourses] = useState([])
-
-    var courseList = ""
-    if (courses) {
-        for (let i in courses) {
-            courseList += `${courses[i].course_name}, `
-        }
-    }
-
-    useEffect(() => {
-        api.getCoursesBySubject(subjectId).then(c => {
-            console.log(c.data)
-            setCourses(c.data)
-        })
-    }, [subjectId])
-
-    return (
-        <div className="page-content">
-            <h1>Subject: {subjectId}</h1>
-            <p>{courseList}</p>
-        </div>
-    )
-}
-
-=======
 import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import api from '../../utils/api'
@@ -117,5 +84,4 @@ const Subject = () => {
     )
 }
 
->>>>>>> e12fa1283fd8445f2ae7adf5a0f65df6bdb7dba7
 export default Subject

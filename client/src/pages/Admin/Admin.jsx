@@ -15,7 +15,7 @@ const Admin = ({ currentUser }) => {
     const [subjects, setSubjects] = useState(null) 
     const [selectedSubjectId, setSelectedSubjectId] = useState(null)
     const [courses, setCourses] = useState(null) 
-    const [selectedCourse, setSelectedCourse] = useState(null)
+    const [selectedCourseId, setSelectedCourseId] = useState(null)
     const [chapters, setChapters] = useState(null)
 
 
@@ -66,8 +66,24 @@ const Admin = ({ currentUser }) => {
 
     const handleCreateLesson = async (ev) => {
         ev.preventDefault() // don't reload page
-        closeLessonModal()
-        createToast("creating a lesson!")
+        const {chapterId, lessonDescription, contentUrl} = ev.target.elements
+        if (!chapterId.value || !parseInt(chapterId.value)) {
+            createToast("You must select a chapter")
+            return
+        } else if (!lessonDescription.value) {
+            createToast("You must add a description to the lesson!")
+            return
+        } else if (!contentUrl.value) {
+            createToast("You must enter a valid URL")
+            return
+        }
+
+        api.createLesson(chapterId.value, null, contentUrl.value, 
+            lessonDescription.value)
+            .then(()=> {
+                closeLessonModal()
+                createToast("creating a lesson!")
+            }).catch((err) => createToast(err))
     }
 
     // Get all available subjects
@@ -98,7 +114,21 @@ const Admin = ({ currentUser }) => {
         }
     }
 
-    // TODO: get chapters by selected course
+    // get chapters by selected course
+    useEffect(() => {
+        if (courses && selectedCourseId) {
+            api.getChaptersByCourseId(selectedCourseId).then((res) => {
+                setChapters(res.data)
+            })
+        }
+    }, [selectedCourseId])
+    var chapterOptions = [<option value="" key="">Choose...</option>]
+    if (chapters) {
+        for (let i in chapters) {
+            chapterOptions.push(<option value={chapters[i].id}
+                key={chapters[i].id}>{chapters[i].chapter_name}</option>)
+        }
+    }
 
 
     if (!currentUser) {
@@ -169,8 +199,41 @@ const Admin = ({ currentUser }) => {
                     </Form>
                 </Modal.Body>
             </Modal>
+
+            {/* Modal to create a new lesson */}
             <Modal show={lessonModalState} onHide={closeLessonModal}>
                 <Modal.Header closeButton>New Lesson:</Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleCreateLesson}>
+                        <Form.Group>
+                            <Form.Label>Subject</Form.Label>
+                            <Form.Control as="select" 
+                                onChange={(ev) => setSelectedSubjectId(ev.target.value)}>
+                                {subjectOptions}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Course</Form.Label>
+                            <Form.Control as="select" 
+                                onChange={(ev) => setSelectedCourseId(ev.target.value)}>
+                                {courseOptions}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="chapterId">
+                            <Form.Label>Chapter</Form.Label>
+                            <Form.Control as="select">{chapterOptions}</Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="lessonDescription">
+                            <Form.Label>Lesson Description</Form.Label>
+                            <Form.Control Placeholder="eg. This lesson will teach you..." />
+                        </Form.Group>
+                        <Form.Group controlId="contentUrl">
+                            <Form.Label>Link to Content</Form.Label>
+                            <Form.Control Placeholder="https://youtube.com/..." />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">Submit</Button>
+                    </Form>
+                </Modal.Body>
             </Modal>
             
         </div>

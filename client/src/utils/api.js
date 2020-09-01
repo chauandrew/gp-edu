@@ -50,7 +50,7 @@ export default {
 
     // Return a list of chapters by the courseId (Integer)
     getChaptersByCourseId: function(courseId) {
-        return axios.get(`${prefix}/api/v1/${courseId}/chapters`)
+        return axios.get(`${prefix}/api/v1/courses/${courseId}/chapters`)
     },
 
     // Get all courses a user is enrolled in
