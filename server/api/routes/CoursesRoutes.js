@@ -21,6 +21,15 @@ router.get('/all', (_, res) => {
     }
 })
 
+router.get('/:courseId/chapters', (req, res) => {
+    CoursesService.getChatpersByCourseId(req.params.courseId)
+        .then(rows => res.json(rows))
+        .catch(err => {
+            res.status(400)
+            res.send(err)
+        })
+})
+    
 /**
  * Return a list of the courses a user is enrolled in
  */
@@ -142,5 +151,6 @@ router.post('/create/lesson', checkIfAdmin, (req, res) => {
             res.send(`${err}`)
         })
 })
+
 
 module.exports = router;

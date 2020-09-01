@@ -168,7 +168,6 @@ const getNextChapter = async (chapterId) => {
     }
 }
 
-
 /**
  * Get all courses related to a subject, grouped by subjectId (Integer) or 
  * subjectName (String)
@@ -245,6 +244,23 @@ const createLesson = async (chapterId, lessonNum, contentUrl, description) => {
     return response.rows
 }
 
+/**
+ * return list of all chapters with a given courseId
+ * @param {Integer} courseId 
+ */
+const getChaptersByCourseId = async (courseId) => {
+    if (!parseInt(courseId)) {
+        throw new Error(`courseId must be an integer: received ${courseId}`)
+    }
+    let query = "SELECT * FROM chapters WHERE course_id = $1"
+    let err, res = await pgclient.query(query, [courseId])
+    if (!err) {
+        return res.rows
+    } else {
+        throw new Error(err);
+    }
+}
+
 module.exports = {
     getAllSubjects: getAllSubjects,
     getAllSubjectsAndCourses: getAllSubjectsAndCourses,
@@ -258,5 +274,6 @@ module.exports = {
     getCoursesBySubject: getCoursesBySubject,
     createCourse: createCourse,
     createChapter: createChapter,
-    createLesson: createLesson
+    createLesson: createLesson,
+    getChaptersByCourseId: getChaptersByCourseId
 }

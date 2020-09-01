@@ -28,6 +28,20 @@ const getAllSubjectsAndCourses = async () => {
 }
 
 /**
+ * Return a list of courses associated with a particular courseId
+ * @param {Integer} courseId 
+ */
+const getChaptersByCourseId = async (courseId) => {
+    if (parseInt(courseId)) {
+        return CoursesModel.getChaptersByCourseId(courseId)
+    }
+    else {
+        throw new Error (`courseId must be an integer: given ${courseId}`)
+    }
+}
+
+
+/**
  * Get all courses in a subject by subjectId or by subject_name
  * @param {String} field 
  */
@@ -157,6 +171,7 @@ const createLesson = async (chapterId, lessonNum=null, contentUrl, description) 
 module.exports = {
     getAllSubjects: getAllSubjects,
     getAllSubjectsAndCourses: getAllSubjectsAndCourses,
+    getChatpersByCourseId: getChaptersByCourseId,
     getEnrolledCourses: getEnrolledCourses,
     enrollInCourse: enrollInCourse,
     getCoursesBySubject: getCoursesBySubject,
