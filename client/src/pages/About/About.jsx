@@ -1,16 +1,16 @@
 import React from 'react'
 import './About.css'
-import flowers3 from '../../assets/Flowers3.png'
-import flowers2 from '../../assets/Flowers2.png'
-import treesBig from '../../assets/TreesBig.png'
-import treesSmall from '../../assets/TreesSmall.png'
-import ladyLaptop from '../../assets/LadyLaptop.png'
-import manLaptop from '../../assets/ManLaptop.png'
+import flowers3 from '../../assets/about_assets/Flowers3.png'
+import flowers2 from '../../assets/about_assets/Flowers2.png'
+import treesBig from '../../assets/about_assets/TreesBig.png'
+import treesSmall from '../../assets/about_assets/TreesSmall.png'
+import ladyLaptop from '../../assets/about_assets/LadyLaptop.png'
+import manLaptop from '../../assets/about_assets/ManLaptop.png'
 
 const About = () => {
     return (
         <div className="page-content">
-            <img src={flowers3} alt = "three flowers" 
+            <img src={flowers3} alt = "three flowers"
                 style = {{position: 'relative', left: 260, top: 113, height: '3.187%', width: '3.187%'}}
             />
             <img src={flowers2} alt = "two flowers"
