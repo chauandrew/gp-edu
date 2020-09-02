@@ -217,9 +217,10 @@ const createCourse = async (subjectId, courseName, sequence=null) => {
  * @param {String} chapterName 
  * @param {Integer} sequence 
  */
-const createChapter = async (subjectId, courseId, chapterName, sequence=null) => {
-    let query = "INSERT INTO chapters values (default, $1, $2, $3, $4)"
-    let values = [chapterName, subjectId, courseId, sequence]
+const createChapter = async (subjectId, courseId, chapterName, sequence=null, description) => {
+    let query = "INSERT INTO chapters (id, chapter_name, subject_id, course_id, chapter_num, description) " +
+                "values (default, $1, $2, $3, $4, $5)"
+    let values = [chapterName, subjectId, courseId, sequence, description]
     let err, response = await pgclient.query(query, values)
     if (err) {
         throw new Error(err)
@@ -234,9 +235,10 @@ const createChapter = async (subjectId, courseId, chapterName, sequence=null) =>
  * @param {String} contentUrl 
  * @param {String} description 
  */
-const createLesson = async (chapterId, lessonNum, contentUrl, description) => {
-    let query = "INSERT INTO lessons values (default, $1, $2, $3, $4)"
-    let values = [chapterId, lessonNum, contentUrl, description]
+const createLesson = async (chapterId, courseId, lessonName, lessonNum, contentUrl, description) => {
+    let query = "INSERT INTO lessons (id, chapter_id, course_id, lesson_name, lesson_num, content_url, description)" + 
+                "values (default, $1, $2, $3, $4, $5, $6)"
+    let values = [chapterId, courseId, lessonName, lessonNum, contentUrl, description]
     let err, response = await pgclient.query(query, values)
     if (err) {
         throw new Error(err)

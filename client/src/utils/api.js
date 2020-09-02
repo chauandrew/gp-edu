@@ -82,11 +82,12 @@ export default {
         })
     },
 
-    createChapter: function(courseId, chapterName, sequence=null) {
+    createChapter: function(courseId, chapterName, sequence=null, description) {
         let data = {
             courseId: courseId,
             chapterName: chapterName,
-            sequence: sequence
+            sequence: sequence,
+            description: description
         }
         return getAuthToken().then(function(authToken) {
             let config = {
@@ -96,9 +97,11 @@ export default {
         })
     },
 
-    createLesson: function(chapterId, lessonNum=null, contentUrl, description) {
+    createLesson: function(chapterId, courseId, lessonName, lessonNum=null, contentUrl, description) {
         let data = {
             chapterId: chapterId,
+            courseId: courseId,
+            lessonName: lessonName,
             lessonNum: lessonNum,
             contentUrl: contentUrl,
             description: description
