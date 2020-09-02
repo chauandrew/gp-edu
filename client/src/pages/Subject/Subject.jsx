@@ -24,17 +24,17 @@ const Subject = () => {
         case "humanities":
             txtColor = '#6391C0'
             btnColor = '#92B2D3'
-            hvrColor = '#'
+            hvrColor = '#2784C7'
             break
         case "life skills":
             txtColor = '#6EA1A1'
             btnColor = '#92B8B9'
-            hvrColor = '#'
+            hvrColor = '#73A58E'
             break
         case "computer science":
             txtColor = '#7A7DCA'
             btnColor = '#A2A4DA'
-            hvrColor = '#'
+            hvrColor = '#786EC4'
             break
     }
 
@@ -44,7 +44,7 @@ const Subject = () => {
             let element = 
                 <div class="topicList">
                     <h4 class="courseName" style={{color:txtColor}}>{courses[i].course_name}</h4>
-                    <div class="btn-group">
+                    <div class="btn-group" style={{backgroundColor:btnColor}}>
                         <a href="#" class="button">Topic 1</a>
                         <a href="#" class="button">Topic 2</a>
                     </div>
