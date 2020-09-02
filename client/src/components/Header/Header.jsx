@@ -29,13 +29,28 @@ const Header = () => {
   useEffect(() => {
     api.getAllSubjects().then((res) => {
       // Create nav dropdown items for each subject
+      let data = res.data
       let navElements = []
-      for (let subjectName in res.data) {
+      var courseList = []
+      for (let subjectName in data) {
         // TODO: You can find courses in res.data[subjectName]
-        // console.log(res.data)
-        navElements.push(<NavDropdown.Item href={"/subjects/" + subjectName}>
-                  {subjectName.toUpperCase()}</NavDropdown.Item>)
+        console.log(data)
+        var courses = data[subjectName]
+        for (let i in courses) {
+          // let element = 
+          //     <div class="topicList">
+          //         <h4 class="courseName" style={{color:txtColor}}>{courses[i].course_name}</h4>
+          //         <div class="btn-group">
+          //             <a href="#" class="button">Topic 1</a>
+          //             <a href="#" class="button">Topic 2</a>
+          //         </div>
+          //     </div>
+          // courseList.push(element)
+          console.log(courses[i].course_name)
+        }
+        navElements.push(<NavDropdown.Item href={"/subjects/" + subjectName}>{subjectName.toUpperCase()}</NavDropdown.Item>)
       }
+      console.log(courses);
       // wrap elements in a dropdown
       let dropdown = <NavDropdown renderMenuOnMount={true} title="COURSES" id="basic-nav-dropdown" 
         className='text-body mt-auto mb-auto dropdown-nav-link-edit nav-link nav-link-fade-up'>{navElements}</NavDropdown>
@@ -55,8 +70,7 @@ const Header = () => {
     var profileElement =
       <NavDropdown title="MY PROFILE" renderMenuOnMount={true} id='profile-dropdown' className="dropdown-menu-right dropdown-nav-link-edit nav-link nav-link-fade-up">
         <NavDropdown.Item href='/profile' className='text-secondary mt-auto mb-auto'>Profile</NavDropdown.Item>
-        <NavDropdown.Item href='/login' className='text-secondary mt-auto mb-auto'
-          onClick={() => { db.auth().signOut() }}>Logout</NavDropdown.Item>
+        <NavDropdown.Item href='/login' className='text-secondary mt-auto mb-auto' onClick={() => { db.auth().signOut() }}>Logout</NavDropdown.Item>
       </NavDropdown>
   }
 
@@ -76,7 +90,7 @@ const Header = () => {
   return (
     <Navbar collapseOnSelect fixed='top' expand='lg' bg='light' className="font-weight-bold">
       <Navbar.Brand href='/' id="navbrand">
-        <img src={logo} alt='logo' width='50' height='50'></img>
+        <img src={logo} alt='logo' width='50' height='50' id="logo"></img>
         AREA YOUTH EDUCATION
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
