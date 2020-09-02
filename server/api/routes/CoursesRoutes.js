@@ -120,7 +120,7 @@ router.post('/create/chapter', checkIfAdmin, (req, res) => {
         res.send("courseId and chapterName must be specified!")
     }
     CoursesService.createChapter(req.body.courseId, req.body.chapterName, 
-        req.body.sequence)
+        req.body.sequence, req.body.description)
         .then(chapter => res.json(chapter))
         .catch(err => {
             res.status(400)
@@ -138,13 +138,14 @@ router.post('/create/chapter', checkIfAdmin, (req, res) => {
  * Handle to the new chapter
  */
 router.post('/create/lesson', checkIfAdmin, (req, res) => {
-    if (!("chapterId" in req.body) || !("contentUrl" in req.body) ||
-        !("description" in req.body)) {
+    if (!("chapterId" in req.body) || !("courseId" in req.body) || 
+        !("contentUrl" in req.body) || !("description" in req.body)) {
         res.status(400)
-        res.send("chapterId, contentUrl, and description must be specified!")
+        res.send("chapterId, courseId, contentUrl, and description must be specified!")
     }
-    CoursesService.createLesson(req.body.chapterId, req.body.lessonNum, 
-        req.body.contentUrl, req.body.description)
+    CoursesService.createLesson(req.body.chapterId, req.body.courseId, 
+        req.body.lessonName, req.body.lessonNum, req.body.contentUrl, 
+        req.body.description)
         .then(chapter => res.json(chapter))
         .catch(err => {
             res.status(400)
