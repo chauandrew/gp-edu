@@ -28,6 +28,20 @@ const getAllSubjectsAndCourses = async () => {
 }
 
 /**
+ * Return course details given a courseId or courseName
+ * @param {*} courseId 
+ */
+const getCourse = async (courseId) => {
+    if (parseInt(courseId)) {
+        return CoursesModel.getCourse(parseInt(courseId))
+    } else if (courseId) {
+        return CoursesModel.getCourse(courseId)
+    } else {
+        throw new Error ('courseId cannot be null or blank')
+    }
+}
+
+/**
  * Return a list of courses associated with a particular courseId
  * @param {Integer} courseId 
  */
@@ -168,8 +182,21 @@ const createLesson = async (chapterId, lessonNum=null, contentUrl, description) 
 }
 
 
+/**
+ * get standalone lessons + first lesson of each chapter
+ * @param {Integer} courseId 
+ */
+const getCourseOverview = async(courseId) => {
+    if (!parseInt(courseId)) {
+        throw new Error(`courseId must be an integer: received ${courseId}`)
+    }
+    return CoursesModel.getCourseOverview(courseId)
+}
+
+
 module.exports = {
     getAllSubjects: getAllSubjects,
+    getCourse: getCourse,
     getAllSubjectsAndCourses: getAllSubjectsAndCourses,
     getChatpersByCourseId: getChaptersByCourseId,
     getEnrolledCourses: getEnrolledCourses,
@@ -177,5 +204,6 @@ module.exports = {
     getCoursesBySubject: getCoursesBySubject,
     createCourse: createCourse,
     createChapter: createChapter,
-    createLesson: createLesson
+    createLesson: createLesson,
+    getCourseOverview: getCourseOverview
 }

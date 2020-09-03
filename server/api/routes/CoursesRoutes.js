@@ -21,9 +21,30 @@ router.get('/all', (_, res) => {
     }
 })
 
+/**
+ * Get a course by its id
+ */
+router.get('/:courseId', (req, res) => {
+    try {
+        CoursesService.getCourse(req.params.courseId).then(course => {res.json(course)})
+    } catch (err) {
+        res.status(400)
+        res.send(err)
+    }
+})
+
 router.get('/:courseId/chapters', (req, res) => {
     CoursesService.getChatpersByCourseId(req.params.courseId)
         .then(rows => res.json(rows))
+        .catch(err => {
+            res.status(400)
+            res.send(err)
+        })
+})
+
+router.get('/:courseId/overview', (req, res) => {
+    CoursesService.getCourseOverview(req.params.courseId)
+        .then(lessons => res.json(lessons))
         .catch(err => {
             res.status(400)
             res.send(err)
