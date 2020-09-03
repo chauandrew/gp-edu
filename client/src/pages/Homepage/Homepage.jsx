@@ -1,7 +1,7 @@
 import React from 'react';
 import './Homepage.css';
 import yellowBanner from '../../assets/YellowBanner.png'
-import eduIcons from '../../assets/EducationImages.png'
+import eduImages from '../../assets/EducationImages.png'
 import robot from '../../assets/Robot.png'
 
 const Homepage = ({history}) => {
@@ -15,6 +15,7 @@ const Homepage = ({history}) => {
       </h2>
       
       <img src={yellowBanner} alt = "yellow banner" id="image" className="yellowBanner"/>
+      <img src={eduImages} alt = "education images" id="image" className="eduImages"/>
     </div>
   );
 }
