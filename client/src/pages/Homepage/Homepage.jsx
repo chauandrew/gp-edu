@@ -13,6 +13,8 @@ const Homepage = ({history}) => {
       <h2 className= "click" style = {{left:100, top: 210}}>
         Click on a subject to get started!
       </h2>
+      
+      <img src={yellowBanner} alt = "yellow banner" id="image" className="yellowBanner"/>
     </div>
   );
 }
