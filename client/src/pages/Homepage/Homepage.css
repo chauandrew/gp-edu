@@ -15,7 +15,7 @@
 }
 
 .yellowBanner {
-  position: relative;
+  position: absolute;
   left: 0px;
   top: 120px;
   height: 10%;
