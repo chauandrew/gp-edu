@@ -7,6 +7,9 @@ const Homepage = ({history}) => {
       <h1 className="welcome" style = {{left: 100, top: 115}}>
         HI THERE. WELCOME!
       </h1>
+      <h2 className= "click" style = {{left:100, top: 140}}>
+        Click on a subject to get started!
+      </h2>
     </div>
   );
 }
