@@ -21,3 +21,11 @@
   height: 55%;
   width: 100%;
 }
+
+.eduImages {
+  position: absolute;
+  left: 100px;
+  top: 350px;
+  height: 100%;
+  widthh: 100%;
+}
