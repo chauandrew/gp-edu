@@ -7,62 +7,46 @@ const Subject = () => {
     const { subjectId } = useParams()
     const [courses, setCourses] = useState([])
 
-    if (subjectId) {
-        var color
-        if (subjectId == "math") {
-            color = "red"
-        }
-        if (subjectId == "science") {
-            color = "orange"
-        }
-        if (subjectId == "humanities") {
-            color = "blue"
-        }
-        if (subjectId == "life skills") {
-            color = "green"
-        }
-        if (subjectId == "computer science") {
-            color = "purple"
-        }
-    }
-
-    if (color) {
-        if (color == "red") {
-            var txtColor = '#BA4040'
-            var btnColor = '#D66E6E'
-            var hvrColor = '#BA0000'
-        }
-        if (color == "orange") {
-            var txtColor = '#CB815C'
-            var btnColor = '#DBA78D'
-            var hvrColor = '#'
-        }
-        if (color == "blue") {
-            var txtColor = '#6391C0'
-            var btnColor = '#92B2D3'
-            var hvrColor = '#'
-        }
-        if (color == "green") {
-            var txtColor = '#6EA1A1'
-            var btnColor = '#92B8B9'
-            var hvrColor = '#'
-        }
-        if (color == "purple") {
-            var txtColor = '#7A7DCA'
-            var btnColor = '#A2A4DA'
-            var hvrColor = '#'
-        }
+    var txtColor
+    var btnColor
+    var hvrColor
+    switch (subjectId) {
+        case "math":
+            txtColor = '#BA4040'
+            btnColor = '#D66E6E'
+            hvrColor = '#BA0000'
+            break
+        case "science":
+            txtColor = '#CB815C'
+            btnColor = '#DBA78D'
+            hvrColor = '#FD6A02'
+            break
+        case "humanities":
+            txtColor = '#6391C0'
+            btnColor = '#92B2D3'
+            hvrColor = '#2784C7'
+            break
+        case "life skills":
+            txtColor = '#6EA1A1'
+            btnColor = '#92B8B9'
+            hvrColor = '#73A58E'
+            break
+        case "computer science":
+            txtColor = '#7A7DCA'
+            btnColor = '#A2A4DA'
+            hvrColor = '#786EC4'
+            break
     }
 
     var courseList = []
     if (courses) {
         for (let i in courses) {
             let element = 
-                <div class="topicList">
-                    <h4 class="courseName" style={{color:txtColor}}>{courses[i].course_name}</h4>
-                    <div class="btn-group">
-                        <a href="#" class="button">Topic 1</a>
-                        <a href="#" class="button">Topic 2</a>
+                <div className="topicList">
+                    <h4 className="courseName" style={{color:txtColor}}>{courses[i].course_name}</h4>
+                    <div className="btn-group" style={{backgroundColor:btnColor}} onMouseEnter="">
+                        <a href="#" className="button" id="topic1">Topic 1</a>
+                        <a href="#" className="button">Topic 2</a>
                     </div>
                 </div>
             courseList.push(element)
@@ -77,9 +61,12 @@ const Subject = () => {
     }, [subjectId])
 
     return (
-        <div class="page-content" className="page-content">
+        <div id="subjectPage" className="page-content">
             <h1>{subjectId}</h1>
             {courseList}
+            <script>
+                document.getElementById("topic1").style.backgroundColor = hvrColor
+            </script>
         </div>
     )
 }

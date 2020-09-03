@@ -1,10 +1,8 @@
-.page-content {
+#subjectPage {
 	padding: 10%;
 }
 
 .button {
-	background-color: #D66E6E;
-	border: 1px solid #D66E6E;
 	color: white;
 	padding: 12px 24px;
 	cursor: pointer;
@@ -26,7 +24,6 @@
   
 /* Change background color on hover */
 .button:hover {
-	background-color: #BA0000;
 	color: white;
 	text-decoration: none;
 }
