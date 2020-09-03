@@ -6,7 +6,6 @@ import './Homepage.css';
 const Homepage = ({history}) => {
   return (
     <div className="page-content"> 
-      <HeroImage value="Welcome to Gracepoint Education!" src={Placeholders.wide}/>
       
     </div>
   );
