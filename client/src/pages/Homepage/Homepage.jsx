@@ -1,7 +1,7 @@
 import React from 'react';
 import './Homepage.css';
 import yellowBanner from '../../assets/YellowBanner.png'
-import eduIcons from '../../assets/EducationIcons.png'
+import eduIcons from '../../assets/EducationImages.png'
 import robot from '../../assets/Robot.png'
 
 const Homepage = ({history}) => {
