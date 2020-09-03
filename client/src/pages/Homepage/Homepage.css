@@ -17,15 +17,15 @@
 .yellowBanner {
   position: absolute;
   left: 0px;
-  top: 210px;
+  top: 230px;
   height: 55%;
   width: 100%;
 }
 
 .eduImages {
   position: absolute;
-  left: 100px;
+  left: 120px;
   top: 300px;
   height: 25%;
-  widthh: 30%;
+  widthh: 33%;
 }
