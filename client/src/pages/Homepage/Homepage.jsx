@@ -16,6 +16,7 @@ const Homepage = ({history}) => {
       
       <img src={yellowBanner} alt = "yellow banner" id="image" className="yellowBanner"/>
       <img src={eduImages} alt = "education images" id="image" className="eduImages"/>
+      <img src={robot} alt = "robott" id="image" className="robot"/>
     </div>
   );
 }
