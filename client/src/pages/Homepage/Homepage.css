@@ -5,3 +5,11 @@
   font-family: Sofia Pro;
   letter-spacing: 0.07em;
 }
+
+.click {
+  position: absolute;
+  font-size: 22px;
+  font-weight: normal;
+  font-family: Helvetica Neue;
+  letter-spacing: 0.1em;
+}
