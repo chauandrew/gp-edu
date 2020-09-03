@@ -13,3 +13,11 @@
   font-family: Helvetica Neue;
   letter-spacing: 0.1em;
 }
+
+.yellowBanner {
+  position: relative;
+  left: 0px;
+  top: 300px;
+  height: 3.187%;
+  width: 3.187%;
+}
