@@ -18,7 +18,6 @@ const Admin = ({ currentUser }) => {
     const [selectedCourseId, setSelectedCourseId] = useState(null)
     const [chapters, setChapters] = useState(null)
 
-
     // handlers to show/hide modals
     const closeCourseModal = () => {setCourseModalState(false)}
     const showCourseModal = () => {setCourseModalState(true)}
@@ -48,16 +47,19 @@ const Admin = ({ currentUser }) => {
 
     const handleCreateChapter = async (ev) => {
         ev.preventDefault() // don't reload page
-        const {courseId, chapterName} = ev.target.elements
+        const {courseId, chapterName, chapterDescription} = ev.target.elements
         if (!courseId.value || !parseInt(courseId.value)) {
             createToast("You must select a course")
             return
-        } else if (!chapterName.value) {
-            createToast("You must write a chapter name")
+        } else if (!chapterName.value || chapterName.value.length > 255) {
+            createToast("You must write a chapter name (up to 255 chars)")
+            return
+        } else if (!chapterDescription.value || chapterDescription.value.length > 255) {
+            createToast("Please write a description for your chapter (up to 255 chars)")
             return
         }
 
-        api.createChapter(courseId.value, chapterName.value, null)
+        api.createChapter(courseId.value, chapterName.value, null, chapterDescription.value)
             .then(() => {
                 closeChapterModal()
                 createToast("Chapter successfully created!")
@@ -66,23 +68,29 @@ const Admin = ({ currentUser }) => {
 
     const handleCreateLesson = async (ev) => {
         ev.preventDefault() // don't reload page
-        const {chapterId, lessonDescription, contentUrl} = ev.target.elements
-        if (!chapterId.value || !parseInt(chapterId.value)) {
-            createToast("You must select a chapter")
+        const {chapterId, lessonCourseId, lessonName, lessonDescription, contentUrl} = ev.target.elements
+        if (!lessonCourseId.value || !parseInt(lessonCourseId.value)) {
+            createToast("You must select a course!")
             return
-        } else if (!lessonDescription.value) {
-            createToast("You must add a description to the lesson!")
+        } else if (chapterId.value && !parseInt(chapterId.value)) {
+            createToast("chapter value must be an integer")
             return
-        } else if (!contentUrl.value) {
-            createToast("You must enter a valid URL")
+        } else if (!lessonName.value || lessonName.value.length > 63) {
+            createToast("You must name your lesson (up to 63 chars)")
+            return;
+        } else if (!lessonDescription.value || lessonDescription.value.length > 255) {
+            createToast("You must add a description to the lesson! (up to 255 chars)")
+            return
+        } else if (!contentUrl.value || contentUrl.value.length > 255) {
+            createToast("You must enter a valid URL (up to 255 chars)")
             return
         }
 
-        api.createLesson(chapterId.value, null, contentUrl.value, 
-            lessonDescription.value)
+        api.createLesson(chapterId.value, lessonCourseId.value, lessonName.value, 
+            null, contentUrl.value, lessonDescription.value)
             .then(()=> {
                 closeLessonModal()
-                createToast("creating a lesson!")
+                createToast("Successfully created lesson!")
             }).catch((err) => createToast(err))
     }
 
@@ -122,7 +130,7 @@ const Admin = ({ currentUser }) => {
             })
         }
     }, [selectedCourseId])
-    var chapterOptions = [<option value="" key="">Choose...</option>]
+    var chapterOptions = [<option value="" key="">None</option>]
     if (chapters) {
         for (let i in chapters) {
             chapterOptions.push(<option value={chapters[i].id}
@@ -130,11 +138,12 @@ const Admin = ({ currentUser }) => {
         }
     }
 
-
+    // Only admin is allowed to access this page
     if (!currentUser) {
         return <Loading active={!currentUser} />
     }
     if (!currentUser.is_admin) {
+        createToast("You must be an admin to access this page!")
         window.location.href="/"
     }
 
@@ -195,6 +204,10 @@ const Admin = ({ currentUser }) => {
                             <Form.Label>Chapter Name</Form.Label>
                             <Form.Control Placeholder="Mitochondria" />
                         </Form.Group>
+                        <Form.Group controlId="chapterDescription">
+                            <Form.Label>Chapter Description</Form.Label>
+                            <Form.Control as="textarea" Placeholder="This chapter covers..." />
+                        </Form.Group>
                         <Button variant="primary" type="submit">Submit</Button>
                     </Form>
                 </Modal.Body>
@@ -212,7 +225,7 @@ const Admin = ({ currentUser }) => {
                                 {subjectOptions}
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group controlId="lessonCourseId">
                             <Form.Label>Course</Form.Label>
                             <Form.Control as="select" 
                                 onChange={(ev) => setSelectedCourseId(ev.target.value)}>
@@ -222,10 +235,17 @@ const Admin = ({ currentUser }) => {
                         <Form.Group controlId="chapterId">
                             <Form.Label>Chapter</Form.Label>
                             <Form.Control as="select">{chapterOptions}</Form.Control>
+                            <Form.Text className="text-muted">
+                                If no chapter is selected, this will be created as a standalone lesson.
+                            </Form.Text>
+                        </Form.Group>
+                        <Form.Group controlId="lessonName">
+                            <Form.Label>Lesson Name</Form.Label>
+                            <Form.Control Placeholder="Intro to Photoshop"/>
                         </Form.Group>
                         <Form.Group controlId="lessonDescription">
                             <Form.Label>Lesson Description</Form.Label>
-                            <Form.Control Placeholder="eg. This lesson will teach you..." />
+                            <Form.Control as="textarea" Placeholder="This lesson will teach you..." />
                         </Form.Group>
                         <Form.Group controlId="contentUrl">
                             <Form.Label>Link to Content</Form.Label>

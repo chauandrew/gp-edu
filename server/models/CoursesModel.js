@@ -217,9 +217,10 @@ const createCourse = async (subjectId, courseName, sequence=null) => {
  * @param {String} chapterName 
  * @param {Integer} sequence 
  */
-const createChapter = async (subjectId, courseId, chapterName, sequence=null) => {
-    let query = "INSERT INTO chapters values (default, $1, $2, $3, $4)"
-    let values = [chapterName, subjectId, courseId, sequence]
+const createChapter = async (subjectId, courseId, chapterName, sequence=null, description) => {
+    let query = "INSERT INTO chapters (id, chapter_name, subject_id, course_id, chapter_num, description) " +
+                "values (default, $1, $2, $3, $4, $5)"
+    let values = [chapterName, subjectId, courseId, sequence, description]
     let err, response = await pgclient.query(query, values)
     if (err) {
         throw new Error(err)
@@ -234,9 +235,10 @@ const createChapter = async (subjectId, courseId, chapterName, sequence=null) =>
  * @param {String} contentUrl 
  * @param {String} description 
  */
-const createLesson = async (chapterId, lessonNum, contentUrl, description) => {
-    let query = "INSERT INTO lessons values (default, $1, $2, $3, $4)"
-    let values = [chapterId, lessonNum, contentUrl, description]
+const createLesson = async (chapterId, courseId, lessonName, lessonNum, contentUrl, description) => {
+    let query = "INSERT INTO lessons (id, chapter_id, course_id, lesson_name, lesson_num, content_url, description)" + 
+                "values (default, $1, $2, $3, $4, $5, $6)"
+    let values = [chapterId, courseId, lessonName, lessonNum, contentUrl, description]
     let err, response = await pgclient.query(query, values)
     if (err) {
         throw new Error(err)
@@ -260,6 +262,40 @@ const getChaptersByCourseId = async (courseId) => {
         throw new Error(err);
     }
 }
+/**
+ * get standalone lessons + first lesson of each chapter
+ * @param {Integer} courseId 
+ */
+const getCourseOverview = async (courseId) => {
+    if (!parseInt(courseId)) {
+        throw new Error(`courseId must be an integer: received ${courseId}`)
+    }
+    courseId = parseInt(courseId)
+    let query = `
+        select c.id as course_id, 
+        	coalesce(ch.id, le.chapter_id) as chapter_id,
+        	le.id as lesson_id,
+        	coalesce(ch.chapter_name, le.lesson_name) as lesson_name,
+        	coalesce(ch.description, le.description) as description, 
+        	le.content_url 
+        from courses c
+        left join chapters ch on ch.course_id = c.id 
+        left join (
+        	select distinct on (l.chapter_id) 
+        		l.id, l.chapter_id, l.course_id, l.lesson_name, l.lesson_num,
+        		l.content_url, l.description 
+        	from lessons l
+            order by l.chapter_id, l.lesson_num
+            ) as le on le.course_id = c.id and (le.chapter_id = ch.id or le.chapter_id isnull)
+        where coalesce(ch.chapter_name, le.lesson_name) notnull 
+        and c.id = $1`
+    let err, res = await pgclient.query(query, [courseId])
+    if (!err) {
+        return res.rows 
+    } else {
+        throw new Error(err)
+    }
+}
 
 module.exports = {
     getAllSubjects: getAllSubjects,
@@ -275,5 +311,6 @@ module.exports = {
     createCourse: createCourse,
     createChapter: createChapter,
     createLesson: createLesson,
-    getChaptersByCourseId: getChaptersByCourseId
+    getChaptersByCourseId: getChaptersByCourseId,
+    getCourseOverview: getCourseOverview
 }
