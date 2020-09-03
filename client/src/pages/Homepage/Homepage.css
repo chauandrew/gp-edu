@@ -1,7 +1,7 @@
 .welcome {
   position: absolute;
   font-size: 60px;
-  font-weight: 1400;
+  font-weight: bold;
   font-family: Sofia Pro;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.7em;
 }
