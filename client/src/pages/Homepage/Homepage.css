@@ -1,6 +1,6 @@
 .welcome {
   position: absolute;
-  font-size: 40px;
+  font-size: 45px;
   font-weight: 900;
   font-family: Sofia Pro;
   letter-spacing: 0.07em;
@@ -8,7 +8,7 @@
 
 .click {
   position: absolute;
-  font-size: 10px;
+  font-size: 19px;
   font-weight: normal;
   font-family: Helvetica Neue;
   letter-spacing: 0.1em;
