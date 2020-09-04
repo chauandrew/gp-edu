@@ -2,15 +2,39 @@
     display: none; 
 } */
 
+.navbar {
+    font-family: 'Karla', Arial, Helvetica, sans-serif;
+    background-color: #E2E8F0;
+}
+
 .dropdown-menu {
     right: 0;
     left: auto;
  }
 
 #navbrand {
-    font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
     font-size: 27px;
+}
+
+/* Font Colors */
+#basic-nav-dropdown {
+    color: black;
+}
+#login-link {
+    color: #7F9CF5;
+    margin-right: 20px;
+}
+#sign-up-link {
+    background-color: #7F9CF5;
+    border-radius: 20px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    width: 100px;
+    /* TODO: style button to spec */
 }
 
 .dropdown-nav-link-edit {
@@ -51,6 +75,13 @@
 .dropdown:hover .dropdown-menu {
     display: block;
 }
+
+#logo {
+    margin-right: 20px;
+}
+
+/* Horizontal Subject Navbar */
+
 
 /* @media only screen and (max-width: 768px) {
     .navbar {

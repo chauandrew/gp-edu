@@ -7,6 +7,16 @@ const Subject = () => {
     const { subjectId } = useParams()
     const [courses, setCourses] = useState([])
 
+    useEffect(() => {
+        api.getCoursesBySubject(subjectId).then(async (c) => {
+            for (let i in c.data) {
+                let chapters = await api.getCourseOverview(c.data[i].id)
+                c.data[i]['chapters'] = chapters.data
+            }
+            setCourses(c.data)
+        })
+    }, [subjectId])
+
     var txtColor
     var btnColor
     var hvrColor
@@ -44,6 +54,11 @@ const Subject = () => {
     var courseList = []
     if (courses) {
         for (let i in courses) {
+            let buttons = []
+            for (let j in courses[i].chapters) {
+                buttons.push(<a href={"/courses/" + courses[i].id} class="button">
+                    {courses[i].chapters[j].lesson_name}</a>)
+            }
             let element = 
                 <div className="topicList">
                     <h4 className="courseName" style={{color:txtColor}}>{courses[i].course_name}</h4>
@@ -56,20 +71,11 @@ const Subject = () => {
         }
     }
 
-    useEffect(() => {
-        api.getCoursesBySubject(subjectId).then(c => {
-            setCourses(c.data)
-            console.log(c.data)
-        })
-    }, [subjectId])
 
     return (
         <div id="subjectPage" className="page-content">
             <h1>{subjectId}</h1>
             {courseList}
-            <script>
-                document.getElementById("topic1").style.backgroundColor = hvrColor
-            </script>
         </div>
     )
 }

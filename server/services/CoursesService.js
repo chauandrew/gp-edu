@@ -28,6 +28,20 @@ const getAllSubjectsAndCourses = async () => {
 }
 
 /**
+ * Return course details given a courseId or courseName
+ * @param {*} courseId 
+ */
+const getCourse = async (courseId) => {
+    if (parseInt(courseId)) {
+        return CoursesModel.getCourse(parseInt(courseId))
+    } else if (courseId) {
+        return CoursesModel.getCourse(courseId)
+    } else {
+        throw new Error ('courseId cannot be null or blank')
+    }
+}
+
+/**
  * Return a list of courses associated with a particular courseId
  * @param {Integer} courseId 
  */
@@ -117,7 +131,7 @@ const createCourse = async (subjectId, courseName, sequence = null) => {
     return CoursesModel.createCourse(parseInt(subjectId), courseName, sequence);
 }
 
-const createChapter = async(courseId, chapterName, sequence=null) => {
+const createChapter = async(courseId, chapterName, sequence=null, description) => {
     // check that courseId is a number 
     if (Number.isInteger(courseId) == NaN) {
         throw new Error("'courseId' must be an integer")
@@ -136,7 +150,7 @@ const createChapter = async(courseId, chapterName, sequence=null) => {
         throw new Error(`Chapter with name ${chapterName} already exists!`)
     }
 
-    return CoursesModel.createChapter(course[0].subject_id, courseId, chapterName, sequence)
+    return CoursesModel.createChapter(course[0].subject_id, courseId, chapterName, sequence, description)
 }
 
 /**
@@ -145,31 +159,52 @@ const createChapter = async(courseId, chapterName, sequence=null) => {
  * @param {String} contentUrl 
  * @param {String} description 
  */
-const createLesson = async (chapterId, lessonNum=null, contentUrl, description) => {
-    if (Number.isInteger(chapterId) == NaN) {
-        throw new Error("'chapterId' must be an integer")
+const createLesson = async (chapterId, courseId, lessonName, lessonNum=null, contentUrl, description) => {
+    if (chapterId && Number.isInteger(chapterId) == NaN) {
+        throw new Error(`'chapterId' must be an integer, not ${chapterId}`)
+    } else if (parseInt(courseId) == NaN) {
+        throw new Error(`'courseId' must be an integer, not ${courseId}`)
+    } else if (!lessonName || lessonName.length > 63) {
+        throw new Error("'lessonName' must be specified and less than 63 characters")
     } else if (lessonNum != null && parseInt(lessonNum) == NaN) {
         throw new Error("'lessonNum' must be an integer")
-    } else if (!contentUrl) {
-        throw new Error("'contentUrl' must be specified")
-    } else if (!description) {
-        throw new Error("'description' must be specified")
+    } else if (!contentUrl || contentUrl.length > 255) {
+        throw new Error("'contentUrl' must be specified and less than 255 characters")
+    } else if (!description || description.length > 255) {
+        throw new Error("'description' must be specified and less than 255 characters")
     }
     
-    chapterId = parseInt(chapterId)
+    chapterId = chapterId ? parseInt(chapterId) : null
+    courseId = parseInt(courseId)
 
     // validate chapter exists
-    let chapter = await CoursesModel.getChapter(chapterId);
-    if (chapter.length == 0) {
-        throw new Error (`Could not find chapter with chapterId ${chapterId}`)
+    if (chapterId) {
+        let chapter = await CoursesModel.getChapter(chapterId);
+        if (chapter.length == 0) {
+            throw new Error (`Could not find chapter with chapterId ${chapterId}`)
+        }
     }
     
-    return CoursesModel.createLesson(chapterId, lessonNum, contentUrl, description)
+    return CoursesModel.createLesson(chapterId, courseId, lessonName, 
+        lessonNum, contentUrl, description)
+}
+
+
+/**
+ * get standalone lessons + first lesson of each chapter
+ * @param {Integer} courseId 
+ */
+const getCourseOverview = async(courseId) => {
+    if (!parseInt(courseId)) {
+        throw new Error(`courseId must be an integer: received ${courseId}`)
+    }
+    return CoursesModel.getCourseOverview(courseId)
 }
 
 
 module.exports = {
     getAllSubjects: getAllSubjects,
+    getCourse: getCourse,
     getAllSubjectsAndCourses: getAllSubjectsAndCourses,
     getChatpersByCourseId: getChaptersByCourseId,
     getEnrolledCourses: getEnrolledCourses,
@@ -177,5 +212,6 @@ module.exports = {
     getCoursesBySubject: getCoursesBySubject,
     createCourse: createCourse,
     createChapter: createChapter,
-    createLesson: createLesson
+    createLesson: createLesson,
+    getCourseOverview: getCourseOverview
 }

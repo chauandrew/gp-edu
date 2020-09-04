@@ -21,9 +21,30 @@ router.get('/all', (_, res) => {
     }
 })
 
+/**
+ * Get a course by its id
+ */
+router.get('/:courseId', (req, res) => {
+    try {
+        CoursesService.getCourse(req.params.courseId).then(course => {res.json(course)})
+    } catch (err) {
+        res.status(400)
+        res.send(err)
+    }
+})
+
 router.get('/:courseId/chapters', (req, res) => {
     CoursesService.getChatpersByCourseId(req.params.courseId)
         .then(rows => res.json(rows))
+        .catch(err => {
+            res.status(400)
+            res.send(err)
+        })
+})
+
+router.get('/:courseId/overview', (req, res) => {
+    CoursesService.getCourseOverview(req.params.courseId)
+        .then(lessons => res.json(lessons))
         .catch(err => {
             res.status(400)
             res.send(err)
@@ -120,7 +141,7 @@ router.post('/create/chapter', checkIfAdmin, (req, res) => {
         res.send("courseId and chapterName must be specified!")
     }
     CoursesService.createChapter(req.body.courseId, req.body.chapterName, 
-        req.body.sequence)
+        req.body.sequence, req.body.description)
         .then(chapter => res.json(chapter))
         .catch(err => {
             res.status(400)
@@ -138,13 +159,14 @@ router.post('/create/chapter', checkIfAdmin, (req, res) => {
  * Handle to the new chapter
  */
 router.post('/create/lesson', checkIfAdmin, (req, res) => {
-    if (!("chapterId" in req.body) || !("contentUrl" in req.body) ||
-        !("description" in req.body)) {
+    if (!("chapterId" in req.body) || !("courseId" in req.body) || 
+        !("contentUrl" in req.body) || !("description" in req.body)) {
         res.status(400)
-        res.send("chapterId, contentUrl, and description must be specified!")
+        res.send("chapterId, courseId, contentUrl, and description must be specified!")
     }
-    CoursesService.createLesson(req.body.chapterId, req.body.lessonNum, 
-        req.body.contentUrl, req.body.description)
+    CoursesService.createLesson(req.body.chapterId, req.body.courseId, 
+        req.body.lessonName, req.body.lessonNum, req.body.contentUrl, 
+        req.body.description)
         .then(chapter => res.json(chapter))
         .catch(err => {
             res.status(400)
