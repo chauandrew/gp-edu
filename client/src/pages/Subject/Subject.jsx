@@ -38,14 +38,17 @@ const Subject = () => {
             break
     }
 
+    document.documentElement.style.setProperty(`--btnColor`, `${btnColor}`);
+    document.documentElement.style.setProperty(`--hvrColor`, `${hvrColor}`);
+
     var courseList = []
     if (courses) {
         for (let i in courses) {
             let element = 
                 <div className="topicList">
                     <h4 className="courseName" style={{color:txtColor}}>{courses[i].course_name}</h4>
-                    <div className="btn-group" style={{backgroundColor:btnColor}} onMouseEnter="">
-                        <a href="#" className="button" id="topic1">Topic 1</a>
+                    <div className="btn-group">
+                        <a href="#" className="button">Topic 1</a>
                         <a href="#" className="button">Topic 2</a>
                     </div>
                 </div>

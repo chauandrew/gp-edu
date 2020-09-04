@@ -1,8 +1,14 @@
+:root {
+	--btnColor: none;
+	--hvrColor: none;
+}
+
 #subjectPage {
 	padding: 10%;
 }
 
 .button {
+	background-color: var(--btnColor);
 	color: white;
 	padding: 12px 24px;
 	cursor: pointer;
@@ -24,6 +30,7 @@
   
 /* Change background color on hover */
 .button:hover {
+	background-color: var(--hvrColor);
 	color: white;
 	text-decoration: none;
 }
