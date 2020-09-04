@@ -176,9 +176,9 @@ const getNextChapter = async (chapterId) => {
 const getCoursesBySubject = async (searchField) => {
     let query = ""
     if (Number.isInteger(searchField)) {
-        query = `SELECT * FROM courses WHERE subject_id = $1 ORDER BY sequence`
+        query = `SELECT c.* FROM courses WHERE subject_id = $1 ORDER BY sequence`
     } else if (typeof(searchField) == "string") {
-        query =`SELECT * FROM courses c 
+        query =`SELECT c.* FROM courses c 
                 JOIN subjects s ON c.subject_id = s.id 
                 WHERE s.subject_name = $1
                 ORDER BY sequence`
@@ -262,6 +262,40 @@ const getChaptersByCourseId = async (courseId) => {
         throw new Error(err);
     }
 }
+/**
+ * get standalone lessons + first lesson of each chapter
+ * @param {Integer} courseId 
+ */
+const getCourseOverview = async (courseId) => {
+    if (!parseInt(courseId)) {
+        throw new Error(`courseId must be an integer: received ${courseId}`)
+    }
+    courseId = parseInt(courseId)
+    let query = `
+        select c.id as course_id, 
+        	coalesce(ch.id, le.chapter_id) as chapter_id,
+        	le.id as lesson_id,
+        	coalesce(ch.chapter_name, le.lesson_name) as lesson_name,
+        	coalesce(ch.description, le.description) as description, 
+        	le.content_url 
+        from courses c
+        left join chapters ch on ch.course_id = c.id 
+        left join (
+        	select distinct on (l.chapter_id) 
+        		l.id, l.chapter_id, l.course_id, l.lesson_name, l.lesson_num,
+        		l.content_url, l.description 
+        	from lessons l
+            order by l.chapter_id, l.lesson_num
+            ) as le on le.course_id = c.id and (le.chapter_id = ch.id or le.chapter_id isnull)
+        where coalesce(ch.chapter_name, le.lesson_name) notnull 
+        and c.id = $1`
+    let err, res = await pgclient.query(query, [courseId])
+    if (!err) {
+        return res.rows 
+    } else {
+        throw new Error(err)
+    }
+}
 
 module.exports = {
     getAllSubjects: getAllSubjects,
@@ -277,5 +311,6 @@ module.exports = {
     createCourse: createCourse,
     createChapter: createChapter,
     createLesson: createLesson,
-    getChaptersByCourseId: getChaptersByCourseId
+    getChaptersByCourseId: getChaptersByCourseId,
+    getCourseOverview: getCourseOverview
 }

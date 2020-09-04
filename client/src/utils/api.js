@@ -48,6 +48,10 @@ export default {
         return axios.get(`${prefix}/api/v1/courses/all`)
     },
 
+    getCourse: function(courseId) {
+        return axios.get(`${prefix}/api/v1/courses/${courseId}`)
+    },
+
     // Return a list of chapters by the courseId (Integer)
     getChaptersByCourseId: function(courseId) {
         return axios.get(`${prefix}/api/v1/courses/${courseId}/chapters`)
@@ -112,5 +116,9 @@ export default {
             }
             return axios.post(`${prefix}/api/v1/courses/create/lesson`, data, config)
         })
+    },
+
+    getCourseOverview: function(courseId) {
+        return axios.get(`${prefix}/api/v1/courses/${courseId}/overview`)
     }
 }
