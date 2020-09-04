@@ -16,13 +16,14 @@ const reactBuildPath = path.join(__dirname + '/client/build/index.html')
 app.use(express.static(path.join(__dirname, '/client/build')))
 app.get('/', (_, res) => { res.sendFile(reactBuildPath); })
 app.get('/browse', (_, res) => { res.sendFile(reactBuildPath); })
-app.get('/courses', (_, res) => { res.sendFile(reactBuildPath); })
+app.get('/courses/*', (_, res) => { res.sendFile(reactBuildPath); })
 app.get('/profile', (_, res) => { res.sendFile(reactBuildPath); })
 app.get('/about', (_, res) => { res.sendFile(reactBuildPath); })
 app.get('/subjects/*', (_, res) => { res.sendFile(reactBuildPath); })
 app.get('/login', (_, res) => { res.sendFile(reactBuildPath); })
 app.get('/signup', (_, res) => { res.sendFile(reactBuildPath); })
 app.get('/404', (_, res) => { res.sendFile(reactBuildPath); })
+app.get('/admin', (_, res) => { res.sendFile(reactBuildPath); })
 
 // API calls organized in server/api/index
 const routes = require('./server/api/index');

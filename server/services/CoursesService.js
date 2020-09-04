@@ -1,6 +1,7 @@
 const CoursesModel = require('../models/CoursesModel')
 const UserModel = require('../models/UserModel')
-const { getCourse } = require('../models/CoursesModel')
+
+// TODO: Function to change sequence of course / chapter / steps
 
 /**
  * return a list of all subjects
@@ -25,6 +26,20 @@ const getAllSubjectsAndCourses = async () => {
     }
     return response
 }
+
+/**
+ * Return a list of courses associated with a particular courseId
+ * @param {Integer} courseId 
+ */
+const getChaptersByCourseId = async (courseId) => {
+    if (parseInt(courseId)) {
+        return CoursesModel.getChaptersByCourseId(courseId)
+    }
+    else {
+        throw new Error (`courseId must be an integer: given ${courseId}`)
+    }
+}
+
 
 /**
  * Get all courses in a subject by subjectId or by subject_name
@@ -63,7 +78,6 @@ const enrollInCourse = async (uid, courseId) => {
         let user = await UserModel.getUserByUid(uid)
         userId = user.id
     }
-    console.log(userId)
     return CoursesModel.getFirstChapter(courseId).then(
         (firstChapter) => {
             return CoursesModel.enrollInCourse(userId, courseId, firstChapter.id)
@@ -71,10 +85,97 @@ const enrollInCourse = async (uid, courseId) => {
     )
 }
 
+/**
+ * Create a new course
+ * @param {Integer} subjectId 
+ * @param {String} courseName 
+ * @param {Integer} sequence 
+ */
+const createCourse = async (subjectId, courseName, sequence = null) => {
+    // check that subjectId is a number 
+    if (Number.isInteger(subjectId) == NaN) {
+        throw new Error("'subjectId' must be an integer")
+    } else if (sequence != null && parseInt(sequence) == NaN) {
+        throw new Error("'sequence' must be an integer")
+    }
+    // use lowercase course name w/ ' ' instead of '_'
+    courseName = courseName.toLowerCase().split('_').join(' ')
+    subjectId = parseInt(subjectId)
+
+    // make sure subject is valid and course is not already created
+    let [subject, courses] = await Promise.all(
+        [CoursesModel.getSubject(subjectId), CoursesModel.getCoursesBySubject(subjectId)])
+    if (subject.length == 0) {
+        throw new Error(`Could not find subject with id ${subjectId}`)
+    }
+    for (let i in courses) {
+        if (courses[i].course_name == courseName) {
+            throw new Error(`Course name ${courseName} already exists!`)
+        }
+    }
+
+    return CoursesModel.createCourse(parseInt(subjectId), courseName, sequence);
+}
+
+const createChapter = async(courseId, chapterName, sequence=null) => {
+    // check that courseId is a number 
+    if (Number.isInteger(courseId) == NaN) {
+        throw new Error("'courseId' must be an integer")
+    } else if (sequence != null && parseInt(sequence) == NaN) {
+        throw new Error("'sequence' must be an integer")
+    }
+
+    courseId = parseInt(courseId)
+
+    // validate courseId exists and chapter isn't a duplicate
+    let [course, chapter] = await Promise.all(
+        [CoursesModel.getCourse(courseId), CoursesModel.getChapter(chapterName)])
+    if (course.length == 0) {
+        throw new Error(`Could not find course with courseId ${courseId}`)
+    } else if (chapter.length != 0) {
+        throw new Error(`Chapter with name ${chapterName} already exists!`)
+    }
+
+    return CoursesModel.createChapter(course[0].subject_id, courseId, chapterName, sequence)
+}
+
+/**
+ * @param {Integer} chapterId 
+ * @param {Integer} lessonNum 
+ * @param {String} contentUrl 
+ * @param {String} description 
+ */
+const createLesson = async (chapterId, lessonNum=null, contentUrl, description) => {
+    if (Number.isInteger(chapterId) == NaN) {
+        throw new Error("'chapterId' must be an integer")
+    } else if (lessonNum != null && parseInt(lessonNum) == NaN) {
+        throw new Error("'lessonNum' must be an integer")
+    } else if (!contentUrl) {
+        throw new Error("'contentUrl' must be specified")
+    } else if (!description) {
+        throw new Error("'description' must be specified")
+    }
+    
+    chapterId = parseInt(chapterId)
+
+    // validate chapter exists
+    let chapter = await CoursesModel.getChapter(chapterId);
+    if (chapter.length == 0) {
+        throw new Error (`Could not find chapter with chapterId ${chapterId}`)
+    }
+    
+    return CoursesModel.createLesson(chapterId, lessonNum, contentUrl, description)
+}
+
+
 module.exports = {
     getAllSubjects: getAllSubjects,
     getAllSubjectsAndCourses: getAllSubjectsAndCourses,
+    getChatpersByCourseId: getChaptersByCourseId,
     getEnrolledCourses: getEnrolledCourses,
     enrollInCourse: enrollInCourse,
-    getCoursesBySubject: getCoursesBySubject
+    getCoursesBySubject: getCoursesBySubject,
+    createCourse: createCourse,
+    createChapter: createChapter,
+    createLesson: createLesson
 }

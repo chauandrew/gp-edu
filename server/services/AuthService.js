@@ -17,4 +17,12 @@ const createUser = async (userData) => {
     }
 }
 
-module.exports = { createUser: createUser }
+const isAdmin = async (uid) => {
+    rows = await UserModel.isAdmin(uid)
+    return (rows.length > 0 && rows[0].is_admin)
+}
+
+module.exports = { 
+    createUser: createUser,
+    isAdmin: isAdmin
+}

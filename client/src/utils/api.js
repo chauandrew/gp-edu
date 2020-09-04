@@ -48,6 +48,11 @@ export default {
         return axios.get(`${prefix}/api/v1/courses/all`)
     },
 
+    // Return a list of chapters by the courseId (Integer)
+    getChaptersByCourseId: function(courseId) {
+        return axios.get(`${prefix}/api/v1/courses/${courseId}/chapters`)
+    },
+
     // Get all courses a user is enrolled in
     getEnrolledCourses: function() {
         return getAuthToken().then(function(authToken) {
@@ -61,5 +66,48 @@ export default {
     // get courses by subject name OR id 
     getCoursesBySubject: function(field) {
         return axios.get(`${prefix}/api/v1/courses/subjects/${field}`)
+    },
+
+    createCourse: function(subjectId, courseName, sequence) {
+        let data = {
+            subjectId: subjectId,
+            courseName: courseName,
+            sequence: sequence
+        }
+        return getAuthToken().then(function(authToken) {
+            let config = {
+                headers: { Authorization: `Bearer ${authToken}` }
+            }
+            return axios.post(`${prefix}/api/v1/courses/create/course`, data, config)
+        })
+    },
+
+    createChapter: function(courseId, chapterName, sequence=null) {
+        let data = {
+            courseId: courseId,
+            chapterName: chapterName,
+            sequence: sequence
+        }
+        return getAuthToken().then(function(authToken) {
+            let config = {
+                headers: { Authorization: `Bearer ${authToken}` }
+            }
+            return axios.post(`${prefix}/api/v1/courses/create/chapter`, data, config)
+        })
+    },
+
+    createLesson: function(chapterId, lessonNum=null, contentUrl, description) {
+        let data = {
+            chapterId: chapterId,
+            lessonNum: lessonNum,
+            contentUrl: contentUrl,
+            description: description
+        }
+        return getAuthToken().then(function(authToken) {
+            let config = {
+                headers: { Authorization: `Bearer ${authToken}` }
+            }
+            return axios.post(`${prefix}/api/v1/courses/create/lesson`, data, config)
+        })
     }
 }

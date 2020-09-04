@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const { checkIfAuthenticated } = require('../middleware/AuthMiddleware');
+const { checkIfAuthenticated, checkIfAdmin } = require('../middleware/AuthMiddleware');
 const CoursesService = require('../../services/CoursesService');
 
 /*
@@ -10,7 +10,7 @@ All routes have the prefix: `/api/v1/courses` *
 /**
  * Get all subjects, does NOT require auth
  */
-router.get('/all', (req, res) => {
+router.get('/all', (_, res) => {
     try {
         CoursesService.getAllSubjectsAndCourses().then((subjects) => {
             res.json(subjects)
@@ -21,6 +21,15 @@ router.get('/all', (req, res) => {
     }
 })
 
+router.get('/:courseId/chapters', (req, res) => {
+    CoursesService.getChatpersByCourseId(req.params.courseId)
+        .then(rows => res.json(rows))
+        .catch(err => {
+            res.status(400)
+            res.send(err)
+        })
+})
+    
 /**
  * Return a list of the courses a user is enrolled in
  */
@@ -72,5 +81,76 @@ router.get('/subjects/:subjectField', (req, res) => {
         res.send(err)
     }
 })
+
+/**
+ * Arguments:
+ * subjectId: Integer id of subject
+ * courseName: name of new course to create
+ * sequence: (optional) the sequence number to use
+ * 
+ * Response:
+ * Handle to the new course
+ */
+router.post('/create/course', checkIfAdmin, (req, res) => {
+    if (!("subjectId" in req.body) || !("courseName" in req.body)) {
+        res.status(400)
+        res.send("subjectId and courseName must be specified!")
+    }
+    CoursesService.createCourse(req.body.subjectId, req.body.courseName, 
+        req.body.sequence)
+        .then(course => res.json(course))
+        .catch(err => {
+            res.status(400)
+            res.send(`${err}`)
+        })
+})
+
+/**
+ * Arguments:
+ * courseId: Integer id of course
+ * chapterName: name of new chapter to create
+ * sequence: (optional) the sequence number to use
+ * 
+ * Response:
+ * Handle to the new chapter
+ */
+router.post('/create/chapter', checkIfAdmin, (req, res) => {
+    if (!("courseId" in req.body) || !("chapterName" in req.body)) {
+        res.status(400)
+        res.send("courseId and chapterName must be specified!")
+    }
+    CoursesService.createChapter(req.body.courseId, req.body.chapterName, 
+        req.body.sequence)
+        .then(chapter => res.json(chapter))
+        .catch(err => {
+            res.status(400)
+            res.send(`${err}`)
+        })
+})
+
+/**
+ * Arguments:
+ * courseId: Integer id of course
+ * chapterName: name of new chapter to create
+ * sequence: (optional) the sequence number to use
+ * 
+ * Response:
+ * Handle to the new chapter
+ */
+router.post('/create/lesson', checkIfAdmin, (req, res) => {
+    if (!("chapterId" in req.body) || !("contentUrl" in req.body) ||
+        !("description" in req.body)) {
+        res.status(400)
+        res.send("chapterId, contentUrl, and description must be specified!")
+    }
+    CoursesService.createLesson(req.body.chapterId, req.body.lessonNum, 
+        req.body.contentUrl, req.body.description)
+        .then(chapter => res.json(chapter))
+        .catch(err => {
+            res.status(400)
+            res.send(`${err}`)
+        })
+})
+
 
 module.exports = router;
