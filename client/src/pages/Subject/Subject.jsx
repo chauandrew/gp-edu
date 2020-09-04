@@ -60,17 +60,15 @@ const Subject = () => {
                     {courses[i].chapters[j].lesson_name}</a>)
             }
             let element = 
-                <div className="topicList">
+                <div className="topicList m-3">
                     <h4 className="courseName" style={{color:txtColor}}>{courses[i].course_name}</h4>
                     <div className="btn-group">
-                        <a href="#" className="button">Topic 1</a>
-                        <a href="#" className="button">Topic 2</a>
+                        {buttons}
                     </div>
                 </div>
             courseList.push(element)
         }
     }
-
 
     return (
         <div id="subjectPage" className="page-content">
