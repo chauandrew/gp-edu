@@ -201,6 +201,13 @@ const getCourseOverview = async(courseId) => {
     return CoursesModel.getCourseOverview(courseId)
 }
 
+const getRelatedLessons = async (lessonId) => {
+    if (!parseInt(lessonId)) {
+        throw new Error(`lessonId must be an integer: received ${lessonId}`)
+    }
+    lessonId = parseInt(lessonId)
+    return CoursesModel.getRelatedLessons(lessonId)
+}
 
 module.exports = {
     getAllSubjects: getAllSubjects,
@@ -213,5 +220,6 @@ module.exports = {
     createCourse: createCourse,
     createChapter: createChapter,
     createLesson: createLesson,
-    getCourseOverview: getCourseOverview
+    getCourseOverview: getCourseOverview,
+    getRelatedLessons: getRelatedLessons
 }

@@ -174,5 +174,15 @@ router.post('/create/lesson', checkIfAdmin, (req, res) => {
         })
 })
 
+// Get lessons related to a chapter
+router.get('/chapter/lesson/:lessonId', (req, res) => {
+    CoursesService.getRelatedLessons(req.params.lessonId)
+        .then(lessons => res.json(lessons))
+        .catch(err => {
+            res.status(400)
+            res.send(err)
+        })
+})
+
 
 module.exports = router;

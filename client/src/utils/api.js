@@ -56,6 +56,7 @@ export default {
     getChaptersByCourseId: function(courseId) {
         return axios.get(`${prefix}/api/v1/courses/${courseId}/chapters`)
     },
+    
 
     // Get all courses a user is enrolled in
     getEnrolledCourses: function() {
@@ -118,7 +119,13 @@ export default {
         })
     },
 
+    // get chapters / lessons for course overview page
     getCourseOverview: function(courseId) {
         return axios.get(`${prefix}/api/v1/courses/${courseId}/overview`)
+    },
+
+    // get lessons in the same chapter as a given lesson
+    getRelatedLessons: function(lessonId) {
+        return axios.get(`${prefix}/api/v1/courses/chapter/lesson/${lessonId}`)
     }
 }
