@@ -176,9 +176,9 @@ const getNextChapter = async (chapterId) => {
 const getCoursesBySubject = async (searchField) => {
     let query = ""
     if (Number.isInteger(searchField)) {
-        query = `SELECT * FROM courses WHERE subject_id = $1 ORDER BY sequence`
+        query = `SELECT c.* FROM courses WHERE subject_id = $1 ORDER BY sequence`
     } else if (typeof(searchField) == "string") {
-        query =`SELECT * FROM courses c 
+        query =`SELECT c.* FROM courses c 
                 JOIN subjects s ON c.subject_id = s.id 
                 WHERE s.subject_name = $1
                 ORDER BY sequence`
