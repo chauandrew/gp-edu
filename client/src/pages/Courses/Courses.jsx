@@ -28,6 +28,7 @@ const Courses = ({ currentUser }) => {
                             res.data[i].videoId = await getVideoId(res.data[i].content_url).id
                         }
                     }
+                    console.log(res.data)
                     setChapters(res.data);
                 })
                 .catch(err => createToast(err))
@@ -50,8 +51,9 @@ const Courses = ({ currentUser }) => {
             if (chapters[i].videoId) {
                 src=`https://img.youtube.com/vi/${chapters[i].videoId}/hqdefault.jpg`
             }
+            let lessonUrl = chapters[i].lesson_id ? "/lessons/" + chapters[i].lesson_id : "#"
             chapterElem.push(<StoryCard title={chapters[i].lesson_name} 
-                key={i} src={src} 
+                key={i} src={src} href={lessonUrl}
                 description={chapters[i].description}/>)
         }
     }

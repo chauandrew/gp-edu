@@ -34,7 +34,7 @@ const Header = () => {
       var courseList = []
       for (let subjectName in data) {
         // TODO: You can find courses in res.data[subjectName]
-        console.log(data)
+        // console.log(data)
         var courses = data[subjectName]
         for (let i in courses) {
           // let element = 
@@ -46,11 +46,11 @@ const Header = () => {
           //         </div>
           //     </div>
           // courseList.push(element)
-          console.log(courses[i].course_name)
+          // console.log(courses[i].course_name)
         }
         navElements.push(<NavDropdown.Item href={"/subjects/" + subjectName}>{subjectName.toUpperCase()}</NavDropdown.Item>)
       }
-      console.log(courses);
+      // console.log(courses);
       // wrap elements in a dropdown
       let dropdown = <NavDropdown renderMenuOnMount={true} title="COURSES" id="basic-nav-dropdown" 
         className='text-body mt-auto mb-auto dropdown-nav-link-edit nav-link nav-link-fade-up'>{navElements}</NavDropdown>
