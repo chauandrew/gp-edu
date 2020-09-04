@@ -8,6 +8,7 @@
 	cursor: pointer;
 	float: none;
 	text-align: center;
+	opacity: 0.75;
 }
 
 /* Clear floats (clearfix hack) */
@@ -24,7 +25,13 @@
   
 /* Change background color on hover */
 .button:hover {
-	background-color: #BA0000;
+	/* background-color: #BA0000; */
 	color: white;
+	text-decoration: none;
+	opacity: 1;
+}
+
+.subjectLink {
+	color:inherit;
 	text-decoration: none;
 }

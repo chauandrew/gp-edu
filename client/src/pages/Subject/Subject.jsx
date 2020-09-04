@@ -7,6 +7,16 @@ const Subject = () => {
     const { subjectId } = useParams()
     const [courses, setCourses] = useState([])
 
+    useEffect(() => {
+        api.getCoursesBySubject(subjectId).then(async (c) => {
+            for (let i in c.data) {
+                let chapters = await api.getCourseOverview(c.data[i].id)
+                c.data[i]['chapters'] = chapters.data
+            }
+            setCourses(c.data)
+        })
+    }, [subjectId])
+
     var txtColor
     var btnColor
     var hvrColor
@@ -41,24 +51,24 @@ const Subject = () => {
     var courseList = []
     if (courses) {
         for (let i in courses) {
+            let buttons = []
+            for (let j in courses[i].chapters) {
+                buttons.push(<a href={"/courses/" + courses[i].id} class="button">
+                    {courses[i].chapters[j].lesson_name}</a>)
+            }
             let element = 
                 <div class="topicList">
-                    <h4 class="courseName" style={{color:txtColor}}>{courses[i].course_name}</h4>
+                    <h4 class="courseName" style={{color:txtColor}}>
+                        <a className="subjectLink" href={"/courses/" + courses[i].id}>{courses[i].course_name}</a>
+                    </h4>
                     <div class="btn-group" style={{backgroundColor:btnColor}}>
-                        <a href="#" class="button">Topic 1</a>
-                        <a href="#" class="button">Topic 2</a>
+                        {buttons}
                     </div>
                 </div>
             courseList.push(element)
         }
     }
 
-    useEffect(() => {
-        api.getCoursesBySubject(subjectId).then(c => {
-            setCourses(c.data)
-            console.log(c.data)
-        })
-    }, [subjectId])
 
     return (
         <div className="page-content-subject">
