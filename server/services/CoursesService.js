@@ -112,8 +112,9 @@ const createCourse = async (subjectId, courseName, sequence = null) => {
     } else if (sequence != null && parseInt(sequence) == NaN) {
         throw new Error("'sequence' must be an integer")
     }
-    // use lowercase course name w/ ' ' instead of '_'
-    courseName = courseName.toLowerCase().split('_').join(' ')
+    
+    // Trim leading/trailing whitespace + use integer value of subjectId
+    courseName = courseName.trim()
     subjectId = parseInt(subjectId)
 
     // make sure subject is valid and course is not already created
