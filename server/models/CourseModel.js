@@ -141,12 +141,12 @@ const getCourseOverview = async (courseId) => {
         left join lessons l on l.course_id = c.id
         left join chapters ch on ch.id = l.chapter_id 
         where c.id = $1
-            and l.chapter_id isnull 
+            and (l.chapter_id isnull 
             or l.id in (
                 select min(id) from lessons l_inner 
                 where l_inner.chapter_id notnull
                 group by l_inner.chapter_id 
-        )`
+        ))`
     let err, res = await pgclient.query(query, [courseId])
     if (!err) {
         return res.rows 
