@@ -27,7 +27,7 @@ const Header = () => {
 
   // get subject list
   useEffect(() => {
-    api.getAllSubjects().then((res) => {
+    api.getAllSubjectsAndCourses().then((res) => {
       // Create nav dropdown items for each subject
       let data = res.data
       let navElements = []

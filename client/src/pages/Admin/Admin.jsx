@@ -101,9 +101,10 @@ const Admin = ({ currentUser }) => {
     }, [])
     var subjectOptions = [<option value="" key="">Choose...</option>]
     if (subjects) {
-        for (let subject in subjects) {
-            subjectOptions.push(<option value={subjects[subject][0].subject_id}
-                                    key={subject}>{subject}</option>)
+        for (let i in subjects) {
+            let subjectName = subjects[i].subject_name
+            subjectOptions.push(<option value={subjects[i].id}
+                                    key={subjectName}>{subjectName}</option>)
         }
     }
 

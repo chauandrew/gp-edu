@@ -45,16 +45,22 @@ export default {
 
     // Return all subjects
     getAllSubjects: function() {
-        return axios.get(`${prefix}/api/v1/courses/all`)
+        return axios.get(`${prefix}/api/v1/subject`)
     },
 
+    // All subjects + courses (eg for the navbar)
+    getAllSubjectsAndCourses: function() {
+        return axios.get(`${prefix}/api/v1/course`)
+    },
+
+    // Find a course by courseId
     getCourse: function(courseId) {
-        return axios.get(`${prefix}/api/v1/courses/${courseId}`)
+        return axios.get(`${prefix}/api/v1/course/${courseId}`)
     },
 
     // Return a list of chapters by the courseId (Integer)
     getChaptersByCourseId: function(courseId) {
-        return axios.get(`${prefix}/api/v1/courses/${courseId}/chapters`)
+        return axios.get(`${prefix}/api/v1/chapter/course/${courseId}`)
     },
     
 
@@ -64,13 +70,13 @@ export default {
             let config = {
                 headers: { Authorization: `Bearer ${authToken}` }
             }
-            return axios.get(`${prefix}/api/v1/courses/enrolled`, config)
+            return axios.get(`${prefix}/api/v1/course/enrolled`, config)
         })
     },
 
     // get courses by subject name OR id 
     getCoursesBySubject: function(field) {
-        return axios.get(`${prefix}/api/v1/courses/subjects/${field}`)
+        return axios.get(`${prefix}/api/v1/course/subject/${field}`)
     },
 
     createCourse: function(subjectId, courseName, sequence) {
@@ -83,7 +89,7 @@ export default {
             let config = {
                 headers: { Authorization: `Bearer ${authToken}` }
             }
-            return axios.post(`${prefix}/api/v1/courses/create/course`, data, config)
+            return axios.post(`${prefix}/api/v1/course/create`, data, config)
         })
     },
 
@@ -98,7 +104,7 @@ export default {
             let config = {
                 headers: { Authorization: `Bearer ${authToken}` }
             }
-            return axios.post(`${prefix}/api/v1/courses/create/chapter`, data, config)
+            return axios.post(`${prefix}/api/v1/chapter/create`, data, config)
         })
     },
 
@@ -115,17 +121,17 @@ export default {
             let config = {
                 headers: { Authorization: `Bearer ${authToken}` }
             }
-            return axios.post(`${prefix}/api/v1/courses/create/lesson`, data, config)
+            return axios.post(`${prefix}/api/v1/lesson/create`, data, config)
         })
     },
 
     // get chapters / lessons for course overview page
     getCourseOverview: function(courseId) {
-        return axios.get(`${prefix}/api/v1/courses/${courseId}/overview`)
+        return axios.get(`${prefix}/api/v1/course/${courseId}/overview`)
     },
 
     // get lessons in the same chapter as a given lesson
     getRelatedLessons: function(lessonId) {
-        return axios.get(`${prefix}/api/v1/courses/chapter/lesson/${lessonId}`)
+        return axios.get(`${prefix}/api/v1/lesson/${lessonId}/related`)
     }
 }
