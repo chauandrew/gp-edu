@@ -5,14 +5,14 @@ var UserModel = require('../models/UserModel')
 const createUser = async (userData) => {
     if ("firstName" in userData && "lastName" in userData && 
         "email" in userData && "password" in userData &&
-        "birthday" in userData && "gradeTypeId" in userData) {
+        "gradYear" in userData) {
         const user = await admin.auth().createUser(userData); //create user in firebase
         userData['uid'] = user.uid
         userData['password'] = null
-        UserModel.createUser(userData); // create user in postgres
+        await UserModel.createUser(userData); // create user in postgres
         return user;
     } else {
-        console.log("Must supply email, password, birthday, firstName, lastName, role, and grade fields to create a user!");
+        console.log("Must supply email, password, firstName, lastName, and gradYear fields to create a user!");
         return null;
     }
 }

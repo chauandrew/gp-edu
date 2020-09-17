@@ -23,18 +23,16 @@ export default {
     },
 
     // Create a user
-    createUser: function(firstName, lastName, birthday, 
-                         gradeTypeId, email, password) {
+    createUser: function(firstName, lastName, gradYear, email, password) {
         const config = {
             method: 'post',
             url: `${prefix}/auth/signup`,
             data: {
                 firstName: firstName, lastName: lastName, 
-                birthday: birthday, email: email, 
-                password: password, 
-                gradeTypeId: gradeTypeId
+                email: email, password: password, 
+                gradYear: gradYear
             }
-        }; 
+        };
         return axios(config);
     },
 
