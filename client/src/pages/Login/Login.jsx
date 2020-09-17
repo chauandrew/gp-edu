@@ -17,7 +17,6 @@ const Login = ({ history }) => {
         const { email, password } = event.target.elements;
 
         try {
-            console.log(email.value);
             const { user } = await db.auth().signInWithEmailAndPassword(
                 email.value, password.value);
             // reroute if verified, otherwise display error toast

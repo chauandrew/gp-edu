@@ -16,10 +16,10 @@ const getUserByUid = async (uid) => {
 
 const createUser = async (user) => {
     if ("firstName" in user && "lastName" in user && "uid" in user &&
-        "email" in user && "birthday" && "gradeTypeId" in user) {
-        let query = 'INSERT INTO users(id, uid, firstname, lastname, email, birthday, created_date, grade_type_id, is_admin)' + 
-                    'VALUES (default, $1, $2, $3, $4, $5, NOW(), $6, false)'
-        let values = [user.uid, user.firstName, user.lastName, user.email, user.birthday, user.gradeTypeId]
+        "email" in user && "gradYear" in user) {
+        let query = 'INSERT INTO users(id, uid, firstname, lastname, email, created_date, is_admin, grad_year)' + 
+                    'VALUES (default, $1, $2, $3, $4, NOW(), false, $5)'
+        let values = [user.uid, user.firstName, user.lastName, user.email, user.gradYear]
         return pgclient.query(query, values, (err, response) => {
             if (err) {
                 throw new Error(`Error: Could not create user ${user}: ${err}`)
@@ -28,7 +28,7 @@ const createUser = async (user) => {
             }
         })
     }
-    throw new Error("Need firstname, lastname, uid, email, birthday, and gradeTypeId to create a user in the db") // bad request
+    throw new Error("Need firstname, lastname, uid, email, and gradeTypeId to create a user in the db") // bad request
 }
 
 /**
