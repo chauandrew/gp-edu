@@ -16,7 +16,7 @@ const Homepage = ({history}) => {
           HI THERE. WELCOME!
         </h1>
       </div>
-      <div className="typewriter2">
+      <div className="typewriter">
         <h2 className= "click" style = {{left:100, top: 180}}>
           Click on a subject to get started!
         </h2>
