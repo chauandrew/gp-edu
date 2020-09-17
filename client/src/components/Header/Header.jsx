@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown, Container, Col, Row } from 'react-bootstrap';
 
 import { AuthContext } from "../../auth/Auth";
 import * as icons from "../../assets/icons";
@@ -31,29 +31,22 @@ const Header = () => {
       // Create nav dropdown items for each subject
       let data = res.data
       let navElements = []
-      var courseList = []
       for (let subjectName in data) {
-        // TODO: You can find courses in res.data[subjectName]
-        // console.log(data)
-        var courses = data[subjectName]
+        let courses = data[subjectName]
+        let subject = (<NavDropdown.Item className="font-weight-bold text-center" href={"/subjects/" + subjectName}>
+                          {subjectName.toUpperCase()}</NavDropdown.Item>)
+        let courseElements = []
         for (let i in courses) {
-          // let element = 
-          //     <div class="topicList">
-          //         <h4 class="courseName" style={{color:txtColor}}>{courses[i].course_name}</h4>
-          //         <div class="btn-group">
-          //             <a href="#" class="button">Topic 1</a>
-          //             <a href="#" class="button">Topic 2</a>
-          //         </div>
-          //     </div>
-          // courseList.push(element)
-          // console.log(courses[i].course_name)
+          courseElements.push(<NavDropdown.Item href={"/courses/" + courses[i].course_id}>
+                                {courses[i].course_name.toUpperCase()}</NavDropdown.Item>)
         }
-        navElements.push(<NavDropdown.Item href={"/subjects/" + subjectName}>{subjectName.toUpperCase()}</NavDropdown.Item>)
+        navElements.push(<Col><Row className="text-center">{subject}</Row><Row>{courseElements}</Row></Col>)
       }
-      // console.log(courses);
       // wrap elements in a dropdown
       let dropdown = <NavDropdown renderMenuOnMount={true} title="COURSES" id="basic-nav-dropdown" 
-        className='text-body mt-auto mb-auto dropdown-nav-link-edit nav-link nav-link-fade-up'>{navElements}</NavDropdown>
+                      className="dropdown-nav-link-edit nav-link nav-link-fade-up">
+          <Container>{navElements}</Container>
+          </NavDropdown>
       setSubjectElement(dropdown)
     })
   }, [])
@@ -68,17 +61,14 @@ const Header = () => {
       </>
   } else {
     var profileElement =
-      <NavDropdown title="MY PROFILE" renderMenuOnMount={true} id='profile-dropdown' className="dropdown-menu-right dropdown-nav-link-edit nav-link nav-link-fade-up">
+      <NavDropdown title="MY PROFILE" renderMenuOnMount={true} id='profile-dropdown' className="dropdown-nav-link-edit nav-link nav-link-fade-up">
         <NavDropdown.Item href='/profile' className='text-secondary mt-auto mb-auto'>Profile</NavDropdown.Item>
         <NavDropdown.Item href='/login' className='text-secondary mt-auto mb-auto' onClick={() => { db.auth().signOut() }}>Logout</NavDropdown.Item>
       </NavDropdown>
   }
 
   if (currentUser) {
-    var endNavElement = 
-      <>
-        {profileElement}
-      </>
+    var endNavElement = <>{profileElement}</>
   } else {
     var endNavElement = 
       <>
