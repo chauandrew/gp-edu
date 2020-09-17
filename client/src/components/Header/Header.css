@@ -1,7 +1,3 @@
-/* #profile-dropdown.nav-link::after{
-    display: none; 
-} */
-
 .navbar {
     font-family: 'Karla', Arial, Helvetica, sans-serif;
     background-color: #E2E8F0;
@@ -10,6 +6,7 @@
 .dropdown-menu {
     right: 0;
     left: auto;
+    width: max-content;
  }
 
 #navbrand {
