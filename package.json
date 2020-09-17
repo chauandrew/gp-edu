@@ -20,6 +20,7 @@
     "firebase-admin": "^9.0.0",
     "get-video-id": "^3.1.4",
     "nodemon": "^2.0.4",
-    "pg": "^8.3.0"
+    "pg": "^8.3.0",
+    "node-forge": ">=0.10.0"
   }
 }
