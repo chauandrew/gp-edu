@@ -41,41 +41,6 @@ router.get('/:courseId/overview', (req, res) => {
             res.send(err)
         })
 })
-    
-/** 
- * Return a list of the courses a user is enrolled in
- */
-router.get('/enrolled', checkIfAuthenticated, (req, res) => {
-    try {
-        CourseService.getEnrolledCourses(req.authId).then(
-            (courses) => { res.json(courses) 
-        })
-    } catch (err) {
-        res.status(400);
-        res.send(err)
-    }
-})
-
-/**
- * Arguments
- * courseId: course to enroll in
- * 
- * Response:
- * Course we just enrolled in OR null if already enrolled
- */
-router.post('/enroll', checkIfAuthenticated, (req, res) => {
-    if (!("courseId" in req.body)) {
-        res.status(400)
-        res.send("courseId must be specified!")
-    }
-    try {
-        CourseService.enrollInCourse(req.authId, req.body.courseId).then(
-            (courses) => { res.json(courses) })
-    } catch (err) {
-        res.status(400);
-        res.send(err)
-    }
-})
 
 /**
  * Arguments

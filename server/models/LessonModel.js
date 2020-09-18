@@ -1,6 +1,25 @@
 const pgclient = require('../loaders/postgres')
 
 /**
+ * Get a lesson by its id
+ * @param {Integer} lessonId 
+ */
+const getLessonById = async(lessonId) => {
+    if (!parseInt(lessonId)) {
+        throw new Error(`lessonId must be an integer: received ${lessonId}`)
+    }
+    let query = "SELECT * FROM lessons WHERE id = $1"
+    let err, response = await pgclient.query(query, [lessonId])
+    if (err) {
+        throw new Error(err)
+    } else if (response.rowCount != 0) {
+        return response.rows[0]
+    } else {
+        return null
+    }
+}
+
+/**
  * Create a lesson with the appropriate information
  * @param {Integer} chapterId 
  * @param {Integer} lessonNum 
@@ -48,7 +67,59 @@ const getRelatedLessons = async (lessonId) => {
     }
 }
 
+
+/**
+ * Return all of a user's lesson progress
+ * @param {Integer} userId a user's postgres serial id (int)
+ */
+const getLessonProgress = async (userId) => {
+    if (!parseInt(userId)) {
+        throw new Error(`userId must be an integer: received ${userId}`)
+    }
+    let query = 
+    `SELECT up.*, c.course_name, ch.chapter_name, l.lesson_name, ups.name, ups.nicename 
+        FROM user_progress up
+        JOIN courses c ON up.course_id = c.id
+        left JOIN chapters ch on up.chapter_id = ch.id
+        JOIN lessons l on up.lesson_id = l.id
+        join user_progress_status ups on up.user_progress_status_type = ups.id 
+        WHERE up.user_id = $1`
+    let err, res = await pgclient.query(query, [parseInt(userId)])
+    if (!err) {
+        return res.rows
+    } else {
+        throw new Error(err)
+    }
+}
+
+/**
+ * Insert or update a record to track a user's progress
+ * @param {Integer} userId
+ * @param {Integer} courseId
+ * @param {Integer} chapterId
+ * @param {Integer} lessonId 
+ * @param {Integer} statusId the user_progress_status id to insert or update
+ */
+const upsertUserProgress = async (userId, courseId, chapterId, lessonId, statusId) => {
+    let query = `INSERT INTO user_progress 
+        (id, user_id, course_id, chapter_id, lesson_id, user_progress_status_type, last_modified)
+        values (default, $1, $2, $3, $4, $5, NOW()) 
+        ON CONFLICT (user_id, lesson_id) DO UPDATE SET 
+            user_progress_status_type = $5,
+            last_modified = NOW()`
+    values = [userId, courseId, chapterId, lessonId, statusId]
+    let err, res = await pgclient.query(query, values)
+    if (!err) {
+        return res.rows 
+    } else {
+        throw new Error(err)
+    }
+}
+
 module.exports = {
+    getLessonById: getLessonById,
     createLesson: createLesson,
-    getRelatedLessons: getRelatedLessons
+    getRelatedLessons: getRelatedLessons,
+    getLessonProgress: getLessonProgress,
+    upsertUserProgress: upsertUserProgress
 }

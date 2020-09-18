@@ -44,6 +44,32 @@ router.get('/:lessonId/related', (req, res) => {
         })
 })
 
+/**
+ * Get a users progress in various lessons
+ */
+router.get('/progress', checkIfAuthenticated, (req, res) => {
+    LessonService.getLessonProgress(req.uid)
+        .then(lessons => res.json(lessons))
+        .catch(err => {
+            res.status(400)
+            res.send(err)
+        })
+})
 
+router.post('/progress/upsert', checkIfAuthenticated, (req, res) => {
+    if (!("lessonId" in req.body)) {
+        res.status(400)
+        res.send("Must specify lessonId in body")
+    } else if (!("statusId" in req.body)) {
+        res.status(400)
+        res.send("Must specify statusId in body to specify userProgressStatus")
+    }
+    LessonService.upsertUserProgress(req.uid, req.body.lessonId, req.body.statusId)
+        .then(lesson => res.json(lesson))
+        .catch(err => {
+            res.status(400)
+            res.send(err)
+        })
+})
 
 module.exports = router;

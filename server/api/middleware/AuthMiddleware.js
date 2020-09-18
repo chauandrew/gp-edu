@@ -15,7 +15,7 @@ const getAuthToken = (req, res, next) => {
 
 /**
  * Middleware that takes an authToken, checks if it's valid, and sets
- * req.authId to the appropriate uid. 
+ * req.uid to the appropriate uid. 
  * @param {request} req 
  * @param {response} res 
  * @param {next} next 
@@ -27,7 +27,7 @@ const checkIfAuthenticated = (req, res, next) => {
             const userInfo = await admin
                 .auth()
                 .verifyIdToken(authToken);
-            req.authId = userInfo.uid;
+            req.uid = userInfo.uid;
             return next();
         } catch (e) {
             return res

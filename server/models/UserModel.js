@@ -1,5 +1,25 @@
 const pgclient = require('../loaders/postgres');
 
+/**
+ * Get a user by his/her postgres serial id 
+ * @param {Integer} id 
+ */
+const getUserById = async (id) => {
+    if (!parseInt(id)) {
+        throw new Error(`userId must be an integer: received ${id}`)
+    }
+    query = "SELECT * FROM users WHERE id = $1"
+    let err, result = await pgclient.query(query, [id])
+    if (err) {
+        throw new Error(err)
+    } 
+    if (result.rowCount > 0) {
+        return result.rows[0]
+    } else {
+        return null
+    }
+}
+
 const getUserByUid = async (uid) => {
     let err, result = await pgclient.query("SELECT * FROM users WHERE uid=$1", [uid])
     if (err) {
@@ -45,6 +65,7 @@ const isAdmin = async (uid) => {
 }
 
 module.exports = {
+    getUserById: getUserById,
     getUserByUid: getUserByUid,
     createUser: createUser,
     isAdmin: isAdmin

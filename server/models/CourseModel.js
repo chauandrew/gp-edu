@@ -18,46 +18,6 @@ const getAllSubjectsAndCourses = async () => {
     }
 }
 
-
-/**
- * Return all courses a user is enrolled in
- * @param {Integer} userId 
- */
-const getEnrolledCourses = async (userId) => {
-    let query = 
-    `SELECT up.*, c.course_name
-    FROM user_progress up
-    JOIN courses c ON up.course_id = c.id
-    JOIN users u on up.user_id = u.id
-    WHERE u.uid = $1`
-    let err, res = await pgclient.query(query, [userId])
-    if (!err) {
-        return res.rows
-    } else {
-        throw new Error(err)
-    }
-}
-
-/**
- * Enroll in a course by adding a record to the user_progress table pointing
- * to the first chapter
- * @param {Integer} userId 
- * @param {Integer} courseId 
- * @param {Integer} chapterId 
- */
-const enrollInCourse = async (userId, courseId, chapterId) => {
-    let query = `INSERT INTO user_progress 
-        (id, user_id, course_id, current_chapter_id)
-        values (default, $1, $2, $3)`
-    values = [userId, courseId, chapterId]
-    let err, res = await pgclient.query(query, values)
-    if (!err) {
-        return res.rows 
-    } else {
-        throw new Error(err)
-    }
-}
-
 /**
  * get a course by the courseId(Integer) or courseName(String)
  * @param {} field 
@@ -157,8 +117,6 @@ const getCourseOverview = async (courseId) => {
 
 module.exports = {
     getAllSubjectsAndCourses: getAllSubjectsAndCourses,
-    getEnrolledCourses: getEnrolledCourses,
-    enrollInCourse: enrollInCourse,
     getCourse: getCourse,
     getCoursesBySubject: getCoursesBySubject,
     createCourse: createCourse,

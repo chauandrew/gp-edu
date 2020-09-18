@@ -9,7 +9,7 @@ All routes have the prefix: `/api/v1/user` *
 
 router.get('/', checkIfAuthenticated, (req, res) => {
     try {
-        UserModel.getUserByUid(req.authId).then((user) => {
+        UserModel.getUserByUid(req.uid).then((user) => {
             res.json(user)
         });
     } catch(err) {

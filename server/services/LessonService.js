@@ -1,5 +1,7 @@
 const LessonModel = require('../models/LessonModel')
 const ChapterModel = require('../models/ChapterModel')
+const UserProgressModel = require('../models/UserProgressModel')
+const UserModel = require('../models/UserModel')
 
 /**
  * @param {Integer} chapterId 
@@ -49,7 +51,51 @@ const getRelatedLessons = async (lessonId) => {
     return LessonModel.getRelatedLessons(lessonId)
 }
 
+/**
+ * Return all of a user's lesson progress
+ * @param {Integer} uid 
+ */
+const getLessonProgress = async (uid) => {
+    user = await UserModel.getUserByUid(uid)
+    return LessonModel.getLessonProgress(user.id)
+}
+
+/**
+ * Insert or update a user progress record
+ * @param {String} uid
+ * @param {Integer} lessonId 
+ * @param {Integer} statusId status type from user_progress_status table
+ */
+const upsertUserProgress = async (uid, lessonId, statusId) => {
+    if (!parseInt(lessonId)) {
+        throw new Error(`lessonId must be an integer: received ${lessonId}`)
+    } else if (!parseInt(statusId)) {
+        throw new Error(`statusId must be an integer: received ${statusId}`)
+    }
+
+    // check that uid, lessonId, and statusId are all valid. 
+    // Also, get appropriate user/course/chapter ids from the lesson.
+    let [user, lesson, status] = await Promise.all([
+        UserModel.getUserByUid(uid),
+        LessonModel.getLessonById(lessonId), 
+        UserProgressModel.getUserProgressStatus(statusId)
+    ])
+    
+    if (!user) {
+        throw new Error(`User with uid ${uid} doesn't exist`)
+    } else if (!lesson) {
+        throw new Error(`Lesson with id ${lessonId} doesn't exist`)
+    } else if (!status) {
+        throw new Error(`user_progress_status with id ${statusId} doesn't exist!`)
+    }
+
+    return LessonModel.upsertUserProgress(user.id, lesson.course_id, 
+        lesson.chapter_id, lessonId, statusId)
+}
+
 module.exports = {
     createLesson: createLesson,
-    getRelatedLessons: getRelatedLessons
+    getRelatedLessons: getRelatedLessons,
+    getLessonProgress: getLessonProgress,
+    upsertUserProgress: upsertUserProgress
 }
