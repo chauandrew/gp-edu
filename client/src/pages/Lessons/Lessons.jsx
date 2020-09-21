@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import {Container, Row, Col, Image, ResponsiveEmbed} from 'react-bootstrap'
+import YouTube from 'react-youtube'
 
 import Loading from '../../components/Loading/Loading'
 import getVideoId from 'get-video-id';
@@ -8,14 +9,16 @@ import getVideoId from 'get-video-id';
 import './Lessons.css'
 import api from '../../utils/api'
 import createToast from '../../utils/toast'
+import StatusIds from '../../config/statusIds.json'
 
 const Lessons = ({currentUser}) => {
     const {lessonId} = useParams();
     const [currLesson, setCurrLesson] = useState(null)
     const [chapterLessons, setChapterLessons] = useState([])
-    const [videoUrl, setVideoUrl] = useState(null)
+    const [videoId, setVideoId] = useState(null)
     const [course, setCourse] = useState(null)
 
+    // Get chapters related to current lesson
     useEffect(() => {
         try {
             if (lessonId) {
@@ -33,6 +36,7 @@ const Lessons = ({currentUser}) => {
         }
     }, [lessonId])
 
+    // Load video id from db to embed
     useEffect(() => {
         try {
             if (currLesson) {
@@ -42,14 +46,26 @@ const Lessons = ({currentUser}) => {
                         setCourse(res.data[0])
                     }
                 })
-                // get video id / url
-                let videoId = getVideoId(currLesson.content_url)
-                setVideoUrl("https://www.youtube.com/embed/" + videoId.id)
+                // get video id
+                let videoDetails = getVideoId(currLesson.content_url)
+                setVideoId(videoDetails.id)
             }
         } catch (err) {
             createToast(err)
         }
     }, [currLesson])
+
+    // Mark the lesson as 'in progress or completed'
+    const beginLesson = async () => {
+        if (lessonId) {
+            api.setLessonStatus(lessonId, StatusIds['USER_PROGRESS_STATUS']['IN_PROGRESS'])
+        }
+    }
+    const finishLesson = async () => {
+        if (lessonId) {
+            api.setLessonStatus(lessonId, StatusIds['USER_PROGRESS_STATUS']['COMPLETED'])
+        }
+    }
 
     if (!currLesson) {
         return <Loading active={Boolean(currLesson)} />
@@ -69,9 +85,7 @@ const Lessons = ({currentUser}) => {
                     <Image src="https://via.placeholder.com/100x250" />
                 </Col>
                 <Col lg={6} className="align-middle">
-                    <ResponsiveEmbed aspectRatio="16by9">
-                        <embed src={videoUrl} />
-                    </ResponsiveEmbed>
+                    <YouTube className="w-100" videoId={videoId} onPlay={beginLesson} onEnd={finishLesson} />
                 </Col>
                 <Col lg={3}>
                     <Image src="https://via.placeholder.com/100x250" />
