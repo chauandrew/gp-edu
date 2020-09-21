@@ -44,7 +44,7 @@ const Subject = () => {
             btnColor = '#92B8B9'
             hvrColor = '#73A58E'
             break
-        case "computer science":
+        case "computer science": default: 
             txtColor = '#7A7DCA'
             btnColor = '#A2A4DA'
             hvrColor = '#786EC4'

@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Nav, Navbar, NavDropdown, Container, Col, Row } from 'react-bootstrap';
 
 import { AuthContext } from "../../auth/Auth";
-import * as icons from "../../assets/icons";
 import logo from '../../assets/logo.png';
 import './Header.css';
 import db from '../../firebase';
@@ -39,12 +38,13 @@ const Header = () => {
       let data = res.data
       let navElements = []
       // For mobile header, only display subjects, not courses
-      if (isMobile) {
+      if (isMobile || !currentUser) {
         for (let subjectName in data) {
-          navElements.push(<Nav.Link className="text-secondary mt-auto mb-auto nav-link" 
-                              href={"/subjects/" + subjectName}>{jsUcfirst(subjectName)}</Nav.Link>)
+          navElements.push(<NavDropdown.Item className="text-secondary" 
+                              href={"/subjects/" + subjectName}>{jsUcfirst(subjectName)}</NavDropdown.Item>)
         }
-        setSubjectElement(<>{navElements}</>)
+        setSubjectElement(<NavDropdown renderMenuOnMount={true} title="SUBJECTS" id="basic-nav-dropdown"
+          className="dropdown-nav-link-edit nav-link">{navElements}</NavDropdown>)
       } else {
         // Standard header, display subjects and courses
         for (let subjectName in data) {
@@ -66,7 +66,7 @@ const Header = () => {
         setSubjectElement(dropdown)
       }
     })
-  }, [isMobile])
+  }, [isMobile, currentUser])
 
   // Separate mobile UI for profile element
   if (isMobile) {
@@ -77,7 +77,7 @@ const Header = () => {
           onClick={() => { db.auth().signOut() }}>Logout</Nav.Link>
       </>
   } else {
-    var profileElement =
+    profileElement =
       <NavDropdown title="MY PROFILE" renderMenuOnMount={true} className="dropdown-nav-link-edit nav-link nav-link-fade-up">
         <NavDropdown.Item href='/profile' className='text-secondary mt-auto mb-auto'>Profile</NavDropdown.Item>
         <NavDropdown.Item href='/login' className='text-secondary mt-auto mb-auto' onClick={() => { db.auth().signOut() }}>Logout</NavDropdown.Item>
@@ -87,7 +87,7 @@ const Header = () => {
   if (currentUser) {
     var endNavElement = <>{profileElement}</>
   } else {
-    var endNavElement = 
+    endNavElement = 
       <>
         <Nav.Link href='/login' className='mt-auto mb-auto nav-link nav-link-fade-up' id="login-link">LOGIN</Nav.Link>
         <Nav.Link href='/signup' className='text-white font-weight-bold' id="sign-up-link">SIGN UP</Nav.Link>
@@ -95,7 +95,7 @@ const Header = () => {
   }
 
   // remove fade up hover on mobile
-  let aboutLink = isMobile ? <Nav.Link href='/about' className='text-body mt-auto mb-auto nav-link'>About Us</Nav.Link>
+  let aboutLink = isMobile ? <Nav.Link href='/about' className='text-body mt-auto mb-auto nav-link'>ABOUT US</Nav.Link>
                   : <Nav.Link href='/about' className='text-body mt-auto mb-auto nav-link nav-link-fade-up'>ABOUT US</Nav.Link>
 
   return (

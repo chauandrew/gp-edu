@@ -147,7 +147,7 @@ export default {
     getEnrolledLessons: function() {
         return getAuthToken().then(function(authToken) {
             let config = { headers: {Authorization: `Bearer ${authToken}`} }
-            return axios.get(`${prefix}/api/v1/lesson/progress`)
+            return axios.get(`${prefix}/api/v1/lesson/progress`, config)
         })
     }
 }

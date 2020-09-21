@@ -11,6 +11,7 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
     const { currentUser, pending } = useContext(AuthContext);
     const [userData, setUserData] = useState(null);
 
+
     useEffect(() => {
         // Declares new function in order to utilize asynchronous features. 
         const getUser = async () => {
@@ -36,7 +37,7 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
             // Gets the User data if user is signed in
             getUser();
         }
-    }, [currentUser, window.location.pathname === 1]);
+    }, [currentUser]);
 
     // If Firebase is still fetching the current user, render loading spinner
     if (pending) {

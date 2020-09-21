@@ -114,7 +114,8 @@ const Admin = ({ currentUser }) => {
             api.getCoursesBySubject(selectedSubjectId).then((res) => {
                 setCourses(res.data) })
         }
-    }, [selectedSubjectId])
+    }, [subjects, selectedSubjectId])
+
     var courseOptions = [<option value="" key="">Choose...</option>]
     if (courses) {
         for (let i in courses) {
@@ -130,7 +131,7 @@ const Admin = ({ currentUser }) => {
                 setChapters(res.data)
             })
         }
-    }, [selectedCourseId])
+    }, [courses, selectedCourseId])
     var chapterOptions = [<option value="" key="">None</option>]
     if (chapters) {
         for (let i in chapters) {

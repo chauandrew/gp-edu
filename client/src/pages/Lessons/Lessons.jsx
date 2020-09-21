@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
-import {Container, Row, Col, Image, ResponsiveEmbed} from 'react-bootstrap'
+import {Container, Row, Col, Image} from 'react-bootstrap'
 import YouTube from 'react-youtube'
 
 import Loading from '../../components/Loading/Loading'
