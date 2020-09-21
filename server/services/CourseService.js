@@ -47,39 +47,6 @@ const getCoursesBySubject = async (field) => {
     return CourseModel.getCoursesBySubject(searchField)
 }
 
-/**
- * Get the courses a user is enrolled in
- * @param {String} uid 
- */
-const getEnrolledCourses = async (uid) => {
-    return CourseModel.getEnrolledCourses(uid)
-}
-
-/**
- * Enroll in a course by marking the first chapter as 'in progress'
- * @param {String} uid 
- * @param {integer} courseId 
- */
-const enrollInCourse = async (uid, courseId) => {
-    // make sure user is not already enrolled in the course
-    let userId = null
-    let enrolledCourses = await CourseModel.getEnrolledCourses(uid);
-    for (let i in enrolledCourses) {
-        userId = enrolledCourses[i].user_id
-        if (enrolledCourses[i].course_id == courseId) {
-            return null
-        }
-    }
-    if (userId == null) {
-        let user = await UserModel.getUserByUid(uid)
-        userId = user.id
-    }
-    return CourseModel.getFirstChapter(courseId).then(
-        (firstChapter) => {
-            return CourseModel.enrollInCourse(userId, courseId, firstChapter.id)
-        }
-    )
-}
 
 /**
  * Create a new course
@@ -130,9 +97,7 @@ const getCourseOverview = async(courseId) => {
 module.exports = {
     getCourse: getCourse,
     getAllSubjectsAndCourses: getAllSubjectsAndCourses,
-    getEnrolledCourses: getEnrolledCourses,
-    enrollInCourse: enrollInCourse,
     getCoursesBySubject: getCoursesBySubject,
     createCourse: createCourse,
-    getCourseOverview: getCourseOverview,
+    getCourseOverview: getCourseOverview
 }

@@ -131,5 +131,23 @@ export default {
     // get lessons in the same chapter as a given lesson
     getRelatedLessons: function(lessonId) {
         return axios.get(`${prefix}/api/v1/lesson/${lessonId}/related`)
+    },
+
+    setLessonStatus: function(lessonId, statusId) {
+        let data = {
+            lessonId: lessonId, 
+            statusId: statusId
+        }
+        return getAuthToken().then(function(authToken) {
+            let config = { headers: {Authorization: `Bearer ${authToken}`} }
+            return axios.post(`${prefix}/api/v1/lesson/progress/upsert`, data, config)
+        })
+    },
+
+    getEnrolledLessons: function() {
+        return getAuthToken().then(function(authToken) {
+            let config = { headers: {Authorization: `Bearer ${authToken}`} }
+            return axios.get(`${prefix}/api/v1/lesson/progress`)
+        })
     }
 }
