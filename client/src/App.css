@@ -9,6 +9,29 @@
     padding-top: 76px;
 }
 
+/* Theme colors */
+
+.theme-color {
+  color: var(--colorStandard);
+}
+.theme-bg-color {
+  background-color: var(--colorStandard);
+}
+
+.theme-dark {
+  color: var(--colorDark);
+}
+.theme-bg-dark {
+  background-color: var(--colorDark);
+}
+
+.theme-light {
+  color: var(--colorLight);
+}
+.theme-bg-light {
+  background-color: var(--colorLight);
+}
+
 /* For Toasts */
 
 .snackbar {

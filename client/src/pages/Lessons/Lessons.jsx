@@ -8,6 +8,7 @@ import getVideoId from 'get-video-id';
 
 import './Lessons.css'
 import api from '../../utils/api'
+import theme from '../../utils/theme'
 import createToast from '../../utils/toast'
 import StatusIds from '../../config/statusIds.json'
 
@@ -23,6 +24,7 @@ const Lessons = ({currentUser}) => {
         try {
             if (lessonId) {
                 api.getRelatedLessons(lessonId).then((lessons) => {
+                    console.log(lessons.data)
                     setChapterLessons(lessons.data)
                     for (let i in lessons.data) {
                         if (lessons.data[i].lesson_id == lessonId) {
@@ -40,6 +42,8 @@ const Lessons = ({currentUser}) => {
     useEffect(() => {
         try {
             if (currLesson) {
+                // set theme colors
+                theme.setCssColorsByCourseId(currLesson.course_id) 
                 // get the current course
                 api.getCourse(currLesson.course_id).then(res => {
                     if (res.data.length != 0) {
@@ -71,7 +75,7 @@ const Lessons = ({currentUser}) => {
         return <Loading active={Boolean(currLesson)} />
     }
 
-    return <div className="page-content lesson-content">
+    return <div className="page-content theme-bg-color">
         <Container>
             <Row className="text-center mt-3 mb-3">
                 <Col>
