@@ -2,9 +2,11 @@ import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom'
 import {CardColumns, Container, Row, Col, Form, Image} from 'react-bootstrap'
 import StoryCard from '../../components/StoryCard/StoryCard';
+import TallRobot from '../../components/TallRobot/TallRobot'
 
 import 'get-video-id'
 import api from '../../utils/api';
+import theme from '../../utils/theme'
 import createToast from '../../utils/toast';
 
 import * as Placeholders from '../../assets/placeholders';
@@ -17,6 +19,8 @@ const Courses = ({ currentUser }) => {
     const [course, setCourse] = useState(null)
     const [chapters, setChapters] = useState([]);
 
+    theme.setCssColorsByCourseId(courseId)
+
     useEffect(() => {
         if (courseId) {
             // load lessons related to this course
@@ -28,7 +32,6 @@ const Courses = ({ currentUser }) => {
                             res.data[i].videoId = await getVideoId(res.data[i].content_url).id
                         }
                     }
-                    console.log(res.data)
                     setChapters(res.data);
                 })
                 .catch(err => createToast(err))
@@ -59,7 +62,7 @@ const Courses = ({ currentUser }) => {
     }
 
     return (
-        <div className="page-content course-bkgd">
+        <div className="page-content theme-bg-dark">
             <Container>
                 <Row className="m-auto">
                     <div className="m-3">
@@ -77,7 +80,7 @@ const Courses = ({ currentUser }) => {
                     </Col>
                     <Col>
                         <Image src={Robots.chat} alt="chat"></Image>
-                        <Image src={Robots.vertical} alt="robot"></Image>
+                        <TallRobot courseId={courseId} alt="tall-robot" />
                     </Col>
                 </Row>
             </Container>

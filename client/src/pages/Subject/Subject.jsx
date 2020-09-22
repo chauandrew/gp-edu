@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import Loading from '../../components/Loading/Loading'
 import api from '../../utils/api'
+import theme from '../../utils/theme'
 import './Subject.css'
 
 const Subject = () => {
@@ -19,40 +20,7 @@ const Subject = () => {
         })
     }, [subjectId])
 
-    // text coloring
-    var txtColor
-    var btnColor
-    var hvrColor
-    switch (subjectId) {
-        case "math":
-            txtColor = '#BA4040'
-            btnColor = '#D66E6E'
-            hvrColor = '#BA0000'
-            break
-        case "science":
-            txtColor = '#CB815C'
-            btnColor = '#DBA78D'
-            hvrColor = '#FD6A02'
-            break
-        case "humanities":
-            txtColor = '#6391C0'
-            btnColor = '#92B2D3'
-            hvrColor = '#2784C7'
-            break
-        case "life skills":
-            txtColor = '#6EA1A1'
-            btnColor = '#92B8B9'
-            hvrColor = '#73A58E'
-            break
-        case "computer science": default: 
-            txtColor = '#7A7DCA'
-            btnColor = '#A2A4DA'
-            hvrColor = '#786EC4'
-            break
-    }
-
-    document.documentElement.style.setProperty(`--btnColor`, `${btnColor}`);
-    document.documentElement.style.setProperty(`--hvrColor`, `${hvrColor}`);
+    theme.setCssColors(subjectId);
 
     var courseList = []
     if (courses) {
@@ -62,12 +30,12 @@ const Subject = () => {
                 // only set lessonUrl if a corresponding lesson exists
                 let lessonUrl = courses[i].chapters[j].lesson_id ? 
                         "/lessons/" + courses[i].chapters[j].lesson_id : "#"
-                buttons.push(<a href={lessonUrl} class="button">
+                buttons.push(<a href={lessonUrl} class="button theme-bg-color">
                     {courses[i].chapters[j].lesson_name}</a>)
             }
             let element = 
-                <div className="topicList m-3">
-                    <h4 className="courseName" style={{color:txtColor}}>
+                <div className="mt-3 mb-3">
+                    <h4 className="theme-dark">
                         <a className="subject-link" href={"/courses/" + courses[i].id}>
                             {courses[i].course_name}</a>
                     </h4>
