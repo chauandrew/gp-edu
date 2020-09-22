@@ -30,12 +30,12 @@ const Subject = () => {
                 // only set lessonUrl if a corresponding lesson exists
                 let lessonUrl = courses[i].chapters[j].lesson_id ? 
                         "/lessons/" + courses[i].chapters[j].lesson_id : "#"
-                buttons.push(<a href={lessonUrl} class="button theme-bg-light">
+                buttons.push(<a href={lessonUrl} class="button theme-bg-color">
                     {courses[i].chapters[j].lesson_name}</a>)
             }
             let element = 
                 <div className="mt-3 mb-3">
-                    <h4 className="theme-color">
+                    <h4 className="theme-dark">
                         <a className="subject-link" href={"/courses/" + courses[i].id}>
                             {courses[i].course_name}</a>
                     </h4>

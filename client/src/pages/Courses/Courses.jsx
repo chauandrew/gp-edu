@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom'
 import {CardColumns, Container, Row, Col, Form, Image} from 'react-bootstrap'
 import StoryCard from '../../components/StoryCard/StoryCard';
+import TallRobot from '../../components/TallRobot/TallRobot'
 
 import 'get-video-id'
 import api from '../../utils/api';
@@ -61,7 +62,7 @@ const Courses = ({ currentUser }) => {
     }
 
     return (
-        <div className="page-content theme-bg-color">
+        <div className="page-content theme-bg-dark">
             <Container>
                 <Row className="m-auto">
                     <div className="m-3">
@@ -79,7 +80,7 @@ const Courses = ({ currentUser }) => {
                     </Col>
                     <Col>
                         <Image src={Robots.chat} alt="chat"></Image>
-                        <Image src={Robots.vertical} alt="robot"></Image>
+                        <TallRobot courseId={courseId} alt="tall-robot" />
                     </Col>
                 </Row>
             </Container>

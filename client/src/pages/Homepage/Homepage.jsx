@@ -1,12 +1,12 @@
 import React from 'react';
 import './Homepage.css';
-import books from '../../assets/homepage-assets/books.png'
-import math from '../../assets/homepage-assets/math.png'
-import pencilLight from '../../assets/homepage-assets/pencil-light.png'
-import programming from '../../assets/homepage-assets/programming.png'
-import science from '../../assets/homepage-assets/science.png'
-import yellowBanner from '../../assets/homepage-assets/YellowBanner.png'
-import robot from '../../assets/homepage-assets/Robot.png'
+import books from '../../assets/homepage_assets/books.png'
+import math from '../../assets/homepage_assets/math.png'
+import pencilLight from '../../assets/homepage_assets/pencil-light.png'
+import programming from '../../assets/homepage_assets/programming.png'
+import science from '../../assets/homepage_assets/science.png'
+import yellowBanner from '../../assets/homepage_assets/YellowBanner.png'
+import robot from '../../assets/homepage_assets/Robot.png'
 
 const Homepage = ({history}) => {
   return (

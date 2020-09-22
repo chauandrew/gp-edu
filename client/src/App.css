@@ -11,18 +11,14 @@
 
 /* Theme colors */
 
-.theme-color {
-  color: var(--colorStandard);
+.theme-lighter {
+  color: var(--colorLighter);
 }
-.theme-bg-color {
-  background-color: var(--colorStandard);
+.theme-bg-lighter {
+  background-color: var(--colorLighter);
 }
-
-.theme-dark {
-  color: var(--colorDark);
-}
-.theme-bg-dark {
-  background-color: var(--colorDark);
+.theme-fill-lighter {
+  fill: var(--colorLighter);
 }
 
 .theme-light {
@@ -31,6 +27,40 @@
 .theme-bg-light {
   background-color: var(--colorLight);
 }
+.theme-fill-light {
+  fill: var(--colorLight);
+}
+
+.theme-color {
+  color: var(--colorStandard);
+}
+.theme-bg-color {
+  background-color: var(--colorStandard);
+}
+.theme-fill-color {
+  fill: var(--colorStandard)
+}
+
+.theme-dark {
+  color: var(--colorDark);
+}
+.theme-bg-dark {
+  background-color: var(--colorDark);
+}
+.theme-fill-dark {
+  fill: var(--colorDark)
+}
+
+.theme-darker {
+  color: var(--colorDarker);
+}
+.theme-bg-darker {
+  background-color: var(--colorDarker);
+}
+.theme-fill-darker {
+  fill: var(--colorDarker)
+}
+
 
 /* For Toasts */
 
