@@ -18,8 +18,7 @@ const createUser = async (userData) => {
 }
 
 const isAdmin = async (uid) => {
-    rows = await UserModel.isAdmin(uid)
-    return (rows.length > 0 && rows[0].is_admin)
+    return await UserModel.isAdmin(uid)
 }
 
 module.exports = { 
