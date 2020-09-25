@@ -94,7 +94,7 @@ const getCommentsByLessonId = async(lessonId) => {
 
 module.exports = {
     getComment: getComment,
-    getCommentsByLessonId, getCommentsByLessonId,
+    getCommentsByLessonId: getCommentsByLessonId,
     addComment: addComment,
     updateComment: updateComment,
     deleteComment: deleteComment
