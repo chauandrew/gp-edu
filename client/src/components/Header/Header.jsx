@@ -99,9 +99,9 @@ const Header = () => {
                   : <Nav.Link href='/about' className='text-body mt-auto mb-auto nav-link nav-link-fade-up'>ABOUT US</Nav.Link>
 
   return (
-    <Navbar collapseOnSelect fixed='top' expand='lg' bg='light' className="font-weight-bold">
+    <Navbar collapseOnSelect fixed='top' expand='lg' className="font-weight-bold">
       <Navbar.Brand href='/' id="navbrand">
-        <img src={logo} alt='logo' width='50' height='50' id="logo"></img>
+        <img src={logo} alt='logo' height='50' id="logo"></img>
         AREA YOUTH EDUCATION
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
