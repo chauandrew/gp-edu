@@ -77,7 +77,12 @@ const getCommentsByLessonId = async(lessonId) => {
         throw new Error(`lessonId must be an integer. Received: ${lessonId}`)
     }
     lessonId = parseInt(lessonId)
-    let query = 'SELECT * FROM comments WHERE lesson_id = $1 ORDER BY created_at'
+    let query = 
+    `SELECT c.id, c.user_id, c.lesson_id, c.body, c.created_at, 
+        c.last_modified, u.firstname, u.lastname, u.is_admin
+    FROM comments c
+    JOIN users u ON c.user_id = u.id
+    WHERE c.lesson_id = $1 ORDER BY c.created_at DESC`
     let err, response = await pgclient.query(query, [lessonId])
     if (err) {
         throw new Error(err)

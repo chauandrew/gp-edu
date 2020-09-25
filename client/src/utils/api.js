@@ -149,5 +149,34 @@ export default {
             let config = { headers: {Authorization: `Bearer ${authToken}`} }
             return axios.get(`${prefix}/api/v1/lesson/progress`, config)
         })
+    },
+
+    addComment: function(lessonId, body) {
+        let data = { lessonId: lessonId, body: body }
+        return getAuthToken().then(function(authToken) {
+            let config= { headers: { Authorization: `Bearer ${authToken}` } }
+            return axios.post(`${prefix}/api/v1/comment/create`, data, config)
+        })
+    }, 
+
+    removeComment: function(commentId) {
+        let data = { commentId: commentId }
+        return getAuthToken().then(function(authToken) {
+            let config= { headers: { Authorization: `Bearer ${authToken}` } }
+            return axios.post(`${prefix}/api/v1/comment/remove`, data, config)
+        })
+    }, 
+
+    updateComment: function(commentId, body) {
+        let data = { commentId: commentId, body: body }
+        return getAuthToken().then(function(authToken) {
+            let config= { headers: { Authorization: `Bearer ${authToken}` } }
+            return axios.post(`${prefix}/api/v1/comment/update`, data, config)
+        })
+    }, 
+
+    getCommentsByLessonId: function(lessonId) {
+        return axios.get(`${prefix}/api/v1/comment/lesson/${lessonId}`)
     }
+
 }
