@@ -58,7 +58,7 @@ const createUser = async (user) => {
 const isAdmin = async (uid) => {
     let err, res = await pgclient.query("SELECT * FROM users u WHERE uid=$1", [uid])
     if (!err) {
-        return res.rows
+        return (res.rowCount > 0 && res.rows[0].is_admin)
     } else {
         throw new Error(err)
     }
